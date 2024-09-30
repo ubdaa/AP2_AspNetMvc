@@ -60,4 +60,24 @@ public class PatientController : Controller
         
         return RedirectToAction("Index");
     }
+
+    [HttpGet]
+    public IActionResult Edit(int id)
+    {
+        Patient? patient = _patients.FirstOrDefault(p => p.PatientId == id);
+
+        if (patient == null) return NotFound();
+
+        return View(patient);
+    }
+
+    [HttpPost]
+    public IActionResult Edit(Patient patient)
+    {
+        Patient? patientTemp = _patients.FirstOrDefault(p => p.PatientId == patient.PatientId);
+
+        if (patientTemp == null) return NotFound();
+        
+        return RedirectToAction("Index");
+    }
 }

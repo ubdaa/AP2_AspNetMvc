@@ -43,7 +43,7 @@
                         <td>@Html.DisplayFor(m => patient.Weight)</td>
                         <td>@Html.DisplayFor(m => patient.Gender)</td>
                         <td>Details</td>
-                        <td>Edit</td>
+                        <td><a asp-action="Edit" asp-route-id="@patient.PatientId">Edit</a></td>
                         <td><a asp-action="Delete" asp-route-id="@patient.PatientId">Delete</a></td>
                     </tr>
                 }

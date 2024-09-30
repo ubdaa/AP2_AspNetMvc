@@ -1,0 +1,56 @@
+@model Patient
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Edit Patient</title>
+</head>
+<body>
+<div>
+    <form asp-action="Edit" asp-controller="Patient" method="post" class="flex flex-col gap-2">
+
+        <input type="hidden" asp-for="PatientId"/>
+        
+        <div>
+            <label asp-for="FirstName"></label> <input asp-for="FirstName" class="form-control border-1 border-dark"/>
+            <span asp-validation-for="FirstName" class="text-danger"></span>
+        </div>
+
+        <div>
+            <label asp-for="LastName"></label> <input asp-for="LastName"/>
+            <span asp-validation-for="LastName" class="text-danger"></span>
+        </div>
+
+        <div>
+            <label asp-for="Age"></label> <input asp-for="Age"/>
+            <span asp-validation-for="Age" class="text-danger"></span>
+        </div>
+
+        <div>
+            <label asp-for="Gender"></label>
+            <select asp-for="Gender" asp-items="@Html.GetEnumSelectList(typeof(Genders))">
+                <option value="">Select Gender</option>
+            </select>
+            <span asp-validation-for="Gender" class="text-danger"></span>
+        </div>
+
+        <div>
+            <label asp-for="Height"></label> <input asp-for="Height"/>
+            <span asp-validation-for="Height" class="text-danger"></span>
+        </div>
+
+        <div>
+            <label asp-for="Weight"></label> <input asp-for="Weight" class="form-control"/>
+            <span asp-validation-for="Weight" class="text-danger"></span>
+        </div>
+
+        <input type="submit" value="Edit Patient" />
+    </form>
+</div>
+</body>
+</html>
