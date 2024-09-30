@@ -1,0 +1,32 @@
+@model Patient
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Details about the patient</title>
+</head>
+<body>
+<div>
+    <h1>Details about the patient</h1>
+    
+    <label>First Name :</label> <span>@Model.FirstName</span>
+    <br />
+    <label>Last Name :</label> <span>@Model.LastName</span>
+    <br />
+    <label>Age :</label> <span>@Model.Age</span>
+    <br />
+    <label>Gender :</label> <span>@Enum.GetName(Model.Gender)</span>
+    <br />
+    <label>Height :</label> <span>@Model.Height</span>
+    <br />
+    <label>Weight :</label> <span>@Model.Weight</span>
+    <br />
+    
+</div>
+</body>
+</html>

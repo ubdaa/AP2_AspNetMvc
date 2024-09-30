@@ -17,39 +17,40 @@
         <input type="hidden" asp-for="PatientId"/>
         
         <div>
-            <label asp-for="FirstName"></label> <input asp-for="FirstName" class="form-control border-1 border-dark"/>
+            <label asp-for="FirstName"></label> <input asp-for="FirstName" value="@Model.FirstName"/>
             <span asp-validation-for="FirstName" class="text-danger"></span>
         </div>
 
         <div>
-            <label asp-for="LastName"></label> <input asp-for="LastName"/>
+            <label asp-for="LastName"></label> <input asp-for="LastName" value="@Model.LastName"/>
             <span asp-validation-for="LastName" class="text-danger"></span>
         </div>
 
         <div>
-            <label asp-for="Age"></label> <input asp-for="Age"/>
+            <label asp-for="Age"></label> <input asp-for="Age" value="@Model.Age"/>
             <span asp-validation-for="Age" class="text-danger"></span>
         </div>
 
         <div>
             <label asp-for="Gender"></label>
-            <select asp-for="Gender" asp-items="@Html.GetEnumSelectList(typeof(Genders))">
+            <select asp-for="Gender" asp-items="@Html.GetEnumSelectList(typeof(Genders))" value="@Model.Gender">
                 <option value="">Select Gender</option>
             </select>
             <span asp-validation-for="Gender" class="text-danger"></span>
         </div>
 
         <div>
-            <label asp-for="Height"></label> <input asp-for="Height"/>
+            <label asp-for="Height"></label> <input asp-for="Height" value="@Model.Height"/>
             <span asp-validation-for="Height" class="text-danger"></span>
         </div>
 
         <div>
-            <label asp-for="Weight"></label> <input asp-for="Weight" class="form-control"/>
+            <label asp-for="Weight"></label> <input asp-for="Weight" value="@Model.Weight"/>
             <span asp-validation-for="Weight" class="text-danger"></span>
         </div>
 
         <input type="submit" value="Edit Patient" />
+        <input type="button" value="Go back" onclick="history.back()" />
     </form>
 </div>
 </body>

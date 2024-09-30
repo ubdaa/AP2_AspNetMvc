@@ -74,10 +74,20 @@ public class PatientController : Controller
     [HttpPost]
     public IActionResult Edit(Patient patient)
     {
-        Patient? patientTemp = _patients.FirstOrDefault(p => p.PatientId == patient.PatientId);
-
-        if (patientTemp == null) return NotFound();
+        int patientIndex = _patients.FindIndex(p => p.PatientId == patient.PatientId);
+        if (patientIndex == -1) return NotFound();
+        
+        _patients[patientIndex] = patient;
         
         return RedirectToAction("Index");
+    }
+
+    [HttpGet]
+    public IActionResult ShowDetails(int id)
+    {
+        Patient? patient = _patients.FirstOrDefault(p => p.PatientId == id);
+        if (patient == null) return NotFound();
+
+        return View(patient);
     }
 }
