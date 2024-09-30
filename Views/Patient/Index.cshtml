@@ -1,0 +1,62 @@
+@{
+    Layout = null;
+}
+@model IEnumerable<Patient>
+
+<!DOCTYPE html>
+
+<html lang="fr">
+<head>
+    <title>Index</title>
+</head>
+<body>
+<div>
+    
+    <h1>Liste des patients</h1>
+
+    @if (Model.Count() > 0)
+    {
+        <table>
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Last Name</th>
+                    <th>First Name</th>
+                    <th>Age</th>
+                    <th>Height</th>
+                    <th>Weight</th>
+                    <th>Gender</th>
+                    <th>Details</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (Patient patient in Model)
+                {
+                    <tr>
+                        <td>@Html.DisplayFor(m => patient.PatientId)</td>
+                        <td>@Html.DisplayFor(m => patient.LastName)</td>
+                        <td>@Html.DisplayFor(m => patient.FirstName)</td>
+                        <td>@Html.DisplayFor(m => patient.Age)</td>
+                        <td>@Html.DisplayFor(m => patient.Height)</td>
+                        <td>@Html.DisplayFor(m => patient.Weight)</td>
+                        <td>@Html.DisplayFor(m => patient.Gender)</td>
+                        <td>Details</td>
+                        <td>Edit</td>
+                        <td>Supp</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p>Aucun patient dans la base</p>
+    }
+    
+    <a asp-action="Add">Add a new patient</a>
+    
+</div>
+</body>
+</html>

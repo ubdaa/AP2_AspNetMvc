@@ -28,3 +28,4 @@ C:\Users\abdur\Documents\Cours\AP\AP2_AspNetMvc\obj\Debug\net8.0\refint\AP2_AspN
 C:\Users\abdur\Documents\Cours\AP\AP2_AspNetMvc\obj\Debug\net8.0\AP2_AspNetMvc.pdb
 C:\Users\abdur\Documents\Cours\AP\AP2_AspNetMvc\obj\Debug\net8.0\AP2_AspNetMvc.genruntimeconfig.cache
 C:\Users\abdur\Documents\Cours\AP\AP2_AspNetMvc\obj\Debug\net8.0\ref\AP2_AspNetMvc.dll
+C:\Users\abdur\Documents\Cours\AP\AP2_AspNetMvc\obj\Debug\net8.0\AP2_AspNetMvc.sourcelink.json
