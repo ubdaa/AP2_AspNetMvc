@@ -44,7 +44,7 @@
                         <td>@Html.DisplayFor(m => patient.Gender)</td>
                         <td>Details</td>
                         <td>Edit</td>
-                        <td>Supp</td>
+                        <td><a asp-action="Delete" asp-route-id="@patient.PatientId">Delete</a></td>
                     </tr>
                 }
             </tbody>
