@@ -5,12 +5,7 @@ namespace AP2_AspNetMvc.Controllers;
 
 public class PatientController : Controller
 {
-    private static List<Patient> _patients = new List<Patient>()
-    {
-        new() { PatientId = 0, FirstName = "John", LastName = "Doe", Age = 18, Gender = Genders.Male, Height = "180", Weight = 70 },
-        new() { PatientId = 1, FirstName = "Jane", LastName = "Doe", Age = 24, Gender = Genders.Female, Height = "160", Weight = 50 },
-        new() { PatientId = 2, FirstName = "Alice", LastName = "Smith", Age = 20, Gender = Genders.Female, Height = "170", Weight = 60 },
-    };
+    private static List<Patient> _patients = new();
     
     [HttpGet]
     public IActionResult Index()
