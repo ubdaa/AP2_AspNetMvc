@@ -1,6 +1,7 @@
 using AP2_AspNetMvc.Data;
 using AP2_AspNetMvc.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace AP2_AspNetMvc.Controllers;
 
@@ -9,7 +10,7 @@ public class PatientController : Controller
     private readonly ApplicationDbContext _dbContext;
     
     public PatientController(ApplicationDbContext dbContext)
-    {
+    {   
         _dbContext = dbContext;
     }
     
@@ -22,6 +23,17 @@ public class PatientController : Controller
     [HttpGet]
     public IActionResult Add()
     {
+        ViewBag.DoctorList = _dbContext.Doctors.AsEnumerable();
+        var doctors = _dbContext.Doctors
+            .Select(d => new
+            { 
+                d.DoctorId, 
+                FullName = d.FirstName + " " + d.LastName 
+            })
+            .ToList();
+        
+        ViewBag.DoctorList = new SelectList(doctors, "DoctorId", "FullName");
+        
         return View();
     }
 
@@ -77,8 +89,13 @@ public class PatientController : Controller
         Patient? patientDb = _dbContext.Patients.FirstOrDefault(p => p.PatientId == patient.PatientId);
         if (patientDb == null) return NotFound();
 
-        patientDb = patient;
-
+        patientDb.FirstName = patient.FirstName;
+        patientDb.LastName = patient.LastName;
+        patientDb.Age = patient.Age;
+        patientDb.Gender = patient.Gender;
+        patientDb.Height = patient.Height;
+        patientDb.Weight = patient.Weight;
+        
         _dbContext.SaveChanges();
         
         return RedirectToAction("Index");

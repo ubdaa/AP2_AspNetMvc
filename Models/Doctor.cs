@@ -23,4 +23,6 @@ public class Doctor
 
     public List<Patient> Patients { get; set; } = new();
     public List<Prescription> Prescriptions { get; set; } = new();
+    
+    public string FullName => $"{FirstName} {LastName}";
 }
