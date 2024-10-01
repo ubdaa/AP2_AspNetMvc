@@ -36,7 +36,7 @@ public class Patient
     public Genders Gender { get; set; }
     
     [Required(ErrorMessage = "Height is required.")]
-    public string? Height { get; set; }
+    public int Height { get; set; }
     
     [Required(ErrorMessage = "Weight is required.")]
     public int Weight { get; set; }
