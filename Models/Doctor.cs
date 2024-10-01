@@ -20,4 +20,7 @@ public class Doctor
     
     [Required(ErrorMessage = "Password is required.")]
     public string? Password { get; set; }
+
+    public List<Patient> Patients { get; set; } = new();
+    public List<Prescription> Prescriptions { get; set; } = new();
 }

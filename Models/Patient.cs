@@ -40,4 +40,11 @@ public class Patient
     
     [Required(ErrorMessage = "Weight is required.")]
     public int Weight { get; set; }
+    
+    public int DoctorId { get; set; }
+    public required Doctor Doctor { get; set; }
+
+    public List<Prescription> Prescriptions { get; set; } = new();
+    public List<Allergy> Allergies { get; set; } = new();
+    public List<MedicalHistory> MedicalHistories { get; set; } = new();
 }
