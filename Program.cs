@@ -1,9 +1,21 @@
+using AP2_AspNetMvc.Data;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
+var serverVersion = new MySqlServerVersion(new Version(10, 4, 28));
+
+builder.Services.AddDbContext<ApplicationDbContext>(
+    options => options.UseMySql(builder.Configuration.GetConnectionString("DefaultConnection"), serverVersion)
+);
+
 var app = builder.Build();
+
+var context = app.Services.CreateScope().ServiceProvider.GetRequiredService<ApplicationDbContext>();
+context.Database.EnsureCreated();
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())

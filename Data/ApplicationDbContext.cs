@@ -1,0 +1,55 @@
+using AP2_AspNetMvc.Models;
+using Microsoft.EntityFrameworkCore;
+
+namespace AP2_AspNetMvc.Data;
+
+public class ApplicationDbContext: DbContext
+{
+    public DbSet<Doctor> Doctors => Set<Doctor>();
+    public DbSet<Patient> Patients => Set<Patient>();
+    public DbSet<Prescription> Prescriptions => Set<Prescription>();
+    public DbSet<Medicament> Medicaments => Set<Medicament>();
+    public DbSet<MedicalHistory> MedicalHistories => Set<MedicalHistory>();
+    public DbSet<Allergy> Allergies => Set<Allergy>();
+
+    public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
+    {
+    }
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        modelBuilder.Entity<Patient>()
+            .HasMany(p => p.Prescriptions)
+            .WithOne(p => p.Patient);
+
+        modelBuilder.Entity<Patient>()
+            .HasMany(p => p.Allergies)
+            .WithMany(a => a.Patients);
+        
+        modelBuilder.Entity<Patient>()
+            .HasMany(p => p.MedicalHistories)
+            .WithMany(m => m.Patients);
+
+        modelBuilder.Entity<Doctor>()
+            .HasMany(d => d.Prescriptions)
+            .WithOne(p => p.Doctor);
+
+        modelBuilder.Entity<Doctor>()
+            .HasMany(d => d.Patients)
+            .WithOne(p => p.Doctor);
+
+        modelBuilder.Entity<Prescription>()
+            .HasMany(p => p.Medicaments)
+            .WithMany(m => m.Prescriptions);
+
+        modelBuilder.Entity<Medicament>()
+            .HasMany(m => m.Allergies)
+            .WithMany(a => a.Medicaments);
+
+        modelBuilder.Entity<Medicament>()
+            .HasMany(m => m.MedicalHistories)
+            .WithMany(m => m.Medicaments);
+        
+        base.OnModelCreating(modelBuilder);
+    }
+}
