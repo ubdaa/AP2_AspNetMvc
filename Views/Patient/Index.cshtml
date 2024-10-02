@@ -9,35 +9,35 @@
 
     @if (Model.Count() > 0)
     {
-        <table class="table-auto border border-collapse">
+        <table class="table-auto border-collapse overflow">
             <thead>
-                <tr>
-                    <th class="border p-2">Id</th>
-                    <th class="border p-2">Last Name</th>
-                    <th class="border p-2">First Name</th>
-                    <th class="border p-2">Age</th>
-                    <th class="border p-2">Height</th>
-                    <th class="border p-2">Weight</th>
-                    <th class="border p-2">Gender</th>
-                    <th class="border p-2">Details</th>
-                    <th class="border p-2">Edit</th>
-                    <th class="border p-2">Delete</th>
+                <tr class="border-y">
+                    <th class="p-2">Id</th>
+                    <th class="p-2">Last Name</th>
+                    <th class="p-2">First Name</th>
+                    <th class="p-2">Age</th>
+                    <th class="p-2">Height</th>
+                    <th class="p-2">Weight</th>
+                    <th class="p-2">Gender</th>
+                    <th class="p-2">Details</th>
+                    <th class="p-2">Edit</th>
+                    <th class="p-2">Delete</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach (Patient patient in Model)
                 {
-                    <tr>
-                        <td class="border p-2">@Html.DisplayFor(m => patient.PatientId)</td>
-                        <td class="border p-2">@Html.DisplayFor(m => patient.LastName)</td>
-                        <td class="border p-2">@Html.DisplayFor(m => patient.FirstName)</td>
-                        <td class="border p-2">@Html.DisplayFor(m => patient.Age)</td>
-                        <td class="border p-2">@Html.DisplayFor(m => patient.Height)</td>
-                        <td class="border p-2">@Html.DisplayFor(m => patient.Weight)</td>
-                        <td class="border p-2">@Html.DisplayFor(m => patient.Gender)</td>
-                        <td class="border p-2 text-blue-600 text-decoration-underline"><a asp-action="ShowDetails" asp-route-id="@patient.PatientId">Show Details</a></td>
-                        <td class="border p-2 text-blue-600 text-decoration-underline"><a asp-action="Edit" asp-route-id="@patient.PatientId">Edit</a></td>
-                        <td class="border p-2 text-blue-600 text-decoration-underline"><a asp-action="Delete" asp-route-id="@patient.PatientId">Delete</a></td>
+                    <tr class="border-y">
+                        <td class="p-2">@Html.DisplayFor(m => patient.PatientId)</td>
+                        <td class="p-2">@Html.DisplayFor(m => patient.LastName)</td>
+                        <td class="p-2">@Html.DisplayFor(m => patient.FirstName)</td>
+                        <td class="p-2">@Html.DisplayFor(m => patient.Age)</td>
+                        <td class="p-2">@Html.DisplayFor(m => patient.Height)</td>
+                        <td class="p-2">@Html.DisplayFor(m => patient.Weight)</td>
+                        <td class="p-2">@Html.DisplayFor(m => patient.Gender)</td>
+                        <td class="p-2 text-blue-600 text-decoration-underline"><a asp-action="ShowDetails" asp-route-id="@patient.PatientId">Show Details</a></td>
+                        <td class="p-2 text-blue-600 text-decoration-underline"><a asp-action="Edit" asp-route-id="@patient.PatientId">Edit</a></td>
+                        <td class="p-2 text-blue-600 text-decoration-underline"><a asp-action="Delete" asp-route-id="@patient.PatientId">Delete</a></td>
                     </tr>
                 }
             </tbody>
