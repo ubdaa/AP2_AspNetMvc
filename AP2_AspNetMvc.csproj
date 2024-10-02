@@ -8,6 +8,7 @@
 
     <ItemGroup>
       <Folder Include="Services\" />
+      <Folder Include="ViewModel\" />
     </ItemGroup>
 
     <ItemGroup>
@@ -41,6 +42,16 @@
     <ItemGroup>
       <_ContentIncludedByDefault Remove="Views\Home\Index.cshtml" />
       <_ContentIncludedByDefault Remove="Views\Home\Privacy.cshtml" />
+      <_ContentIncludedByDefault Remove="Models\Shared\Error.cshtml" />
+      <_ContentIncludedByDefault Remove="Models\Shared\_Layout.cshtml" />
+      <_ContentIncludedByDefault Remove="Models\Shared\_Layout2346.cshtml" />
+      <_ContentIncludedByDefault Remove="Models\Shared\_ValidationScriptsPartial.cshtml" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <AdditionalFiles Include="Views\Shared\Error.cshtml" />
+      <AdditionalFiles Include="Views\Shared\_Layout2346.cshtml" />
+      <AdditionalFiles Include="Views\Shared\_ValidationScriptsPartial.cshtml" />
     </ItemGroup>
 
 </Project>
