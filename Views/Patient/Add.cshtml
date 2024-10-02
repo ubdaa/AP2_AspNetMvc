@@ -13,31 +13,31 @@
     var select = new SelectList(DoctorList, "DoctorId", "FullName");
 }
 
-<div class="my-2">
+<div class="mt-5 p-4 border border-accent w-fit h-fit rounded-xl bg-white">
     
     <form asp-action="Add" asp-controller="Patient" method="post" class="flex flex-col gap-4">
         <h1 class="text-xl font-bold">Ajout d'un nouveau patient à la base !</h1>
         <div>
             <label asp-for="Patient.FirstName" class="block mb-2 text-md font-medium text-text"></label>
-            <input asp-for="Patient.FirstName" class="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50"/>
+            <input asp-for="Patient.FirstName" class="flex h-9 w-full rounded-md border border-black bg-transparent px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50"/>
             <span asp-validation-for="Patient.FirstName" class="text-red-500"></span>
         </div>
 
         <div>
             <label asp-for="Patient.LastName" class="block mb-2 text-md font-medium text-text"></label>
-            <input asp-for="Patient.LastName" class="px-2 py-1 rounded-lg border border-accent bg-secondary/40 text-md w-full"/>
+            <input asp-for="Patient.LastName" class="flex h-9 w-full rounded-md border border-black bg-transparent px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50"/>
             <span asp-validation-for="Patient.LastName" class="text-red-500"></span>
         </div>
 
         <div>
             <label asp-for="Patient.Age" class="block mb-2 text-md font-medium text-text"></label>
-            <input asp-for="Patient.Age" class="px-2 py-1 rounded-lg border border-accent bg-secondary/40 text-md w-full"/>
+            <input asp-for="Patient.Age" class="flex h-9 w-full rounded-md border border-black bg-transparent px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50"/>
             <span asp-validation-for="Patient.Age" class="text-red-500"></span>
         </div>
 
         <div>
             <label asp-for="Patient.Gender" class="block mb-2 text-md font-medium text-text"></label>
-            <select asp-for="Patient.Gender" asp-items="@Html.GetEnumSelectList(typeof(Genders))" class="px-2 py-1 rounded-lg border border-accent bg-secondary/40 text-md w-full">
+            <select asp-for="Patient.Gender" asp-items="@Html.GetEnumSelectList(typeof(Genders))" class="flex h-9 w-full rounded-md border border-black bg-transparent px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50">
                 <option value="">Select Gender</option>
             </select>
             <span asp-validation-for="Patient.Gender" class="text-red-500"></span>
@@ -45,19 +45,19 @@
 
         <div>
             <label asp-for="Patient.Height" class="block mb-2 text-md font-medium text-text"></label>
-            <input asp-for="Patient.Height" class="px-2 py-1 rounded-lg border border-accent bg-secondary/40 text-md w-full"/>
+            <input asp-for="Patient.Height" class="flex h-9 w-full rounded-md border border-black bg-transparent px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50"/>
             <span asp-validation-for="Patient.Height" class="text-red-500"></span>
         </div>
 
         <div>
             <label asp-for="Patient.Weight" class="block mb-2 text-md font-medium text-text"></label>
-            <input asp-for="Patient.Weight" class="px-2 py-1 rounded-lg border border-accent bg-secondary/40 text-md w-full"/>
+            <input asp-for="Patient.Weight" class="flex h-9 w-full rounded-md border border-black bg-transparent px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50"/>
             <span asp-validation-for="Patient.Weight" class="text-red-500"></span>
         </div>
 
         <div>
             <label asp-for="Patient.Doctor" class="block mb-2 text-md font-medium text-text"></label>
-            <select asp-for="Patient.DoctorId" asp-items="@select" class="px-2 py-1 rounded-lg border border-accent bg-secondary/40 text-md w-full">
+            <select asp-for="Patient.DoctorId" asp-items="@select" class="flex h-9 w-full rounded-md border border-black bg-transparent px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50">
                 <option value="">Select Gender</option>
             </select>
             <span asp-validation-for="Patient.Gender" class="text-danger"></span>
