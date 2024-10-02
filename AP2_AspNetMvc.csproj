@@ -8,6 +8,7 @@
 
     <ItemGroup>
       <Folder Include="Services\" />
+      <Folder Include="Styles\" />
       <Folder Include="ViewModel\" />
     </ItemGroup>
 
@@ -50,7 +51,6 @@
 
     <ItemGroup>
       <AdditionalFiles Include="Views\Shared\Error.cshtml" />
-      <AdditionalFiles Include="Views\Shared\_Layout2346.cshtml" />
       <AdditionalFiles Include="Views\Shared\_ValidationScriptsPartial.cshtml" />
     </ItemGroup>
 
