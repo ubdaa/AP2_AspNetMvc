@@ -1,5 +1,6 @@
 using AP2_AspNetMvc.Data;
 using AP2_AspNetMvc.Models;
+using AP2_AspNetMvc.ViewModel.Patient;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
@@ -34,7 +35,7 @@ public class PatientController : Controller
         
         ViewBag.DoctorList = new SelectList(doctors, "DoctorId", "FullName");
         
-        return View();
+        return View(new AddPatientViewModel() { Doctors = _dbContext.Doctors.ToList() });
     }
 
     [HttpPost]

@@ -4,11 +4,11 @@
     <title>@ViewData["Title"]</title>
     <link rel="stylesheet" href="/css/styles.css">
 </head>
-<body class="w-full flex flex-col items-center">
+<body class="w-full flex flex-col items-center min-h-screen">
 
-<nav class="w-full bg-white border-gray-200 dark:bg-gray-900">
-    <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-        <a asp-action="Index" asp-controller="Patient" class="text-white font-bold text-lg">MedManager</a>
+<nav class="w-full sticky top-0 py-4 backdrop-blur-md border-b-2 border-black bg-secondary/30 z-50">
+    <div class="max-w-6xl flex flex-wrap items-center justify-between mx-auto">
+        <a asp-action="Index" asp-controller="Patient" class="text-text font-bold text-lg">MedManager</a>
     </div>
 </nav>
 
