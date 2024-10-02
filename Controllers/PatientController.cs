@@ -24,29 +24,22 @@ public class PatientController : Controller
     [HttpGet]
     public IActionResult Add()
     {
-        ViewBag.DoctorList = _dbContext.Doctors.AsEnumerable();
-        var doctors = _dbContext.Doctors
-            .Select(d => new
-            { 
-                d.DoctorId, 
-                FullName = d.FirstName + " " + d.LastName 
-            })
-            .ToList();
-        
-        ViewBag.DoctorList = new SelectList(doctors, "DoctorId", "FullName");
-        
-        return View(new AddPatientViewModel() { Doctors = _dbContext.Doctors.ToList() });
+        return View();
     }
 
     [HttpPost]
-    public IActionResult Add(Patient patient)
+    public IActionResult Add(Patient p)
     {
         if (!ModelState.IsValid)
         {
             return View();
         }
         
-        _dbContext.Patients.Add(patient);
+        _dbContext.Patients.Add(new Patient()
+        {
+            Age = p.Age, Allergies = new(), Doctor = new(), FirstName = p.FirstName,
+            DoctorId = 0, Gender = p.Gender, Height = p.Height, LastName = p.LastName, MedicalHistories = new()
+        });
         _dbContext.SaveChanges();
         
         return RedirectToAction("Index");
@@ -70,6 +63,7 @@ public class PatientController : Controller
         if (patientTemp == null) return NotFound();
 
         _dbContext.Patients.Remove(patientTemp);
+        _dbContext.SaveChanges();
         
         return RedirectToAction("Index");
     }
