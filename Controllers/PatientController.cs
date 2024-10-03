@@ -2,6 +2,7 @@ using AP2_AspNetMvc.Data;
 using AP2_AspNetMvc.Models;
 using AP2_AspNetMvc.ViewModel.Patient;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace AP2_AspNetMvc.Controllers;
@@ -24,17 +25,26 @@ public class PatientController : Controller
     [HttpGet]
     public IActionResult Add()
     {
+        Patient p = new Patient();
+        
+        Doctor d = _dbContext.Doctors.First();
+        p.DoctorId = d.DoctorId;
+        p.Doctor = d;
+        
         return View();
     }
 
     [HttpPost]
     public IActionResult Add(Patient p)
     {
+        Doctor d = _dbContext.Doctors.First();
+        p.DoctorId = d.DoctorId;
+        p.Doctor = d;
+        
         if (!ModelState.IsValid)
         {
             return View();
         }
-        
         _dbContext.Patients.Add(new Patient()
         {
             Age = p.Age, Allergies = new(), Doctor = new(), FirstName = p.FirstName,
