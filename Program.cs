@@ -14,6 +14,16 @@ builder.Services.AddDbContext<ApplicationDbContext>(
 
 var app = builder.Build();
 
+if (app.Environment.IsDevelopment())
+{
+    app.UseDeveloperExceptionPage();
+}
+else
+{
+    app.UseExceptionHandler("/Error/Index");
+    app.UseStatusCodePagesWithRedirects("/Error/Index"); 
+}
+
 var context = app.Services.CreateScope().ServiceProvider.GetRequiredService<ApplicationDbContext>();
 context.Database.EnsureCreated();
 
