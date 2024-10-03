@@ -15,5 +15,4 @@ public class Prescription
     public required Doctor Doctor { get; set; }
 
     public List<Medicament> Medicaments { get; set; } = new();
-    public List<MedicalHistory> MedicalHistories { get; set; } = new();
 }

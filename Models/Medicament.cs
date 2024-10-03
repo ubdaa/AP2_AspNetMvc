@@ -3,8 +3,8 @@ namespace AP2_AspNetMvc.Models;
 public class Medicament
 {
     public int MedicamentId { get; set; }
-    public required string Nom { get; set; }
-    public required string Quantité { get; set; }
+    public required string Name { get; set; }
+    public required string Quantity { get; set; }
     public required string Ingredients { get; set; }
 
     public List<Prescription> Prescriptions { get; set; } = new();

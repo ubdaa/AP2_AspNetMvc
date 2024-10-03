@@ -1,0 +1,40 @@
+@model AP2_AspNetMvc.ViewModel.Account.RegisterViewModel
+
+@{
+    ViewBag.Title = "S'inscrire";    
+    Layout = "_Layout";
+}
+
+<h2>title</h2>
+
+<div>
+    <form asp-action="Register" asp-controller="Account" method="post">
+        <div>
+            <label asp-for="FirstName" class="block mb-2 text-md font-medium text-text"></label>
+            <input asp-for="FirstName" class="flex h-9 w-full rounded-md border border-black bg-transparent px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50"/>
+            <span asp-validation-for="FirstName" class="text-red-500"></span>
+        </div>
+        <div>
+            <label asp-for="LastName" class="block mb-2 text-md font-medium text-text"></label>
+            <input asp-for="LastName" class="flex h-9 w-full rounded-md border border-black bg-transparent px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50"/>
+            <span asp-validation-for="LastName" class="text-red-500"></span>
+        </div>
+        <div>
+            <label asp-for="Email" class="block mb-2 text-md font-medium text-text"></label>
+            <input asp-for="Email" class="flex h-9 w-full rounded-md border border-black bg-transparent px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50"/>
+            <span asp-validation-for="Email" class="text-red-500"></span>
+        </div>
+        <div>
+            <label asp-for="Username" class="block mb-2 text-md font-medium text-text"></label>
+            <input asp-for="Username" class="flex h-9 w-full rounded-md border border-black bg-transparent px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50"/>
+            <span asp-validation-for="Username" class="text-red-500"></span>
+        </div>
+        <div>
+            <label asp-for="Password" class="block mb-2 text-md font-medium text-text"></label>
+            <input asp-for="Password" class="flex h-9 w-full rounded-md border border-black bg-transparent px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50"/>
+            <span asp-validation-for="Password" class="text-red-500"></span>
+        </div>
+        
+        <input type="submit" value="S'inscrire"/>
+    </form>
+</div>

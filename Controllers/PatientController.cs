@@ -29,7 +29,7 @@ public class PatientController : Controller
     {
         Patient p = new Patient();
         
-        Doctor d = _dbContext.Doctors.First();
+        Doctor d = _dbContext.Users.First();
         p.DoctorId = d.DoctorId;
         p.Doctor = d;
         
@@ -39,7 +39,7 @@ public class PatientController : Controller
     [HttpPost]
     public IActionResult Add(Patient p)
     {
-        Doctor d = _dbContext.Doctors.First();
+        var d = _dbContext.Users.First();
         p.DoctorId = d.DoctorId;
         p.Doctor = d;
         

@@ -1,11 +1,11 @@
 using AP2_AspNetMvc.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace AP2_AspNetMvc.Data;
 
-public class ApplicationDbContext: DbContext
+public class ApplicationDbContext: IdentityDbContext<Doctor>
 {
-    public DbSet<Doctor> Doctors => Set<Doctor>();
     public DbSet<Patient> Patients => Set<Patient>();
     public DbSet<Prescription> Prescriptions => Set<Prescription>();
     public DbSet<Medicament> Medicaments => Set<Medicament>();
@@ -32,11 +32,15 @@ public class ApplicationDbContext: DbContext
 
         modelBuilder.Entity<Doctor>()
             .HasMany(d => d.Prescriptions)
-            .WithOne(p => p.Doctor);
+            .WithOne(p => p.Doctor)
+            .HasForeignKey(p => p.DoctorId)
+            .HasPrincipalKey(d => d.DoctorId);
 
         modelBuilder.Entity<Doctor>()
             .HasMany(d => d.Patients)
-            .WithOne(p => p.Doctor);
+            .WithOne(p => p.Doctor)
+            .HasForeignKey(p => p.DoctorId)
+            .HasPrincipalKey(d => d.DoctorId);
 
         modelBuilder.Entity<Prescription>()
             .HasMany(p => p.Medicaments)

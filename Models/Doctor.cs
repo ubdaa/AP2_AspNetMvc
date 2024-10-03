@@ -1,8 +1,9 @@
 using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Identity;
 
 namespace AP2_AspNetMvc.Models;
 
-public class Doctor
+public class Doctor : IdentityUser
 {
     [Display(Name = "Doctor ID")]
     public int DoctorId { get; set; }
@@ -14,12 +15,6 @@ public class Doctor
     [Display(Name = "Last Name")]
     [Required(ErrorMessage = "Last Name is required.")]
     public string? LastName { get; set; }
-    
-    [Required(ErrorMessage = "Username is required.")]
-    public string? Username { get; set; }
-    
-    [Required(ErrorMessage = "Password is required.")]
-    public string? Password { get; set; }
 
     public List<Patient> Patients { get; set; } = new();
     public List<Prescription> Prescriptions { get; set; } = new();
