@@ -26,17 +26,11 @@ public class PatientController : Controller
 
     [HttpGet]
     public IActionResult Add()
-    {
-        Patient p = new Patient();
-        
-        Doctor d = _dbContext.Users.First();
-        p.DoctorId = d.DoctorId;
-        p.Doctor = d;
-        
+    {   
         return View();
     }
 
-    [HttpPost]
+    /*[HttpPost]
     public IActionResult Add(Patient p)
     {
         var d = _dbContext.Users.First();
@@ -47,15 +41,10 @@ public class PatientController : Controller
         {
             return View();
         }
-        _dbContext.Patients.Add(new Patient()
-        {
-            Age = p.Age, Allergies = new(), Doctor = new(), FirstName = p.FirstName,
-            DoctorId = 0, Gender = p.Gender, Height = p.Height, LastName = p.LastName, MedicalHistories = new()
-        });
         _dbContext.SaveChanges();
         
         return RedirectToAction("Index");
-    }
+    }*/
 
     [HttpGet]
     public IActionResult Delete(int id)
@@ -67,7 +56,7 @@ public class PatientController : Controller
         return View(patient);
     } 
     
-    [HttpPost]
+    /*[HttpPost]
     public IActionResult Delete(Patient patient)
     {
         Patient? patientTemp =  _dbContext.Patients.FirstOrDefault(p => p.PatientId == patient.PatientId);
@@ -78,7 +67,7 @@ public class PatientController : Controller
         _dbContext.SaveChanges();
         
         return RedirectToAction("Index");
-    }
+    }*/
 
     [HttpGet]
     public IActionResult Edit(int id)
@@ -90,7 +79,7 @@ public class PatientController : Controller
         return View(patient);
     }
 
-    [HttpPost]
+    /*[HttpPost]
     public IActionResult Edit(Patient patient)
     {
         Patient? patientDb = _dbContext.Patients.FirstOrDefault(p => p.PatientId == patient.PatientId);
@@ -106,7 +95,7 @@ public class PatientController : Controller
         _dbContext.SaveChanges();
         
         return RedirectToAction("Index");
-    }
+    }*/
 
     [HttpGet]
     public IActionResult ShowDetails(int id)
