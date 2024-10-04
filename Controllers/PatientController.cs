@@ -1,12 +1,14 @@
 using MedManager.Data;
 using MedManager.ViewModel.Patient;
 using MedManager.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace MedManager.Controllers;
 
+[Authorize]
 public class PatientController : Controller
 {
     private readonly ApplicationDbContext _dbContext;

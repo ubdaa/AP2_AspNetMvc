@@ -1,5 +1,6 @@
 using MedManager.Data;
 using MedManager.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -13,7 +14,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(
     options => options.UseMySql(builder.Configuration.GetConnectionString("DefaultConnection"), serverVersion)
 );
 
-builder.Services.AddDefaultIdentity<Doctor>(options =>
+builder.Services.AddIdentity<Doctor, IdentityRole>(options =>
 {
     options.SignIn.RequireConfirmedAccount = false;
     options.Password.RequireDigit = true;
@@ -58,7 +59,7 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Patient}/{action=Index}/{id?}"
+    pattern: "{controller=Account}/{action=Index}/{id?}"
     );
 
 app.Run();
