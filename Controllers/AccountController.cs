@@ -1,10 +1,10 @@
-using AP2_AspNetMvc.Models;
-using AP2_AspNetMvc.ViewModel.Account;
+using MedManager.ViewModel.Account;
+using MedManager.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 
-namespace AP2_AspNetMvc.Controllers;
+namespace MedManager.Controllers;
 
 public class AccountController : Controller
 {

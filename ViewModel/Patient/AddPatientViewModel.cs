@@ -1,6 +1,4 @@
-using AP2_AspNetMvc.Models;
-
-namespace AP2_AspNetMvc.ViewModel.Patient;
+namespace MedManager.ViewModel.Patient;
 
 public class AddPatientViewModel
 {

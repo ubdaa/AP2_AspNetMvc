@@ -1,5 +1,5 @@
-using AP2_AspNetMvc.Data;
-using AP2_AspNetMvc.Models;
+using MedManager.Data;
+using MedManager.Models;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);

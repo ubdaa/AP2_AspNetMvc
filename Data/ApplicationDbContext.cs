@@ -1,8 +1,8 @@
-using AP2_AspNetMvc.Models;
+using MedManager.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace AP2_AspNetMvc.Data;
+namespace MedManager.Data;
 
 public class ApplicationDbContext: IdentityDbContext<Doctor>
 {

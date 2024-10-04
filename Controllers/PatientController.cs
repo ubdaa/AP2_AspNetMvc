@@ -1,11 +1,11 @@
-using AP2_AspNetMvc.Data;
-using AP2_AspNetMvc.Models;
-using AP2_AspNetMvc.ViewModel.Patient;
+using MedManager.Data;
+using MedManager.ViewModel.Patient;
+using MedManager.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
-namespace AP2_AspNetMvc.Controllers;
+namespace MedManager.Controllers;
 
 public class PatientController : Controller
 {

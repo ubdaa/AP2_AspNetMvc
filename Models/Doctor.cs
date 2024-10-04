@@ -1,7 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Identity;
 
-namespace AP2_AspNetMvc.Models;
+namespace MedManager.Models;
 
 public class Doctor : IdentityUser
 {

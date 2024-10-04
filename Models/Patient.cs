@@ -1,7 +1,7 @@
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
-namespace AP2_AspNetMvc.Models;
+namespace MedManager.Models;
 
 public enum Genders
 {

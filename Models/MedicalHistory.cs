@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace AP2_AspNetMvc.Models;
+namespace MedManager.Models;
 
 public class MedicalHistory
 {    

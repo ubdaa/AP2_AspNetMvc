@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 
-namespace AP2_AspNetMvc.Controllers;
+namespace MedManager.Controllers;
 
 public class ErrorController : Controller
 {
