@@ -70,6 +70,6 @@ public class AccountController : Controller
     // GET
     public IActionResult Index()
     {
-        return RedirectToAction("Register");
+        return RedirectToAction("Login");
     }
 }

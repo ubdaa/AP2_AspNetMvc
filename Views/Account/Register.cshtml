@@ -5,36 +5,39 @@
     Layout = "_Layout";
 }
 
-<h2>title</h2>
+<h2 class="my-2 font-bold text-xl">Inscription du docteur</h2>
 
-<div>
-    <form asp-action="Register" asp-controller="Account" method="post">
+<div class="min-w-full flex flex-col gap-2">
+    <form class="flex flex-col gap-4" asp-action="Register" asp-controller="Account" method="post">
         <div>
             <label asp-for="FirstName" class="block mb-2 text-md font-medium text-text"></label>
-            <input asp-for="FirstName" class="flex h-9 w-full rounded-md border border-black bg-transparent px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50"/>
+            <input asp-for="FirstName" class="input input-bordered w-full"/>
             <span asp-validation-for="FirstName" class="text-red-500"></span>
         </div>
         <div>
             <label asp-for="LastName" class="block mb-2 text-md font-medium text-text"></label>
-            <input asp-for="LastName" class="flex h-9 w-full rounded-md border border-black bg-transparent px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50"/>
+            <input asp-for="LastName" class="input input-bordered w-full"/>
             <span asp-validation-for="LastName" class="text-red-500"></span>
         </div>
         <div>
             <label asp-for="Email" class="block mb-2 text-md font-medium text-text"></label>
-            <input asp-for="Email" class="flex h-9 w-full rounded-md border border-black bg-transparent px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50"/>
+            <input asp-for="Email" class="input input-bordered w-full"/>
             <span asp-validation-for="Email" class="text-red-500"></span>
         </div>
         <div>
             <label asp-for="Username" class="block mb-2 text-md font-medium text-text"></label>
-            <input asp-for="Username" class="flex h-9 w-full rounded-md border border-black bg-transparent px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50"/>
+            <input asp-for="Username" class="input input-bordered w-full"/>
             <span asp-validation-for="Username" class="text-red-500"></span>
         </div>
         <div>
             <label asp-for="Password" class="block mb-2 text-md font-medium text-text"></label>
-            <input asp-for="Password" class="flex h-9 w-full rounded-md border border-black bg-transparent px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50"/>
+            <input asp-for="Password" class="input input-bordered w-full"/>
             <span asp-validation-for="Password" class="text-red-500"></span>
         </div>
+        <span asp-validation-summary="All" class="text-error"></span>
         
-        <input type="submit" value="S'inscrire"/>
+        <input class="btn btn-primary" type="submit" value="S'inscrire"/>
     </form>
+
+    <a class="link link-secondary" asp-action="Login" asp-controller="Account">Se connecter ?</a>
 </div>
