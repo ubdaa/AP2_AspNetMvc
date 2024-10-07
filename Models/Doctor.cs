@@ -5,9 +5,6 @@ namespace MedManager.Models;
 
 public class Doctor : IdentityUser
 {
-    [Display(Name = "Docteur Id")]
-    public int DoctorId { get; set; }
-    
     [Display(Name = "Prénom")]
     [Required(ErrorMessage = "Le prénom est requis.")]
     [StringLength(100, MinimumLength = 2, ErrorMessage = "Le prénom doit contenir entre 2 et 100 caractères.")]

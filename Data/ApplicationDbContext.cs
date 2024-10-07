@@ -34,13 +34,13 @@ public class ApplicationDbContext: IdentityDbContext<Doctor>
             .HasMany(d => d.Prescriptions)
             .WithOne(p => p.Doctor)
             .HasForeignKey(p => p.DoctorId)
-            .HasPrincipalKey(d => d.DoctorId);
+            .HasPrincipalKey(d => d.Id);
 
         modelBuilder.Entity<Doctor>()
             .HasMany(d => d.Patients)
             .WithOne(p => p.Doctor)
             .HasForeignKey(p => p.DoctorId)
-            .HasPrincipalKey(d => d.DoctorId);
+            .HasPrincipalKey(d => d.Id);
 
         modelBuilder.Entity<Prescription>()
             .HasMany(p => p.Medicaments)
