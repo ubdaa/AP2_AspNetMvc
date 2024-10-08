@@ -41,11 +41,13 @@ public class PatientController : Controller
     }
 
     [HttpPost]
-    public IActionResult Add(Patient p)
+    public IActionResult Add(PatientViewModel pvm)
     {
         if (!ModelState.IsValid)
         {
-            return View();
+            pvm.Allergies = _dbContext.Allergies.ToList();
+            pvm.MedicalHistories = _dbContext.MedicalHistories.ToList();
+            return View(pvm);
         }
         _dbContext.SaveChanges();
         

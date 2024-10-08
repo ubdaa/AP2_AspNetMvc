@@ -22,11 +22,11 @@
         </div>
 
         <div class="flex flex-col">
-            <label asp-for="Age" class="block mb-2 text-md font-medium text-text"></label>
-            <input asp-for="Age" class="input input-bordered w-full"/>
-            <span asp-validation-for="Age" class="text-error"></span>
+            <label asp-for="BirthDate" class="block mb-2 text-md font-medium text-text"></label>
+            <input asp-for="BirthDate" class="input input-bordered w-full"/>
+            <span asp-validation-for="BirthDate" class="text-error"></span>
         </div>
-
+        
         <div>
             <label asp-for="Gender" class="block mb-2 text-md font-medium text-text"></label>
             <select asp-for="Gender" asp-items="@Html.GetEnumSelectList(typeof(Genders))" class="select select-bordered w-full">

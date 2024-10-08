@@ -16,11 +16,10 @@ public class PatientViewModel
     public string LastName { get; set; }
 
     [Display(Name = "Date de naissance")] 
+    [DataType(DataType.Date)]
     [Required(ErrorMessage = "La date de naissance est requis.")]
+    [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
     public DateOnly BirthDate { get; set; }
-    
-    [Required(ErrorMessage = "L'âge du patient est requis.")]
-    public int Age { get; set; }
     
     [Required(ErrorMessage = "Le genre du patient est requis.")]
     public Genders Gender { get; set; }
@@ -39,7 +38,7 @@ public class PatientViewModel
     [Display(Name = "Numéro de sécurité social")] 
     [Required(ErrorMessage = "Le numéro de sécurité social est requis.")]
     [StringLength(18, MinimumLength = 13, ErrorMessage = "Le numéro de sécurité social doit contenir au moins 13 chiffres.")]
-    [RegularExpression(@"^(1|2)\s?\d{2}\s?(0[1-9]|1[0-2])\s?(2[AB0-9]|9[0-69]\d|[013-9]\d)\s?\d{3}\s?\d{3}$")]
+    [RegularExpression(@"^(1|2)\s?\d{2}\s?(0[1-9]|1[0-2])\s?(2[AB0-9]|9[0-69]\d|[013-9]\d)\s?\d{3}\s?\d{3}$", ErrorMessage = "Votre numéro de sécurité social n'est pas valide.")]
     public string SocialSecurityNumber { get; set; }
     
     public List<Allergy> Allergies { get; set; } = new();
