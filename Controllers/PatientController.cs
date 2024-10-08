@@ -2,6 +2,7 @@ using MedManager.Data;
 using MedManager.ViewModel.Patient;
 using MedManager.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -12,18 +13,20 @@ namespace MedManager.Controllers;
 public class PatientController : Controller
 {
     private readonly ApplicationDbContext _dbContext;
+    private readonly UserManager<Doctor> _userManager;
     
-    public PatientController(ApplicationDbContext dbContext)
-    {   
+    private string UserId => _userManager.GetUserId(User);
+    
+    public PatientController(ApplicationDbContext dbContext, UserManager<Doctor> userManager)
+    {
         _dbContext = dbContext;
+        _userManager = userManager;
     }
     
     [HttpGet]
     public IActionResult Index()
     {
-        //throw new Exception("Test Exception");
-        
-        return View(_dbContext.Patients);
+        return View(_dbContext.Patients.Where(p => p.DoctorId == UserId).ToList());
     }
 
     [HttpGet]
