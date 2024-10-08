@@ -198,6 +198,11 @@ namespace MedManager.Migrations
 
                     MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("PatientId"));
 
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasMaxLength(512)
+                        .HasColumnType("varchar(512)");
+
                     b.Property<int>("Age")
                         .HasColumnType("int");
 
