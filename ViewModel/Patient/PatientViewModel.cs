@@ -25,9 +25,11 @@ public class PatientViewModel
     public Genders Gender { get; set; }
     
     [Required(ErrorMessage = "La taille du patient est requis.")]
+    [Range(typeof(int), "0", "300", ErrorMessage = "La taille du patient doit être comprise entre 0 et 300 cm.")]
     public int Height { get; set; }
     
     [Required(ErrorMessage = "Le poids du patient est requis.")]
+    [Range(typeof(int), "0", "300", ErrorMessage = "Le poids du patient doit être compris entre 0 et 300 kg.")]
     public int Weight { get; set; }
     
     [Display(Name = "Adresse")]
@@ -44,6 +46,6 @@ public class PatientViewModel
     public List<Allergy> Allergies { get; set; } = new();
     public List<MedicalHistory> MedicalHistories { get; set; } = new();
 
-    public List<int> SelectedAllergies { get; set; } = new();
-    public List<int> SelectedMedicalHistories { get; set; } = new();
+    public List<int> SelectedAllergyIds { get; set; } = new();
+    public List<int> SelectedMedicalHistoryIds { get; set; } = new();
 }

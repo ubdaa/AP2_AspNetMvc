@@ -49,6 +49,22 @@ public class PatientController : Controller
             pvm.MedicalHistories = _dbContext.MedicalHistories.ToList();
             return View(pvm);
         }
+
+        Patient patient = new Patient
+        {
+            FirstName = pvm.FirstName,
+            LastName = pvm.LastName,
+            BirthDate = pvm.BirthDate,
+            Address = pvm.Address,
+            Age = (int)(DateTime.Now - pvm.BirthDate.ToDateTime(new TimeOnly(0, 0, 0))).TotalDays / 365,
+            Gender = pvm.Gender,
+            Height = pvm.Height,
+            Weight = pvm.Weight,
+            SocialSecurityNumber = pvm.SocialSecurityNumber,
+            DoctorId = UserId
+        };
+        _dbContext.Patients.Add(patient);
+        
         _dbContext.SaveChanges();
         
         return RedirectToAction("Index");

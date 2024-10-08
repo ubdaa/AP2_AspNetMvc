@@ -40,7 +40,13 @@
             <input asp-for="Height" class="input input-bordered w-full"/>
             <span asp-validation-for="Height" class="text-error"></span>
         </div>
-        
+
+        <div class="flex flex-col">
+            <label asp-for="Weight" class="block mb-2 text-md font-medium text-text"></label>
+            <input asp-for="Weight" class="input input-bordered w-full"/>
+            <span asp-validation-for="Weight" class="text-error"></span>
+        </div>
+
         <div class="flex flex-col">
             <label asp-for="Address" class="block mb-2 text-md font-medium text-text"></label>
             <input asp-for="Address" class="input input-bordered w-full"/>
@@ -58,7 +64,9 @@
             @foreach (var medicalHistory in Model.MedicalHistories)
             {
                 <div class="flex flex-row gap-4">
-                    <input class="checkbox" type="checkbox" name="SelectedMedicalHistoryIds" value="@medicalHistory.MedicalHistoryId" />
+                    <input class="checkbox" type="checkbox" name="SelectedMedicalHistoryIds" value="@medicalHistory.MedicalHistoryId"
+                    @(Model.SelectedMedicalHistoryIds != null && Model.SelectedMedicalHistoryIds.Contains(medicalHistory.MedicalHistoryId) ? "checked" :
+                    "") />
                     <label>@medicalHistory.Name</label>
                 </div>
             }
@@ -74,7 +82,9 @@
             @foreach (var allergy in Model.Allergies)
             {
                 <div class="flex flex-row gap-4">
-                    <input class="checkbox" type="checkbox" name="SelectedAllergyIds" value="@allergy.AllergyId" />
+                    <input class="checkbox" type="checkbox" name="SelectedAllergyIds" value="@allergy.AllergyId"                    
+                    @(Model.SelectedAllergyIds != null && Model.SelectedAllergyIds.Contains(allergy.AllergyId) ? "checked" :
+                    "") />
                     <label>@allergy.Name</label>
                 </div>
             }
