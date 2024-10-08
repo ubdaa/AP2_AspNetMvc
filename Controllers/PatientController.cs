@@ -31,17 +31,18 @@ public class PatientController : Controller
 
     [HttpGet]
     public IActionResult Add()
-    {   
-        return View();
+    {
+        PatientViewModel pvm = new PatientViewModel();
+
+        pvm.Allergies = _dbContext.Allergies.ToList();
+        pvm.MedicalHistories = _dbContext.MedicalHistories.ToList();
+        
+        return View(pvm);
     }
 
-    /*[HttpPost]
+    [HttpPost]
     public IActionResult Add(Patient p)
     {
-        var d = _dbContext.Users.First();
-        p.DoctorId = d.DoctorId;
-        p.Doctor = d;
-        
         if (!ModelState.IsValid)
         {
             return View();
@@ -49,7 +50,7 @@ public class PatientController : Controller
         _dbContext.SaveChanges();
         
         return RedirectToAction("Index");
-    }*/
+    }
 
     [HttpGet]
     public IActionResult Delete(int id)
