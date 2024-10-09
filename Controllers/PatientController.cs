@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 
 namespace MedManager.Controllers;
 
@@ -41,7 +42,7 @@ public class PatientController : Controller
     }
 
     [HttpPost]
-    public IActionResult Add(PatientViewModel pvm)
+    public async Task<IActionResult> Add(PatientViewModel pvm)
     {
         if (!ModelState.IsValid)
         {
@@ -63,6 +64,27 @@ public class PatientController : Controller
             SocialSecurityNumber = pvm.SocialSecurityNumber,
             DoctorId = UserId
         };
+
+        patient.Allergies.Clear();
+        
+        var selectedAllergies = await _dbContext.Allergies
+            .Where(a => pvm.SelectedAllergyIds.Contains(a.AllergyId))
+            .ToListAsync();
+        foreach (var allergy in selectedAllergies)
+        {
+            patient.Allergies.Add(allergy);
+        }
+
+        patient.MedicalHistories.Clear();
+
+        var selectedMedicalHistories = await _dbContext.MedicalHistories
+            .Where(a => pvm.SelectedMedicalHistoryIds.Contains(a.MedicalHistoryId))
+            .ToListAsync();
+        foreach (var medicalHistory in selectedMedicalHistories)
+        {
+            patient.MedicalHistories.Add(medicalHistory);
+        }
+        
         _dbContext.Patients.Add(patient);
         
         _dbContext.SaveChanges();
