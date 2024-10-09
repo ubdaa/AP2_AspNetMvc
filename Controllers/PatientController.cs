@@ -87,7 +87,7 @@ public class PatientController : Controller
         
         _dbContext.Patients.Add(patient);
         
-        _dbContext.SaveChanges();
+        await _dbContext.SaveChangesAsync();
         
         return RedirectToAction("Index");
     }
@@ -116,32 +116,98 @@ public class PatientController : Controller
     }*/
 
     [HttpGet]
-    public IActionResult Edit(int id)
+    public async Task<IActionResult> Edit(int id)
     {
-        Patient? patient =  _dbContext.Patients.FirstOrDefault(p => p.PatientId == id);
+        Patient? patient =  await _dbContext.Patients
+            .Include(p => p.Allergies)
+            .Include(p => p.MedicalHistories)
+            .FirstOrDefaultAsync(p => p.PatientId == id);
 
         if (patient == null) return NotFound();
 
-        return View(patient);
+        PatientViewModel pvm = new PatientViewModel
+        {
+            PatientId = id,
+            FirstName = patient.FirstName,
+            LastName = patient.LastName,
+            BirthDate = patient.BirthDate,
+            Gender = patient.Gender,
+            Height = patient.Height,
+            Weight = patient.Weight,
+            Address = patient.Address,
+            SocialSecurityNumber = patient.SocialSecurityNumber,
+            Allergies = await _dbContext.Allergies.ToListAsync(),
+            MedicalHistories = await _dbContext.MedicalHistories.ToListAsync(),
+            SelectedAllergyIds = patient.Allergies.Select(a => a.AllergyId).ToList(),
+            SelectedMedicalHistoryIds = patient.MedicalHistories.Select(m => m.MedicalHistoryId).ToList()
+        };
+        
+        return View(pvm);
     }
 
-    /*[HttpPost]
-    public IActionResult Edit(Patient patient)
+    [HttpPost]
+    public async Task<IActionResult> Edit(PatientViewModel pvm)
     {
-        Patient? patientDb = _dbContext.Patients.FirstOrDefault(p => p.PatientId == patient.PatientId);
-        if (patientDb == null) return NotFound();
-
-        patientDb.FirstName = patient.FirstName;
-        patientDb.LastName = patient.LastName;
-        patientDb.Age = patient.Age;
-        patientDb.Gender = patient.Gender;
-        patientDb.Height = patient.Height;
-        patientDb.Weight = patient.Weight;
+        if (!ModelState.IsValid)
+        {
+            pvm.Allergies = _dbContext.Allergies.ToList();
+            pvm.MedicalHistories = _dbContext.MedicalHistories.ToList();
+            return View(pvm);
+        }
         
-        _dbContext.SaveChanges();
+        Patient? patient =  await _dbContext.Patients
+            .Include(p => p.Allergies)
+            .Include(p => p.MedicalHistories)
+            .FirstOrDefaultAsync(p => p.PatientId == pvm.PatientId);
+        
+        if (patient == null) return NotFound();
+        
+        patient.FirstName = pvm.FirstName;
+        patient.LastName = pvm.LastName;
+        patient.BirthDate = pvm.BirthDate;
+        patient.Address = pvm.Address;
+        patient.Age = (int)(DateTime.Now - pvm.BirthDate.ToDateTime(new TimeOnly(0, 0, 0))).TotalDays / 365;
+        patient.Gender = pvm.Gender;
+        patient.Height = pvm.Height;
+        patient.Weight = pvm.Weight;
+        patient.SocialSecurityNumber = pvm.SocialSecurityNumber;
+        
+        patient.Allergies.Clear();
+        
+        var selectedAllergies = await _dbContext.Allergies
+            .Where(a => pvm.SelectedAllergyIds.Contains(a.AllergyId))
+            .ToListAsync();
+        foreach (var allergy in selectedAllergies)
+        {
+            patient.Allergies.Add(allergy);
+        }
+        
+        patient.MedicalHistories.Clear();
+
+        var selectedMedicalHistories = await _dbContext.MedicalHistories
+            .Where(a => pvm.SelectedMedicalHistoryIds.Contains(a.MedicalHistoryId))
+            .ToListAsync();
+        foreach (var medicalHistory in selectedMedicalHistories)
+        {
+            patient.MedicalHistories.Add(medicalHistory);
+        }
+        
+        _dbContext.Entry(patient).State = EntityState.Modified;
+
+        try
+        {
+            await _dbContext.SaveChangesAsync();
+        }
+        catch (DbUpdateConcurrencyException e)
+        {
+            if (!_dbContext.Patients.Any(p => p.PatientId == pvm.PatientId))
+            {
+                return NotFound();
+            }
+        }
         
         return RedirectToAction("Index");
-    }*/
+    }
 
     [HttpGet]
     public IActionResult ShowDetails(int id)

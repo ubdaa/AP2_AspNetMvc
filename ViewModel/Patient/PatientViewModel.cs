@@ -5,6 +5,8 @@ namespace MedManager.ViewModel.Patient;
 
 public class PatientViewModel
 {
+    public int PatientId { get; set; } = 0;
+    
     [Display(Name = "Prénom")] 
     [Required(ErrorMessage = "Le prénom est requis.")]
     [StringLength(100, MinimumLength = 2, ErrorMessage = "Le prénom doit contenir entre 2 et 100 caractères.")]
