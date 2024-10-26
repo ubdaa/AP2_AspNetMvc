@@ -8,15 +8,12 @@ public class Prescription
     public int PrescriptionId { get; set; }
     
     [Display(Name = "Date de début")]
-    [Required(ErrorMessage = "La date de début est requis.")]
     public DateOnly? StartDate { get; set; }
     
     [Display(Name = "Date de Fin")]
-    [Required(ErrorMessage = "La date de fin est requis.")]
     public DateOnly? EndDate { get; set; }
     
     [Display(Name = "Posologie")] 
-    [Required(ErrorMessage = "La posologie est requise.")]
     [StringLength(256, MinimumLength = 0, ErrorMessage = "La posologie doit contenir moins de 256 caractères.")]
     public string? Dosage { get; set; }
     
