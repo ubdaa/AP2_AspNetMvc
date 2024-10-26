@@ -55,7 +55,7 @@ public class PrescriptionController : Controller
         
         if (doctorId == null) return NotFound();
         
-        await _dbContext.Prescriptions.AddAsync(new Prescription
+        var prescription = await _dbContext.Prescriptions.AddAsync(new Prescription
         {
             PatientId = patient.PatientId,
             Patient = patient,
@@ -65,6 +65,23 @@ public class PrescriptionController : Controller
         
         await _dbContext.SaveChangesAsync();
         
-        return RedirectToAction("Create");
+        return RedirectToAction("Details", new { id = prescription.Entity.PrescriptionId });
+    }
+    
+    [HttpGet]
+    public async Task<IActionResult> Details(int id)
+    {
+        var prescription = await _dbContext.Prescriptions
+            .Include(p => p.Patient)
+            .Include(p => p.Doctor)
+            .Include(p => p.Medicaments)
+            .FirstOrDefaultAsync(p => p.PrescriptionId == id);
+        
+        if (prescription == null)
+        {
+            return NotFound();
+        }
+        
+        return View(prescription);
     }
 }
