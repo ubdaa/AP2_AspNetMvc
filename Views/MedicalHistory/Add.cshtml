@@ -2,32 +2,20 @@
 
 @{
     Layout = "_Layout";
+    ViewBag.Title = "Ajout d'un antécédent";
 }
 
-<!DOCTYPE html>
-
-<html lang="fr">
-<head>
-    <title>Ajout d'un antécédent</title>
-</head>
-<body>
-<div>
+<form asp-action="Add" asp-controller="Allergy" method="post">
+    <h1>Ajout d'un nouvel antécédent à la base !</h1>
+    <input asp-for="MedicalHistoryId" type="hidden" value="0"/>
     
-    <form asp-action="Add" asp-controller="Allergy" method="post">
-        <h1>Ajout d'un nouvel antécédent à la base !</h1>
-        <input asp-for="MedicalHistoryId" type="hidden" value="0"/>
-        
-        <div>
-            <label asp-for="Name" class="block mb-2 text-md font-medium text-text"></label>
-            <input asp-for="Name" class="input input-bordered w-full"/>
-            <span asp-validation-for="Name" class="text-error"></span>
-        </div>
-        
-        <div>
-            <input type="submit" value="Ajouter" class="btn btn-primary"/>
-        </div>
-    </form>
-
-</div>
-</body>
-</html>
+    <div>
+        <label asp-for="Name" class="block mb-2 text-md font-medium text-text"></label>
+        <input asp-for="Name" class="input input-bordered w-full"/>
+        <span asp-validation-for="Name" class="text-error"></span>
+    </div>
+    
+    <div>
+        <input type="submit" value="Ajouter" class="btn btn-primary"/>
+    </div>
+</form>
