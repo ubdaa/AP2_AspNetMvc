@@ -155,7 +155,7 @@ public class PatientController : Controller
             return View(pvm);
         }
         
-        Patient? patient =  await _dbContext.Patients
+        Patient? patient = await _dbContext.Patients
             .Include(p => p.Allergies)
             .Include(p => p.MedicalHistories)
             .FirstOrDefaultAsync(p => p.PatientId == pvm.PatientId);
