@@ -22,6 +22,7 @@
                     <th class="p-2">Details</th>
                     <th class="p-2">Edit</th>
                     <th class="p-2">Delete</th>
+                    <th class="p-2">Créer ordonnance</th>
                 </tr>
             </thead>
             <tbody>
@@ -38,6 +39,7 @@
                         <td class="p-2 text-blue-600 text-decoration-underline"><a asp-action="ShowDetails" asp-route-id="@patient.PatientId">Show Details</a></td>
                         <td class="p-2 text-blue-600 text-decoration-underline"><a asp-action="Edit" asp-route-id="@patient.PatientId">Edit</a></td>
                         <td class="p-2 text-blue-600 text-decoration-underline"><a asp-action="Delete" asp-route-id="@patient.PatientId">Delete</a></td>
+                        <td class="p-2 text-blue-600 text-decoration-underline"><a asp-action="CreatePrescription" asp-route-id="@patient.PatientId">Créer ordonnance</a></td>
                     </tr>
                 }
             </tbody>

@@ -217,4 +217,31 @@ public class PatientController : Controller
 
         return View(patient);
     }
+    
+    [HttpGet]
+    public async Task<IActionResult> CreatePrescription(int id)
+    {
+        var patient = await _dbContext.Patients.FirstOrDefaultAsync(p => p.PatientId == id);
+        
+        if (patient == null)
+        {
+            return NotFound();
+        }
+        
+        var doctorId = _userManager.GetUserId(User);
+        
+        if (doctorId == null) return NotFound();
+        
+        var prescription = await _dbContext.Prescriptions.AddAsync(new Prescription
+        {
+            PatientId = patient.PatientId,
+            Patient = patient,
+            DoctorId = doctorId,
+            Doctor = (await _dbContext.Users.FirstOrDefaultAsync(d => d.Id == doctorId))!,
+        });
+        
+        await _dbContext.SaveChangesAsync();
+
+        return RedirectToAction("Details", "Prescription", new { id = prescription.Entity.PrescriptionId });
+    }
 }
