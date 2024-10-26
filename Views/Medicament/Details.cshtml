@@ -1,0 +1,30 @@
+@model Medicament
+
+@{
+    ViewBag.Title = "Détails du médicament : @Model.Name";
+    Layout = "_Layout";
+}
+
+<h2 class="text-2xl font-bold">Détails du médicament : @Model.Name</h2>
+
+<div class="flex flex-col gap-4">
+    <div class="flex flex-col">
+        <label class="block mb-2 text-md font-medium text-text">Nom : @Model.Name</label>
+    </div>
+
+    <div class="flex flex-col">
+        <label class="block mb-2 text-md font-medium text-text">Quantité : @Model.Quantity</label>
+    </div>
+
+    <div class="flex flex-col">
+        <label class="block mb-2 text-md font-medium text-text">Ingrédients : @Model.Ingredients</label>
+    </div>
+
+    <h3 class="mt-2 font-bold">Contre indication : Antécédents</h3>
+    <ul class="flex flex-col gap-2 list-disc">
+        @foreach (var medicalHistory in Model.MedicalHistories)
+        {
+            <li>@medicalHistory.Name</li>
+        }
+    </ul>
+</div>

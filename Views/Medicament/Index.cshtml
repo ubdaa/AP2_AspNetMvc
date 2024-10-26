@@ -29,7 +29,7 @@
                 <td class="p-2">@Html.DisplayFor(m => medicament.Name)</td>
                 <td class="p-2">@Html.DisplayFor(m => medicament.Quantity)</td>
                 <td class="p-2">@Html.DisplayFor(m => medicament.Ingredients)</td>
-                <td class="p-2 text-blue-600 text-decoration-underline"><a asp-action="ShowDetails" asp-route-id="@medicament.MedicamentId">Détails</a></td>
+                <td class="p-2 text-blue-600 text-decoration-underline"><a asp-action="Details" asp-route-id="@medicament.MedicamentId">Détails</a></td>
                 <td class="p-2 text-blue-600 text-decoration-underline"><a asp-action="Edit" asp-route-id="@medicament.MedicamentId">Modifier</a></td>
                 <td class="p-2 text-blue-600 text-decoration-underline"><a asp-action="Delete" asp-route-id="@medicament.MedicamentId">Supprimer</a></td>
             </tr>

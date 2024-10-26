@@ -164,4 +164,36 @@ public class MedicamentController : Controller
         
         return RedirectToAction("Index");
     }
+    
+    [HttpGet]
+    public async Task<IActionResult> Delete(int id)
+    {
+        var medicament = await _dbContext.Medicaments.FirstOrDefaultAsync(x => x.MedicamentId == id);
+        
+        if (medicament == null)
+        {
+            return NotFound();
+        }
+        
+        _dbContext.Medicaments.Remove(medicament);
+        await _dbContext.SaveChangesAsync();
+        
+        return RedirectToAction("Index");
+    }
+    
+    [HttpGet]
+    public async Task<IActionResult> Details(int id)
+    {
+        var medicament = await _dbContext.Medicaments
+            .Include(m => m.Allergies)
+            .Include(m => m.MedicalHistories)
+            .FirstOrDefaultAsync(x => x.MedicamentId == id);
+        
+        if (medicament == null)
+        {
+            return NotFound();
+        }
+        
+        return View(medicament);
+    }
 }
