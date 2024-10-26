@@ -1,0 +1,31 @@
+@model PatientListViewModel
+
+@{
+    ViewBag.Title = "Créer l'ordonnance";
+    Layout = "_Layout";
+}
+
+<h2>Créer l'ordonnance : Choisir pour quel patient vous voulez créer cet ordonnance</h2>
+
+<form asp-action="Create" asp-controller="Prescription" method="post" class="flex flex-col gap-4">
+    <div class="flex flex-col">
+        <select asp-for="PatientId" class="select select-bordered w-full my-4">
+            <option value="">Choisir un patient</option>
+            
+            @if (Model.Patients.Any())
+            {
+                @foreach (var patient in Model.Patients)
+                {
+                    <option value="@patient.PatientId">@patient.FirstName @patient.LastName</option>
+                }
+            }
+            else
+            {
+                <p>Aucun patient dans la base</p>
+            }
+        </select>
+        <span asp-validation-for="PatientId" class="text-error"></span>
+    </div>
+
+    <input class="btn btn-primary mb-2" type="submit" value="Créer l'ordonnance"/>
+</form>

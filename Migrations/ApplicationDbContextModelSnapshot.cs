@@ -265,13 +265,15 @@ namespace MedManager.Migrations
                         .HasMaxLength(256)
                         .HasColumnType("varchar(256)");
 
-                    b.Property<DateOnly>("EndDate")
+                    b.Property<DateOnly?>("EndDate")
+                        .IsRequired()
                         .HasColumnType("date");
 
                     b.Property<int>("PatientId")
                         .HasColumnType("int");
 
-                    b.Property<DateOnly>("StartDate")
+                    b.Property<DateOnly?>("StartDate")
+                        .IsRequired()
                         .HasColumnType("date");
 
                     b.HasKey("PrescriptionId");
