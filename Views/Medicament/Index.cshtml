@@ -1,6 +1,45 @@
-@model MedicamentViewModel
+@model IEnumerable<Medicament>
 
 @{
     ViewBag.Title = "Liste des médicaments";
     Layout = "_Layout";
 }
+
+<h2>@ViewBag.Title</h2>
+
+@if (Model.Count() > 0)
+{
+    <table class="table-auto">
+        <thead>
+        <tr>
+            <th class="p-2">Id</th>
+            <th class="p-2">Nom</th>
+            <th class="p-2">Quantité</th>
+            <th class="p-2">Ingrédients</th>
+            <th class="p-2">Détails</th>
+            <th class="p-2">Modifier</th>
+            <th class="p-2">Supprimer</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var medicament in Model)
+        {
+            <tr>
+                <td class="p-2">@Html.DisplayFor(m => medicament.MedicamentId)</td>
+                <td class="p-2">@Html.DisplayFor(m => medicament.Name)</td>
+                <td class="p-2">@Html.DisplayFor(m => medicament.Quantity)</td>
+                <td class="p-2">@Html.DisplayFor(m => medicament.Ingredients)</td>
+                <td class="p-2 text-blue-600 text-decoration-underline"><a asp-action="ShowDetails" asp-route-id="@medicament.MedicamentId">Détails</a></td>
+                <td class="p-2 text-blue-600 text-decoration-underline"><a asp-action="Edit" asp-route-id="@medicament.MedicamentId">Modifier</a></td>
+                <td class="p-2 text-blue-600 text-decoration-underline"><a asp-action="Delete" asp-route-id="@medicament.MedicamentId">Supprimer</a></td>
+            </tr>
+        }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>Aucun médicament dans la base</p>
+}
+
+<a asp-action="Add" class="btn">Ajouter un nouveau médicament</a>
