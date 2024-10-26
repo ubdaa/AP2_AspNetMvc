@@ -1,0 +1,33 @@
+@model Allergy
+
+@{
+    Layout = "_Layout";
+}
+
+<!DOCTYPE html>
+
+<html lang="fr">
+<head>
+    <title>title</title>
+</head>
+<body>
+<div>
+    
+    <form asp-action="Edit" asp-controller="Allergy" method="post">
+        <h1>Modification d'une allergie</h1>
+        <input asp-for="AllergyId" type="hidden" value="@Model.AllergyId"/>
+        
+        <div>
+            <label asp-for="Name" class="block mb-2 text-md font-medium text-text"></label>
+            <input asp-for="Name" class="input input-bordered w-full" value="@Model.Name"/>
+            <span asp-validation-for="Name" class="text-error"></span>
+        </div>
+        
+        <div>
+            <input type="submit" value="Modifier" class="btn btn-primary"/>
+        </div>
+    </form>
+
+</div>
+</body>
+</html>

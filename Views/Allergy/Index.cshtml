@@ -1,0 +1,41 @@
+@model IEnumerable<MedManager.Models.Allergy>
+
+@{
+    Layout = "_Layout";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Liste des Allergies</title>
+</head>
+<body>
+<div>
+    
+    <h1>Liste des allergies</h1>
+    <table class="table table-compact">
+        <thead>
+            <tr>
+                <th>Nom</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Name</td>
+                    <td>
+                        <a asp-action="Edit" asp-controller="Allergy" asp-route-id="@item.AllergyId">Modifier</a> |
+                        <a asp-action="Delete" asp-controller="Allergy" asp-route-id="@item.AllergyId">Supprimer</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <a asp-action="Add" asp-controller="Allergy">Ajouter une nouvelle allergie</a>
+
+</div>
+</body>
+</html>
