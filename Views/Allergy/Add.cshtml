@@ -7,13 +7,8 @@
 
 <form asp-action="Add" asp-controller="Allergy" method="post">
     <h1>Ajout d'une nouvelle allergie à la base !</h1>
-    <input asp-for="AllergyId" type="hidden" value="0"/>
     
-    <div>
-        <label asp-for="Name" class="block mb-2 text-md font-medium text-text"></label>
-        <input asp-for="Name" class="input input-bordered w-full"/>
-        <span asp-validation-for="Name" class="text-error"></span>
-    </div>
+    @Html.Partial("_Form", Model)
     
     <div>
         <input type="submit" value="Ajouter" class="btn btn-primary"/>

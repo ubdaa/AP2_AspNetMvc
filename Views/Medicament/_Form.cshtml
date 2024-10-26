@@ -1,0 +1,57 @@
+@model MedicamentViewModel
+
+<input type="hidden" asp-for="MedicamentId" />
+
+<div class="flex flex-col">
+    <label asp-for="Name" class="block mb-2 text-md font-medium text-text"></label>
+    <input asp-for="Name" class="input input-bordered w-full" />
+    <span asp-validation-for="Name" class="text-error"></span>
+</div>
+
+<div class="flex flex-col">
+    <label asp-for="Quantity" class="block mb-2 text-md font-medium text-text"></label>
+    <input asp-for="Quantity" class="input input-bordered w-full" />
+    <span asp-validation-for="Quantity" class="text-error"></span>
+</div>
+
+<div class="flex flex-col">
+    <label asp-for="Ingredients" class="block mb-2 text-md font-medium text-text"></label>
+    <input asp-for="Ingredients" class="input input-bordered w-full" />
+    <span asp-validation-for="Ingredients" class="text-error"></span>
+</div>
+
+<h3 class="mt-2 font-bold">Contre indication : Antécédents</h3>
+<div class="flex flex-col gap-2">
+    @foreach (var medicalHistory in Model.MedicalHistories)
+    {
+    <div class="flex flex-row gap-4">
+        <input class="checkbox" type="checkbox" name="SelectedMedicalHistoryIds" value="@medicalHistory.MedicalHistoryId"
+               @(Model.SelectedMedicalHistoryIds != null && Model.SelectedMedicalHistoryIds.Contains(medicalHistory.MedicalHistoryId) ? "checked" :
+               "") />
+        <label>@medicalHistory.Name</label>
+    </div>
+    }
+
+    @if (Model.MedicalHistories.Count == 0)
+    {
+    <p>Aucun antécédent médical dans la base</p>
+    }
+</div>
+
+<h3 class="mt-2 font-bold">Contre indication : Allergies</h3>
+<div class="flex flex-col gap-2">
+    @foreach (var allergy in Model.Allergies)
+    {
+        <div class="flex flex-row gap-4">
+            <input class="checkbox" type="checkbox" name="SelectedAllergyIds" value="@allergy.AllergyId"
+                   @(Model.SelectedAllergyIds != null && Model.SelectedAllergyIds.Contains(allergy.AllergyId) ? "checked" :
+                       "") />
+            <label>@allergy.Name</label>
+        </div>
+    }
+
+    @if (Model.Allergies.Count == 0)
+    {
+        <p>Aucune allergie dans la base</p>
+    }
+</div>

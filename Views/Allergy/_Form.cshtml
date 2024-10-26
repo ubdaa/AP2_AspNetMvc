@@ -1,0 +1,9 @@
+@model Allergy
+
+<input asp-for="AllergyId" type="hidden" value="0"/>
+    
+<div>
+    <label asp-for="Name" class="block mb-2 text-md font-medium text-text"></label>
+    <input asp-for="Name" class="input input-bordered w-full"/>
+    <span asp-validation-for="Name" class="text-error"></span>
+</div>

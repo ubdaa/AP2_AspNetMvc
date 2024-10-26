@@ -1,0 +1,89 @@
+@model PatientViewModel
+
+<input asp-for="PatientId" type="hidden" value="@Model.PatientId"/>
+        
+<div class="flex flex-col">
+    <label asp-for="FirstName" class="block mb-2 text-md font-medium text-text"></label>
+    <input asp-for="FirstName" class="input input-bordered w-full"/>
+    <span asp-validation-for="FirstName" class="text-error"></span>
+</div>
+
+<div class="flex flex-col">
+    <label asp-for="LastName" class="block mb-2 text-md font-medium text-text"></label>
+    <input asp-for="LastName" class="input input-bordered w-full"/>
+    <span asp-validation-for="LastName" class="text-error"></span>
+</div>
+
+<div class="flex flex-col">
+    <label asp-for="BirthDate" class="block mb-2 text-md font-medium text-text"></label>
+    <input asp-for="BirthDate" class="input input-bordered w-full" value="@Model.BirthDate.ToString("yyyy")-@Model.BirthDate.ToString("MM")-@Model.BirthDate.ToString("dd")"/>
+    <span asp-validation-for="BirthDate" class="text-error"></span>
+</div>
+
+<div>
+    <label asp-for="Gender" class="block mb-2 text-md font-medium text-text"></label>
+    <select asp-for="Gender" asp-items="@Html.GetEnumSelectList(typeof(Genders))" class="select select-bordered w-full">
+        <option value="">Select Gender</option>
+    </select>
+    <span asp-validation-for="Gender" class="text-red-500"></span>
+</div>
+
+<div class="flex flex-col">
+    <label asp-for="Height" class="block mb-2 text-md font-medium text-text"></label>
+    <input asp-for="Height" class="input input-bordered w-full"/>
+    <span asp-validation-for="Height" class="text-error"></span>
+</div>
+
+<div class="flex flex-col">
+    <label asp-for="Weight" class="block mb-2 text-md font-medium text-text"></label>
+    <input asp-for="Weight" class="input input-bordered w-full"/>
+    <span asp-validation-for="Weight" class="text-error"></span>
+</div>
+
+<div class="flex flex-col">
+    <label asp-for="Address" class="block mb-2 text-md font-medium text-text"></label>
+    <input asp-for="Address" class="input input-bordered w-full"/>
+    <span asp-validation-for="Address" class="text-error"></span>
+</div>
+
+<div class="flex flex-col">
+    <label asp-for="SocialSecurityNumber" class="block mb-2 text-md font-medium text-text"></label>
+    <input asp-for="SocialSecurityNumber" class="input input-bordered w-full"/>
+    <span asp-validation-for="SocialSecurityNumber" class="text-error"></span>
+</div>
+
+<h3 class="mt-2 font-bold">Antécédents</h3>
+<div class="flex flex-col gap-2">
+    @foreach (var medicalHistory in Model.MedicalHistories)
+    {
+    <div class="flex flex-row gap-4">
+        <input class="checkbox" type="checkbox" name="SelectedMedicalHistoryIds" value="@medicalHistory.MedicalHistoryId"
+               @(Model.SelectedMedicalHistoryIds != null && Model.SelectedMedicalHistoryIds.Contains(medicalHistory.MedicalHistoryId) ? "checked" :
+               "") />
+        <label>@medicalHistory.Name</label>
+    </div>
+    }
+
+    @if (Model.MedicalHistories.Count == 0)
+    {
+    <p>Aucun antécédent médical dans la base</p>
+    }
+</div>
+
+<h3 class="mt-2 font-bold">Allergies</h3>
+<div class="flex flex-col gap-2">
+    @foreach (var allergy in Model.Allergies)
+    {
+    <div class="flex flex-row gap-4">
+        <input class="checkbox" type="checkbox" name="SelectedAllergyIds" value="@allergy.AllergyId"
+               @(Model.SelectedAllergyIds != null && Model.SelectedAllergyIds.Contains(allergy.AllergyId) ? "checked" :
+               "") />
+        <label>@allergy.Name</label>
+    </div>
+    }
+
+    @if (Model.Allergies.Count == 0)
+    {
+    <p>Aucune allergie dans la base</p>
+    }
+</div>
