@@ -49,14 +49,9 @@ public class PrescriptionController : Controller
         }
         
         var patient = await _dbContext.Patients.FirstOrDefaultAsync(p => p.PatientId == model.PatientId);
-        
-        if (patient == null)
-        {
-            return NotFound();
-        }
+        if (patient == null) return NotFound();
         
         var doctorId = _userManager.GetUserId(User);
-        
         if (doctorId == null) return NotFound();
         
         var prescription = await _dbContext.Prescriptions.AddAsync(new Prescription
