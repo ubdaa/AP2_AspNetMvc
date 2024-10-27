@@ -1,5 +1,6 @@
 using MedManager.Data;
 using MedManager.Models;
+using MedManager.ViewModel;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -26,11 +27,14 @@ public class PrescriptionController : Controller
     }
     
     [HttpGet]
-    public IActionResult Create()
+    public async Task<IActionResult> Create()
     {
         PatientListViewModel model = new();
         
-        model.Patients = _dbContext.Patients.ToList();
+        var doctorId = _userManager.GetUserId(User);
+        if (doctorId == null) return NotFound();
+        
+        model.Patients = await _dbContext.Patients.Where(p => p.DoctorId == doctorId).ToListAsync();
         
         return View(model);
     }
