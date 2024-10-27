@@ -34,7 +34,7 @@ public class PrescriptionController : Controller
         var doctorId = _userManager.GetUserId(User);
         if (doctorId == null) return NotFound();
         
-        model.Patients = await _dbContext.Patients.Where(p => p.DoctorId == doctorId).ToListAsync();
+        model.Patients = await _dbContext.Patients.AsNoTracking().Where(p => p.DoctorId == doctorId).ToListAsync();
         
         return View(model);
     }
@@ -42,17 +42,17 @@ public class PrescriptionController : Controller
     [HttpPost]
     public async Task<IActionResult> Create(PatientListViewModel model)
     {
+        var doctorId = _userManager.GetUserId(User);
+        if (doctorId == null) return NotFound();
+        
         if (!ModelState.IsValid)
         {
-            model.Patients = _dbContext.Patients.ToList();
+            model.Patients = _dbContext.Patients.Where(p => p.DoctorId == doctorId).ToList();
             return View(model);
         }
         
         var patient = await _dbContext.Patients.FirstOrDefaultAsync(p => p.PatientId == model.PatientId);
         if (patient == null) return NotFound();
-        
-        var doctorId = _userManager.GetUserId(User);
-        if (doctorId == null) return NotFound();
         
         var prescription = await _dbContext.Prescriptions.AddAsync(new Prescription
         {
