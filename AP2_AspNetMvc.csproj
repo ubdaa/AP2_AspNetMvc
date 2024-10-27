@@ -11,7 +11,6 @@
       <Folder Include="Migrations\" />
       <Folder Include="Services\" />
       <Folder Include="Styles\" />
-      <Folder Include="ViewModel\Prescription\" />
     </ItemGroup>
 
     <ItemGroup>
