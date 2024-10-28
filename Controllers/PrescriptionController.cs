@@ -73,20 +73,25 @@ public class PrescriptionController : Controller
     {
         var prescription = await _dbContext.Prescriptions
             .Include(p => p.Patient)
+            .ThenInclude(patient => patient.Allergies)
             .Include(p => p.Doctor)
             .Include(p => p.Medicaments)
+            .Include(prescription => prescription.Patient)
+            .ThenInclude(patient => patient.MedicalHistories)
             .FirstOrDefaultAsync(p => p.PrescriptionId == id);
         
         if (prescription == null)
         {
             return NotFound();
         }
-
-        var MedicamentsList = await _dbContext.Medicaments.ToListAsync();
         
+        var allergiesPatient = prescription.Patient.Allergies.Select(pa => pa.AllergyId).ToList();
+        var medicalHistoryPatient = prescription.Patient.MedicalHistories.Select(mh => mh.MedicalHistoryId).ToList();
+        var medicamentList = await _dbContext.Medicaments
+            .Where(m => !m.Allergies.Any(a => allergiesPatient.Contains(a.AllergyId)) && !m.MedicalHistories.Any(mh => medicalHistoryPatient.Contains(mh.MedicalHistoryId)))
+            .ToListAsync();
         
-        
-        var model = new Tuple<Prescription, IEnumerable<Medicament>>(prescription, prescription.Medicaments);
+        var model = new Tuple<Prescription, IEnumerable<Medicament>>(prescription, medicamentList);
         return View(model);
     }
 
