@@ -1,6 +1,7 @@
 using MedManager.Data;
 using MedManager.Models;
 using MedManager.ViewModel;
+using MedManager.ViewModel.Prescription;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -80,7 +81,43 @@ public class PrescriptionController : Controller
         {
             return NotFound();
         }
+
+        var MedicamentsList = await _dbContext.Medicaments.ToListAsync();
         
-        return View(prescription);
+        
+        
+        var model = new Tuple<Prescription, IEnumerable<Medicament>>(prescription, prescription.Medicaments);
+        return View(model);
+    }
+
+    [HttpPost]
+    public IActionResult Edit(FormViewModel model)
+    {
+        if (!ModelState.IsValid)
+        {
+            return RedirectToAction("Details", new { id = model.PrescriptionId });
+        }
+        
+        var prescription = _dbContext.Prescriptions.FirstOrDefault(p => p.PrescriptionId == model.PrescriptionId);
+        if (prescription == null)
+        {
+            return NotFound();
+        }
+        
+        if (model.EndDate < model.StartDate)
+        {
+            ModelState.AddModelError("EndDate", "La date de fin doit être supérieure à la date de début.");
+            return RedirectToAction("Details", new { id = model.PrescriptionId });
+        }
+        
+        prescription.StartDate = model.StartDate;
+        prescription.EndDate = model.EndDate;
+        prescription.Dosage = model.Dosage;
+        prescription.AdditionalInformation = model.AdditionalInformation;
+        
+        _dbContext.Prescriptions.Update(prescription);
+        _dbContext.SaveChanges();
+        
+        return RedirectToAction("Details", new { id = prescription.PrescriptionId });
     }
 }
