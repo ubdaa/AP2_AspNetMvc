@@ -67,6 +67,13 @@ public class AccountController : Controller
         return RedirectToAction("Index", "Patient");
     }
     
+    [HttpGet]
+    public async Task<IActionResult> Logout()
+    {
+        await _signInManager.SignOutAsync();
+        return RedirectToAction("Login");
+    }
+    
     // GET
     public IActionResult Index()
     {
