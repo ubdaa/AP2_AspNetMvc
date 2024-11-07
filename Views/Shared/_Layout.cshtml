@@ -33,13 +33,13 @@
             background-color: #495057;
         }
 
-        /* Style pour le contenu principal */
         .content {
             flex-grow: 1;
         }
         
         .main-content {
             margin-top: 20px;
+            overflow: scroll;
         }
     </style>
 </head>
@@ -47,18 +47,18 @@
 <div class="sidebar d-flex flex-column p-3">
     <h2 class="text-center">Mon Application</h2>
     <hr />
-    <ul class="nav nav-pills flex-column">
+    <ul class="nav nav-pills flex-column gap-2">
         <li class="nav-item">
             <a class="nav-link" asp-action="Index">Accueil</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="@Url.Action("About", "Home")">À propos</a>
+            <a class="nav-link" asp-controller="Allergy" asp-action="Index">Gestion des allergies</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="@Url.Action("Contact", "Home")">Contact</a>
+            <a class="nav-link" asp-controller="MedicalHistory" asp-action="Index">Gestion des antécedents</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="@Url.Action("Privacy", "Home")">Confidentialité</a>
+            <a class="nav-link" asp-controller="Medicament" asp-action="Index">Gestion des médicaments</a>
         </li>
     </ul>
 </div>
@@ -83,7 +83,7 @@
         </div>
     </nav>
 
-    <div class="container mt-4">
+    <div class="main-content mt-4">
         @RenderBody()
     </div>
 </div>
