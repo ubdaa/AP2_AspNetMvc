@@ -1,3 +1,4 @@
+@using Microsoft.AspNetCore.Mvc.Filters
 @model PatientViewModel
 
 <input asp-for="PatientId" type="hidden" value="@Model.PatientId"/>
@@ -52,38 +53,28 @@
     <span asp-validation-for="SocialSecurityNumber" class="text-error"></span>
 </div>
 
-<h3 class="mt-2 font-bold">Antécédents</h3>
-<div class="form-group mb-3">
-    @foreach (var medicalHistory in Model.MedicalHistories)
-    {
-        <div>
-            <input class="form-check-input" type="checkbox" name="SelectedMedicalHistoryIds" value="@medicalHistory.MedicalHistoryId"
-                   @(Model.SelectedMedicalHistoryIds != null && Model.SelectedMedicalHistoryIds.Contains(medicalHistory.MedicalHistoryId) ? "checked" :
-                   "") />
-            <label>@medicalHistory.Name</label>
-        </div>
-    }
-
-    @if (Model.MedicalHistories.Count == 0)
-    {
-    <p>Aucun antécédent médical dans la base</p>
-    }
+<div class="form-group">
+    <label asp-for="MedicalHistories"></label>
+    <div class="col-sm-6">
+        @Html.ListBoxFor(model => model.SelectedMedicalHistoryIds, new MultiSelectList(Model.DrpMedicalHistories,
+        "Value", "Text"), new
+        {
+        @class = "form-control",
+        multiple = "multiple",
+        id = "MedicalHistories_dropdown"
+        })
+    </div>
 </div>
 
-<h3 class="mt-2 font-bold">Allergies</h3>
-<div class="form-group mb-3">
-    @foreach (var allergy in Model.Allergies)
-    {
-        <div>
-            <input class="form-check-input" type="checkbox" name="SelectedAllergyIds" value="@allergy.AllergyId"
-                   @(Model.SelectedAllergyIds != null && Model.SelectedAllergyIds.Contains(allergy.AllergyId) ? "checked" :
-                   "") />
-            <label>@allergy.Name</label>
-        </div>
-    }
-
-    @if (Model.Allergies.Count == 0)
-    {
-    <p>Aucune allergie dans la base</p>
-    }
+<div class="form-group">
+    <label asp-for="Allergies"></label>
+    <div class="col-sm-6">
+        @Html.ListBoxFor(model => model.SelectedAllergyIds, new MultiSelectList(Model.DrpAllergies,
+            "Value", "Text"), new
+        {
+            @class = "form-control",
+            multiple = "multiple",
+            id = "Allergies_dropdown"
+        })
+    </div>
 </div>

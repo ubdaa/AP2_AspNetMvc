@@ -37,6 +37,10 @@ public class PatientController : Controller
 
         pvm.Allergies = _dbContext.Allergies.ToList();
         pvm.MedicalHistories = _dbContext.MedicalHistories.ToList();
+        pvm.DrpAllergies = _dbContext.Allergies
+            .Select(x => new SelectListItem { Text = x.Name, Value = x.AllergyId.ToString() }).ToList();
+        pvm.DrpMedicalHistories = _dbContext.MedicalHistories
+            .Select(x => new SelectListItem { Text = x.Name, Value = x.MedicalHistoryId.ToString() }).ToList();
         
         return View(pvm);
     }
@@ -139,7 +143,9 @@ public class PatientController : Controller
             Allergies = await _dbContext.Allergies.ToListAsync(),
             MedicalHistories = await _dbContext.MedicalHistories.ToListAsync(),
             SelectedAllergyIds = patient.Allergies.Select(a => a.AllergyId).ToList(),
-            SelectedMedicalHistoryIds = patient.MedicalHistories.Select(m => m.MedicalHistoryId).ToList()
+            SelectedMedicalHistoryIds = patient.MedicalHistories.Select(m => m.MedicalHistoryId).ToList(),
+            DrpAllergies = _dbContext.Allergies.Select(x => new SelectListItem { Text = x.Name, Value = x.AllergyId.ToString() }).ToList(),
+            DrpMedicalHistories = _dbContext.MedicalHistories.Select(x => new SelectListItem { Text = x.Name, Value = x.MedicalHistoryId.ToString() }).ToList(),
         };
         
         return View(pvm);

@@ -14,3 +14,15 @@
         <input class="btn btn-primary my-5" type="submit" value="Créer le patient"/>
     </form>
 </div>
+
+@section Scripts
+{
+    <script>
+        $(document).ready(function () {
+            $('#MedicalHistories_dropdown').multiselect();
+        });
+        $(document).ready(function () {
+            $('#Allergies_dropdown').multiselect();
+        });
+    </script>
+}

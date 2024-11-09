@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using MedManager.Models;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace MedManager.ViewModel.Patient;
 
@@ -50,4 +51,7 @@ public class PatientViewModel
 
     public List<int> SelectedAllergyIds { get; set; } = new();
     public List<int> SelectedMedicalHistoryIds { get; set; } = new();
+    
+    public List<SelectListItem> DrpAllergies { get; set; } = new();
+    public List<SelectListItem> DrpMedicalHistories { get; set; } = new();
 }
