@@ -57,6 +57,9 @@
         @if (User?.Identity?.IsAuthenticated == true)
         {
             <li class="nav-item">
+                <a class="nav-link" asp-controller="Patient" asp-action="Index">Gestion des patients</a>
+            </li>
+            <li class="nav-item">
                 <a class="nav-link" asp-controller="Allergy" asp-action="Index">Gestion des allergies</a>
             </li>
             <li class="nav-item">
@@ -64,6 +67,9 @@
             </li>
             <li class="nav-item">
                 <a class="nav-link" asp-controller="Medicament" asp-action="Index">Gestion des médicaments</a>
+            </li>
+            <li class="nav-item mt-lg-1">
+                <a class="btn btn-primary w-100" asp-controller="Prescription" asp-action="Create">Créer une ordonnance</a>
             </li>
         }
     </ul>
@@ -81,11 +87,11 @@
                 @if (User?.Identity?.IsAuthenticated == true)
                 {
                     <li class="nav-item" class="navbar-text">
-                        <a class="nav-link active">Hello, @User.Identity.Name!</a>
+                        <a class="nav-link active">Bonjour, @User.Identity.Name!</a>
                     </li>
                     <li class="nav-item">
-                        <a asp-action="Logout" asp-controller="Account" asp-route-id="" class="nav-link"
-                           aria-current="page">Logout</a>
+                        <a asp-action="Logout" asp-controller="Account" asp-route-id="" class="btn btn-primary"
+                           aria-current="page">Se déconnecter</a>
                     </li>
                 }
                 else
