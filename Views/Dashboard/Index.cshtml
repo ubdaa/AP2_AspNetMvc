@@ -102,7 +102,7 @@
                                     <span class="badge bg-danger">Terminée</span>
                                 }
                             </td>
-                            <td><a asp-action="Edit" asp-controller="Prescription" asp-route-id="@prescription.PrescriptionId"><i class="bi bi-pencil"></i></a></td>
+                            <td><a asp-action="Details" asp-controller="Prescription" asp-route-id="@prescription.PrescriptionId"><i class="bi bi-pencil"></i></a></td>
                         </tr>
                     }
                     </tbody>
@@ -157,29 +157,29 @@
     <h3 class="my-4">Statistiques</h3>
 
     <!-- Section statistiques -->
-    <div class="row my-4">
+    <div class="row mt-4">
         
         <div class="col-4">
             <div class="card h-100">
                 <div class="card-header">
-                    <h5>Patients avec le plus de consultations</h5>
+                    <h5>Patients les plus consultés</h5>
                 </div>
                 <div class="card-body">
-                    <canvas id="myChart"></canvas>
+                    <canvas id="patientsChart"></canvas>
                 </div>
 
                 <script>
-                    const data = @Html.Raw(Json.Serialize(ViewBag.PatientsData));
-                    const labels = @Html.Raw(Json.Serialize(ViewBag.PatientsLabels));
+                    const patientsData = @Html.Raw(Json.Serialize(ViewBag.PatientsData));
+                    const patientsLabels = @Html.Raw(Json.Serialize(ViewBag.PatientsLabels));
 
-                    const ctx = document.getElementById('myChart').getContext('2d');
-                    const myChart = new Chart(ctx, {
+                    const patientsCtx = document.getElementById('patientsChart').getContext('2d');
+                    const patientsChart = new Chart(patientsCtx, {
                         type: 'pie',
                         data: {
-                            labels: labels, // Labels
+                            labels: patientsLabels, // Labels
                             datasets: [{
                                 label: 'Consultations',
-                                data: data, // Les données
+                                data: patientsData, // Les données
                                 borderColor: [
                                     'rgba(54, 162, 235, 1)',
                                     'rgba(255, 99, 132, 1)',
@@ -193,6 +193,127 @@
                                     'rgba(255, 206, 86, 0.2)',
                                     'rgba(75, 192, 192, 0.2)',
                                     'rgba(153, 102, 255, 0.2)'
+                                ],
+                                borderWidth: 1
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            plugins: {
+                                legend: {
+                                    position: 'top',
+                                }
+                            }
+                        }
+                    });
+                </script>
+            </div>
+        </div>
+        
+        <div class="col-4">
+            <div class="card h-100">
+                <div class="card-header">
+                    <h5>Médicaments les plus prescrits</h5>
+                </div>
+                <div class="card-body">
+                    <canvas id="medicamentsChart"></canvas>
+                </div>
+
+                <script>
+                    const medicamentsData = @Html.Raw(Json.Serialize(ViewBag.MedicamentsData));
+                    const medicamentsLabels = @Html.Raw(Json.Serialize(ViewBag.MedicamentsLabels));
+
+                    const medicamentsCtx = document.getElementById('medicamentsChart').getContext('2d');
+                    const medicamentsChart = new Chart(medicamentsCtx, {
+                        type: 'pie',
+                        data: {
+                            labels: medicamentsLabels, // Labels
+                            datasets: [{
+                                label: 'Consultations',
+                                data: medicamentsData, // Les données
+                                borderColor:
+                                [
+                                    'rgba(255, 159, 64, 1)', 
+                                    'rgba(201, 203, 207, 1)', 
+                                    'rgba(54, 162, 235, 1)', 
+                                    'rgba(153, 102, 255, 1)', 
+                                    'rgba(255, 99, 132, 1)'
+                                ],
+                                backgroundColor: 
+                                [
+                                    'rgba(255, 159, 64, 0.2)', 
+                                    'rgba(201, 203, 207, 0.2)', 
+                                    'rgba(54, 162, 235, 0.2)', 
+                                    'rgba(153, 102, 255, 0.2)', 
+                                    'rgba(255, 99, 132, 0.2)'
+                                 ],
+                                borderWidth: 1
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            plugins: {
+                                legend: {
+                                    position: 'top',
+                                }
+                            }
+                        }
+                    });
+                </script>
+            </div>
+        </div>
+
+        <div class="col-4">
+            <div class="card h-100">
+                <div class="card-header">
+                    <h5>Antécédents les plus fréquents</h5>
+                </div>
+                <div class="card-body">
+                    <canvas id="myChart"></canvas>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+    
+    <div class="row my-4">
+        
+        <div class="col-6">
+            <div class="card h-100">
+                <div class="card-header">
+                    <h5>Nombre de patients par catégories d'âge</h5>
+                </div>
+                <div class="card-body">
+                    <canvas id="ageChart"></canvas>
+                </div>
+                
+                <script>
+                    const ageData = @Html.Raw(Json.Serialize(ViewBag.PatientsByAgeData));
+                    const ageLabels = @Html.Raw(Json.Serialize(ViewBag.PatientsByAgeLabels));
+
+                    const ageCtx = document.getElementById('ageChart').getContext('2d');
+                    const ageChart = new Chart(ageCtx, {
+                        type: 'bar',
+                        data: {
+                            labels: ageLabels, // Labels
+                            datasets: [{
+                                label: 'Patients',
+                                data: ageData, // Les données
+                                borderColor:
+                                [
+                                    'rgba(101, 179, 255, 1)', 
+                                    'rgba(153, 102, 255, 1)', 
+                                    'rgba(255, 99, 132, 1)', 
+                                    'rgba(54, 162, 235, 1)', 
+                                    'rgba(201, 203, 207, 1)'
+                                ],
+                                backgroundColor:
+                                [
+                                    'rgba(101, 179, 255, 0.2)', 
+                                    'rgba(153, 102, 255, 0.2)', 
+                                    'rgba(255, 99, 132, 0.2)', 
+                                    'rgba(54, 162, 235, 0.2)', 
+                                    'rgba(201, 203, 207, 0.2)'
                                 ],
                                 borderWidth: 1
                             }]

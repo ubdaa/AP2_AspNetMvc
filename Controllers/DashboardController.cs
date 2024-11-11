@@ -35,21 +35,94 @@ public class DashboardController : Controller
         model.TotalPatients = _dbContext.Patients.Count(p => p.DoctorId == UserId);
         model.TotalPrescriptions = _dbContext.Prescriptions.Count(p => p.DoctorId == UserId);
         
+        
+        
         // données pour les statistiques
-        List<Patient> MostConsultedPatients = _dbContext.Patients.Where(p => p.DoctorId == UserId)
+        
+        // les patients les plus consultés
+        var mostConsultedPatients = _dbContext.Patients.Where(p => p.DoctorId == UserId)
             .OrderByDescending(p => p.Prescriptions.Count).Take(5).ToList();
         
-        var PatientsLabels = new List<string>();
-        var PatientsData = new List<int>();
+        var patientsLabels = new List<string>();
+        var patientsData = new List<int>();
         
-        foreach (var patient in MostConsultedPatients)
+        foreach (var patient in mostConsultedPatients)
         {
-            PatientsLabels.Add(patient.FirstName + " " + patient.LastName);
-            PatientsData.Add(patient.Prescriptions.Count);
+            patientsLabels.Add(patient.FirstName + " " + patient.LastName);
+            patientsData.Add(patient.Prescriptions.Count);
         }
         
-        ViewBag.PatientsLabels = PatientsLabels;
-        ViewBag.PatientsData = PatientsData;
+        ViewBag.PatientsLabels = patientsLabels;
+        ViewBag.PatientsData = patientsData;
+        
+        // les médicaments les plus prescrits
+        var mostPrescribedMedicaments = _dbContext.Medicaments.Select(m => new
+        {
+            Medicament = m,
+            Count = m.Prescriptions.Count
+        }).OrderByDescending(m => m.Count).Take(5).Select(m => m.Medicament).ToList();
+        
+        var medicamentsLabels = new List<string>();
+        var medicamentsData = new List<int>();
+        
+        foreach (var medicament in mostPrescribedMedicaments)
+        {
+            medicamentsLabels.Add(medicament.Name);
+            medicamentsData.Add(medicament.Prescriptions.Count);
+        }
+        
+        ViewBag.MedicamentsLabels = medicamentsLabels;
+        ViewBag.MedicamentsData = medicamentsData;
+        
+        // allergies les plus courants
+        
+        var mostCommonAllergies = _dbContext.Allergies.Select(a => new
+        {
+            Allergy = a,
+            Count = a.Patients.Count
+        }).OrderByDescending(a => a.Count).Take(5).Select(a => a.Allergy).ToList();
+        
+        var allergiesLabels = new List<string>();
+        var allergiesData = new List<int>();
+        
+        foreach (var allergy in mostCommonAllergies)
+        {
+            allergiesLabels.Add(allergy.Name);
+            allergiesData.Add(allergy.Patients.Count);
+        }
+        
+        ViewBag.AllergiesLabels = allergiesLabels;
+        ViewBag.AllergiesData = allergiesData;
+        
+        // patients par catégorie d'âge
+
+        var patientsByAge = _dbContext.Patients.Where(p => p.DoctorId == UserId)
+            .GroupBy(p => p.Age)
+            .Select(g => new
+            {
+                Age = g.Key,
+                Count = g.Count()
+            }).ToList();
+        
+        var patientsByAgeLabels = new List<string>();
+        var patientsByAgeData = new List<int>();
+        
+        for (int i = 0; i < 5; i++)
+        {
+            var min = i * 20;
+            var max = (i + 1) * 20;
+            
+            var label = $"{min}-{max}";
+            var count = patientsByAge.Where(p => p.Age >= min && p.Age < max).Sum(p => p.Count);
+            
+            patientsByAgeLabels.Add(label);
+            patientsByAgeData.Add(count);
+        }
+        
+        ViewBag.PatientsByAgeLabels = patientsByAgeLabels;
+        ViewBag.PatientsByAgeData = patientsByAgeData;
+        
+        
         
         return View(model);
     }
