@@ -185,6 +185,9 @@ public class Medicament
     [Display(Name = "Médicament Id")]
     public int MedicamentId { get; set; }
     
+    [Display(Name = "Date de création")]
+    public DateTime CreatedAt { get; set; } = DateTime.Now;
+    
     [Display(Name = "Nom du médicament")]
     [Required(ErrorMessage = "Le nom du médicament est requis.")]
     [StringLength(256, MinimumLength = 1, ErrorMessage = "Le nom du médicament doit contenir moins de 256 caractères.")]
@@ -205,6 +208,7 @@ public class Medicament
     
     [Display(Name = "Catégorie de médicament")]
     public required MedicamentCategories Category { get; set; }
+
 
     public List<Prescription> Prescriptions { get; set; } = new();
     public List<Allergy> Allergies { get; set; } = new();

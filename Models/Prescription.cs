@@ -7,6 +7,9 @@ public class Prescription
     [Display(Name = "Prescription Id")]
     public int PrescriptionId { get; set; }
     
+    [Display(Name = "Date de création")]
+    public DateTime CreatedAt { get; set; } = DateTime.Now;
+    
     [Display(Name = "Date de début")]
     public DateOnly? StartDate { get; set; }
     
