@@ -48,7 +48,9 @@ public class MedicamentController : Controller
         {
             Name = medicamentViewModel.Name,
             Quantity = medicamentViewModel.Quantity,
-            Ingredients = medicamentViewModel.Ingredients
+            Ingredients = medicamentViewModel.Ingredients,
+            Type = medicamentViewModel.MedicamentType,
+            Category = medicamentViewModel.MedicamentCategory
         };
         
         foreach (var allergyId in medicamentViewModel.SelectedAllergyIds)
@@ -129,6 +131,8 @@ public class MedicamentController : Controller
         medicamentToUpdate.Name = medicamentViewModel.Name;
         medicamentToUpdate.Quantity = medicamentViewModel.Quantity;
         medicamentToUpdate.Ingredients = medicamentViewModel.Ingredients;
+        medicamentToUpdate.Type = medicamentViewModel.MedicamentType;
+        medicamentToUpdate.Category = medicamentViewModel.MedicamentCategory;
         
         medicamentToUpdate.Allergies.Clear();
         

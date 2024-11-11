@@ -22,6 +22,14 @@ public class MedicamentViewModel
     [StringLength(1024, MinimumLength = 1, ErrorMessage = "Les ingrédients du médicament doivent contenir moins de 1024 caractères.")]
     public string Ingredients { get; set; }
     
+    [Display(Name = "Type de médicament")]
+    [Required(ErrorMessage = "Le type de médicament est requis.")]
+    public MedicamentTypes MedicamentType { get; set; }
+    
+    [Display(Name = "Catégorie de médicament")]
+    [Required(ErrorMessage = "La catégorie de médicament est requise.")]
+    public MedicamentCategories MedicamentCategory { get; set; }
+    
     public List<Allergy> Allergies { get; set; } = new();
     public List<MedicalHistory> MedicalHistories { get; set; } = new();
 
