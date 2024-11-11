@@ -1,4 +1,4 @@
-@model dynamic
+@model DashboardViewModel
 
 @{
     ViewBag.Title = "Tableau de bord";
@@ -18,10 +18,10 @@
             <div class="card text-white bg-primary h-100">
                 <div class="card-body">
                     <h5 class="card-title">Total des Patients</h5>
-                    <p class="card-text display-4">123</p>
+                    <p class="card-text display-4">@Model.TotalPatients</p>
                 </div>
                 <div class="card-footer">
-                    <small class="text-white">Mis à jour récemment</small>
+                    <small class="text-white">Par rapport à votre profil</small>
                 </div>
             </div>
         </div>
@@ -30,7 +30,7 @@
             <div class="card text-white bg-success h-100">
                 <div class="card-body">
                     <h5 class="card-title">Ordonnances Actives</h5>
-                    <p class="card-text display-4">45</p>
+                    <p class="card-text display-4">@Model.TotalPrescriptions</p>
                 </div>
                 <div class="card-footer">
                     <small class="text-white">Ordonnances en cours</small>
@@ -41,11 +41,11 @@
         <div class="col-lg-3 col-md-6 mb-4">
             <div class="card text-white bg-warning h-100">
                 <div class="card-body">
-                    <h5 class="card-title">Incompatibilités détectées</h5>
-                    <p class="card-text display-4">8</p>
+                    <h5 class="card-title">Incompatibilités</h5>
+                    <p class="card-text display-4">/</p>
                 </div>
                 <div class="card-footer">
-                    <small class="text-white">Sur les dernières ordonnances</small>
+                    <small class="text-white">Total contre indications</small>
                 </div>
             </div>
         </div>
@@ -54,7 +54,7 @@
             <div class="card text-white bg-danger h-100">
                 <div class="card-body">
                     <h5 class="card-title">Alertes Allergies</h5>
-                    <p class="card-text display-4">3</p>
+                    <p class="card-text display-4">/</p>
                 </div>
                 <div class="card-footer">
                     <small class="text-white">Critiques à vérifier</small>
@@ -66,29 +66,49 @@
     <!-- Section ordonnances en cours -->
     <div class="card mt-4">
         <div class="card-header">
-            <h5>Ordonnances en cours</h5>
+            <h5>Vos dernières ordonnances</h5>
         </div>
         <div class="card-body">
-            <table class="table table-hover">
-                <thead>
+            @if (Model.Prescriptions.Count > 0)
+            {
+                <table class="table table-hover">
+                    <thead>
                     <tr>
                         <th scope="col">ID</th>
                         <th scope="col">Patient</th>
-                        <th scope="col">Médicament</th>
-                        <th scope="col">Date de début</th>
+                        <th scope="col">Date de création</th>
                         <th scope="col">État</th>
+                        <th scope="col">Éditer</th>
                     </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <th scope="row">&</th>
-                        <td>Patient 1</td>
-                        <td>Médicaments</td>
-                        <td>19/08/2024</td>
-                        <td><span class="badge bg-info">En cours</span></td>
-                    </tr>
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                    @foreach (var prescription in Model.Prescriptions)
+                    {
+                        <tr>
+                            <th scope="row">@prescription.PrescriptionId</th>
+                            <td>@prescription.Patient.FirstName @prescription.Patient.LastName</td>
+                            <td>@prescription.CreatedAt</td>
+                            <td>
+                                @if (prescription.EndDate < DateOnly.FromDateTime(DateTime.Now))
+                                {
+                                    <span class="badge bg-success">En cours</span>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-danger">Terminée</span>
+                                }
+                            </td>
+                            <td>bouton</td>
+                        </tr>
+                    }
+                    </tbody>
+                </table>
+            }
+            else
+            {
+                <p class="mt-2 text-center">Aucune ordonnance en cours</p>
+            }
+            <a asp-controller="Prescription" asp-action="Create" class="btn btn-primary">Créer une nouvelle ordonnance</a>
         </div>
     </div>
 
@@ -98,24 +118,32 @@
             <h5>Derniers Patients</h5>
         </div>
         <div class="card-body">
-            <table class="table table-striped">
-                <thead>
+            @if (Model.Patients.Count > 0)
+            {
+                <table class="table table-striped">
+                    <thead>
                     <tr>
                         <th scope="col">ID</th>
                         <th scope="col">Nom</th>
                         <th scope="col">Date de création</th>
-                        <th scope="col">Antécédents</th>
+                        <th scope="col">Accéder</th>
                     </tr>
-                </thead>
-                <tbody>
+                    </thead>
+                    <tbody>
                     <tr>
                         <th scope="row">1</th>
                         <td>Nom</td>
                         <td>12/03/1993</td>
-                        <td>Un antécédent</td>
+                        <td>Bouton</td>
                     </tr>
-                </tbody>
-            </table>
+                    </tbody>
+                </table>
+            }
+            else
+            {
+                <p class="mt-2 text-center">Aucun patient enregistré pour votre profil</p>
+            }
+            <a asp-controller="Patient" asp-action="Add" class="btn btn-primary">Créer un nouveau patient</a>
         </div>
     </div>
 </div>
