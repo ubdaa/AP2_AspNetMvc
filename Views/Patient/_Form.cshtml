@@ -54,7 +54,7 @@
 </div>
 
 <div class="form-group">
-    <label asp-for="MedicalHistories"></label>
+    <label>Antécédents médicaux</label>
     <div class="col-sm-6">
         @Html.ListBoxFor(model => model.SelectedMedicalHistoryIds, new MultiSelectList(Model.DrpMedicalHistories,
         "Value", "Text"), new
@@ -67,7 +67,7 @@
 </div>
 
 <div class="form-group">
-    <label asp-for="Allergies"></label>
+    <label>Allergies</label>
     <div class="col-sm-6">
         @Html.ListBoxFor(model => model.SelectedAllergyIds, new MultiSelectList(Model.DrpAllergies,
             "Value", "Text"), new

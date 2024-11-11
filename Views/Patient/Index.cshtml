@@ -9,37 +9,37 @@
 
     @if (Model.Count() > 0)
     {
-        <table class="table-auto border-collapse overflow">
+        <table class="table table-striped table-hover">
             <thead>
-                <tr class="border-y">
-                    <th class="p-2">Id</th>
-                    <th class="p-2">Last Name</th>
-                    <th class="p-2">First Name</th>
-                    <th class="p-2">Age</th>
-                    <th class="p-2">Height</th>
-                    <th class="p-2">Weight</th>
-                    <th class="p-2">Gender</th>
-                    <th class="p-2">Details</th>
-                    <th class="p-2">Edit</th>
-                    <th class="p-2">Delete</th>
-                    <th class="p-2">Créer ordonnance</th>
+                <tr class="border-y text-center">
+                    <th>Id</th>
+                    <th>Last Name</th>
+                    <th>First Name</th>
+                    <th>Age</th>
+                    <th>Height</th>
+                    <th>Weight</th>
+                    <th>Gender</th>
+                    <th>Details</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
+                    <th>Créer ordonnance</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody class="text-center">
                 @foreach (Patient patient in Model)
                 {
-                    <tr class="border-y">
-                        <td class="p-2">@Html.DisplayFor(m => patient.PatientId)</td>
-                        <td class="p-2">@Html.DisplayFor(m => patient.LastName)</td>
-                        <td class="p-2">@Html.DisplayFor(m => patient.FirstName)</td>
-                        <td class="p-2">@Html.DisplayFor(m => patient.Age)</td>
-                        <td class="p-2">@Html.DisplayFor(m => patient.Height)</td>
-                        <td class="p-2">@Html.DisplayFor(m => patient.Weight)</td>
-                        <td class="p-2">@Html.DisplayFor(m => patient.Gender)</td>
-                        <td class="p-2 text-blue-600 text-decoration-underline"><a asp-action="ShowDetails" asp-route-id="@patient.PatientId">Show Details</a></td>
-                        <td class="p-2 text-blue-600 text-decoration-underline"><a asp-action="Edit" asp-route-id="@patient.PatientId">Edit</a></td>
-                        <td class="p-2 text-blue-600 text-decoration-underline"><a asp-action="Delete" asp-route-id="@patient.PatientId">Delete</a></td>
-                        <td class="p-2 text-blue-600 text-decoration-underline"><a asp-action="CreatePrescription" asp-route-id="@patient.PatientId">Créer ordonnance</a></td>
+                    <tr class="">
+                        <td>@Html.DisplayFor(m => patient.PatientId)</td>
+                        <td>@Html.DisplayFor(m => patient.LastName)</td>
+                        <td>@Html.DisplayFor(m => patient.FirstName)</td>
+                        <td>@Html.DisplayFor(m => patient.Age)</td>
+                        <td>@Html.DisplayFor(m => patient.Height)</td>
+                        <td>@Html.DisplayFor(m => patient.Weight)</td>
+                        <td>@Html.DisplayFor(m => patient.Gender)</td>
+                        <td><a asp-action="ShowDetails" asp-route-id="@patient.PatientId"><i class="bi bi-card-list"></i></a></td>
+                        <td><a asp-action="Edit" asp-route-id="@patient.PatientId"><i class="bi bi-pencil"></i></a></td>
+                        <td><a asp-action="Delete" asp-route-id="@patient.PatientId"><i class="bi bi-trash"></i></a></td>
+                        <td><a asp-action="CreatePrescription" asp-route-id="@patient.PatientId"><i class="bi bi-file-plus"></i></a></td>
                     </tr>
                 }
             </tbody>
@@ -50,28 +50,5 @@
         <p>Aucun patient dans la base</p>
     }
     
-    <a asp-action="Add" class="btn">Add a new patient</a>
-
-    <label class="swap swap-rotate">
-        <!-- this hidden checkbox controls the state -->
-        <input type="checkbox" class="theme-controller" value="dracula" />
-
-        <!-- sun icon -->
-        <svg
-            class="swap-off h-10 w-10 fill-current"
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 24 24">
-            <path
-                d="M5.64,17l-.71.71a1,1,0,0,0,0,1.41,1,1,0,0,0,1.41,0l.71-.71A1,1,0,0,0,5.64,17ZM5,12a1,1,0,0,0-1-1H3a1,1,0,0,0,0,2H4A1,1,0,0,0,5,12Zm7-7a1,1,0,0,0,1-1V3a1,1,0,0,0-2,0V4A1,1,0,0,0,12,5ZM5.64,7.05a1,1,0,0,0,.7.29,1,1,0,0,0,.71-.29,1,1,0,0,0,0-1.41l-.71-.71A1,1,0,0,0,4.93,6.34Zm12,.29a1,1,0,0,0,.7-.29l.71-.71a1,1,0,1,0-1.41-1.41L17,5.64a1,1,0,0,0,0,1.41A1,1,0,0,0,17.66,7.34ZM21,11H20a1,1,0,0,0,0,2h1a1,1,0,0,0,0-2Zm-9,8a1,1,0,0,0-1,1v1a1,1,0,0,0,2,0V20A1,1,0,0,0,12,19ZM18.36,17A1,1,0,0,0,17,18.36l.71.71a1,1,0,0,0,1.41,0,1,1,0,0,0,0-1.41ZM12,6.5A5.5,5.5,0,1,0,17.5,12,5.51,5.51,0,0,0,12,6.5Zm0,9A3.5,3.5,0,1,1,15.5,12,3.5,3.5,0,0,1,12,15.5Z" />
-        </svg>
-
-        <!-- moon icon -->
-        <svg
-            class="swap-on h-10 w-10 fill-current"
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 24 24">
-            <path
-                d="M21.64,13a1,1,0,0,0-1.05-.14,8.05,8.05,0,0,1-3.37.73A8.15,8.15,0,0,1,9.08,5.49a8.59,8.59,0,0,1,.25-2A1,1,0,0,0,8,2.36,10.14,10.14,0,1,0,22,14.05,1,1,0,0,0,21.64,13Zm-9.5,6.69A8.14,8.14,0,0,1,7.08,5.22v.27A10.15,10.15,0,0,0,17.22,15.63a9.79,9.79,0,0,0,2.1-.22A8.11,8.11,0,0,1,12.14,19.73Z" />
-        </svg>
-    </label>
+    <a asp-action="Add" class="btn btn-primary">Add a new patient</a>
 </div>

@@ -106,19 +106,6 @@ public class PatientController : Controller
         return View(patient);
     } 
     
-    /*[HttpPost]
-    public IActionResult Delete(Patient patient)
-    {
-        Patient? patientTemp =  _dbContext.Patients.FirstOrDefault(p => p.PatientId == patient.PatientId);
-
-        if (patientTemp == null) return NotFound();
-
-        _dbContext.Patients.Remove(patientTemp);
-        _dbContext.SaveChanges();
-        
-        return RedirectToAction("Index");
-    }*/
-
     [HttpGet]
     public async Task<IActionResult> Edit(int id)
     {
