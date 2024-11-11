@@ -29,11 +29,11 @@
         <div class="col-lg-3 col-md-6 mb-4">
             <div class="card text-white bg-success h-100">
                 <div class="card-body">
-                    <h5 class="card-title">Ordonnances Actives</h5>
+                    <h5 class="card-title">Total d'Ordonnances</h5>
                     <p class="card-text display-4">@Model.TotalPrescriptions</p>
                 </div>
                 <div class="card-footer">
-                    <small class="text-white">Ordonnances en cours</small>
+                    <small class="text-white">Total de toutes vos ordonnances</small>
                 </div>
             </div>
         </div>
@@ -71,8 +71,8 @@
         <div class="card-body">
             @if (Model.Prescriptions.Count > 0)
             {
-                <table class="table table-hover">
-                    <thead>
+                <table class="table table-sm table-hover">
+                    <thead class="text-center">
                     <tr>
                         <th scope="col">ID</th>
                         <th scope="col">Patient</th>
@@ -81,7 +81,7 @@
                         <th scope="col">Éditer</th>
                     </tr>
                     </thead>
-                    <tbody>
+                    <tbody class="text-center">
                     @foreach (var prescription in Model.Prescriptions)
                     {
                         <tr>
@@ -93,12 +93,16 @@
                                 {
                                     <span class="badge bg-success">En cours</span>
                                 }
+                                else if (prescription.EndDate == null)
+                                {
+                                    <span class="badge bg-secondary text-white">En édition</span>
+                                }
                                 else
                                 {
                                     <span class="badge bg-danger">Terminée</span>
                                 }
                             </td>
-                            <td>bouton</td>
+                            <td><a asp-action="Edit" asp-controller="Prescription" asp-route-id="@prescription.PrescriptionId"><i class="bi bi-pencil"></i></a></td>
                         </tr>
                     }
                     </tbody>
@@ -115,27 +119,30 @@
     <!-- Section derniers patients -->
     <div class="card mt-4">
         <div class="card-header">
-            <h5>Derniers Patients</h5>
+            <h5>Derniers patients ajoutés</h5>
         </div>
         <div class="card-body">
             @if (Model.Patients.Count > 0)
             {
-                <table class="table table-striped">
-                    <thead>
+                <table class="table table-sm table-hover">
+                    <thead class="text-center">
                     <tr>
                         <th scope="col">ID</th>
                         <th scope="col">Nom</th>
                         <th scope="col">Date de création</th>
-                        <th scope="col">Accéder</th>
+                        <th scope="col">Éditer</th>
                     </tr>
                     </thead>
-                    <tbody>
-                    <tr>
-                        <th scope="row">1</th>
-                        <td>Nom</td>
-                        <td>12/03/1993</td>
-                        <td>Bouton</td>
-                    </tr>
+                    <tbody class="text-center">
+                        @foreach (var patient in Model.Patients)
+                        {
+                            <tr>
+                                <th scope="row">@patient.PatientId</th>
+                                <td>@patient.FirstName @patient.LastName</td>
+                                <td>@patient.CreatedAt</td>
+                                <td><a asp-action="Edit" asp-controller="Patient" asp-route-id="@patient.PatientId"><i class="bi bi-pencil"></i></a></td>
+                            </tr>
+                        }
                     </tbody>
                 </table>
             }
@@ -145,5 +152,63 @@
             }
             <a asp-controller="Patient" asp-action="Add" class="btn btn-primary">Créer un nouveau patient</a>
         </div>
+    </div>
+    
+    <h3 class="my-4">Statistiques</h3>
+
+    <!-- Section statistiques -->
+    <div class="row my-4">
+        
+        <div class="col-4">
+            <div class="card h-100">
+                <div class="card-header">
+                    <h5>Patients avec le plus de consultations</h5>
+                </div>
+                <div class="card-body">
+                    <canvas id="myChart"></canvas>
+                </div>
+
+                <script>
+                    const data = @Html.Raw(Json.Serialize(ViewBag.PatientsData));
+                    const labels = @Html.Raw(Json.Serialize(ViewBag.PatientsLabels));
+
+                    const ctx = document.getElementById('myChart').getContext('2d');
+                    const myChart = new Chart(ctx, {
+                        type: 'pie',
+                        data: {
+                            labels: labels, // Labels
+                            datasets: [{
+                                label: 'Consultations',
+                                data: data, // Les données
+                                borderColor: [
+                                    'rgba(54, 162, 235, 1)',
+                                    'rgba(255, 99, 132, 1)',
+                                    'rgba(255, 206, 86, 1)',
+                                    'rgba(75, 192, 192, 1)',
+                                    'rgba(153, 102, 255, 1)'
+                                ],
+                                backgroundColor: [
+                                    'rgba(54, 162, 235, 0.2)',
+                                    'rgba(255, 99, 132, 0.2)',
+                                    'rgba(255, 206, 86, 0.2)',
+                                    'rgba(75, 192, 192, 0.2)',
+                                    'rgba(153, 102, 255, 0.2)'
+                                ],
+                                borderWidth: 1
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            plugins: {
+                                legend: {
+                                    position: 'top',
+                                }
+                            }
+                        }
+                    });
+                </script>
+            </div>
+        </div>
+        
     </div>
 </div>
