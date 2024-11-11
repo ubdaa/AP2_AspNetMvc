@@ -7,7 +7,7 @@ Layout = "_Layout";
 <div class="w-full flex flex-col gap-2">
 
     <form asp-action="Edit" asp-controller="Patient" method="post" class="flex flex-col gap-4">
-        <h1 class="my-2 font-bold text-xl">Ajout d'un nouveau patient à la base !</h1>
+        <h1 class="my-2 font-bold text-xl">Editer le patient @Model.FirstName @Model.LastName</h1>
         
         @Html.Partial("_Form", Model)
 

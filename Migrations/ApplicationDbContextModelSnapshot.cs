@@ -170,6 +170,12 @@ namespace MedManager.Migrations
 
                     MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("MedicamentId"));
 
+                    b.Property<int>("Category")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime(6)");
+
                     b.Property<string>("Ingredients")
                         .IsRequired()
                         .HasMaxLength(1024)
@@ -184,6 +190,9 @@ namespace MedManager.Migrations
                         .IsRequired()
                         .HasMaxLength(1024)
                         .HasColumnType("varchar(1024)");
+
+                    b.Property<int>("Type")
+                        .HasColumnType("int");
 
                     b.HasKey("MedicamentId");
 
@@ -208,6 +217,9 @@ namespace MedManager.Migrations
 
                     b.Property<DateOnly>("BirthDate")
                         .HasColumnType("date");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime(6)");
 
                     b.Property<string>("DoctorId")
                         .IsRequired()
@@ -255,6 +267,9 @@ namespace MedManager.Migrations
                     b.Property<string>("AdditionalInformation")
                         .HasMaxLength(2048)
                         .HasColumnType("varchar(2048)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime(6)");
 
                     b.Property<string>("DoctorId")
                         .IsRequired()
