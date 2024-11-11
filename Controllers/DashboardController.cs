@@ -112,7 +112,7 @@ public class DashboardController : Controller
             var min = i * 20;
             var max = (i + 1) * 20;
             
-            var label = $"{min}-{max}";
+            var label = $"{min}-{max} ans";
             var count = patientsByAge.Where(p => p.Age >= min && p.Age < max).Sum(p => p.Count);
             
             patientsByAgeLabels.Add(label);
