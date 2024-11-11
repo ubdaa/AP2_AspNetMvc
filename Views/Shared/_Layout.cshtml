@@ -52,7 +52,7 @@
     <hr/>
     <ul class="nav nav-pills flex-column gap-2">
         <li class="nav-item">
-            <a class="nav-link" asp-action="Index">Accueil</a>
+            <a class="nav-link" asp-controller="Dashboard" asp-action="Index">Accueil</a>
         </li>
         @if (User?.Identity?.IsAuthenticated == true)
         {
@@ -68,7 +68,7 @@
             <li class="nav-item">
                 <a class="nav-link" asp-controller="Medicament" asp-action="Index">Gestion des médicaments</a>
             </li>
-            <li class="nav-item mt-lg-1">
+            <li class="nav-item">
                 <a class="btn btn-primary w-100" asp-controller="Prescription" asp-action="Create">Créer une ordonnance</a>
             </li>
         }

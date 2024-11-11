@@ -1,0 +1,121 @@
+@model dynamic
+
+@{
+    ViewBag.Title = "Tableau de bord";
+    Layout = "_Layout";
+}
+@{
+    ViewData["Title"] = "Dashboard";
+}
+
+<div class="container mt-4">
+    <!-- Section titre principal -->
+    <h1 class="mb-4">Tableau de bord</h1>
+
+    <!-- Statistiques principales -->
+    <div class="row">
+        <div class="col-lg-3 col-md-6 mb-4">
+            <div class="card text-white bg-primary h-100">
+                <div class="card-body">
+                    <h5 class="card-title">Total des Patients</h5>
+                    <p class="card-text display-4">123</p>
+                </div>
+                <div class="card-footer">
+                    <small class="text-white">Mis à jour récemment</small>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6 mb-4">
+            <div class="card text-white bg-success h-100">
+                <div class="card-body">
+                    <h5 class="card-title">Ordonnances Actives</h5>
+                    <p class="card-text display-4">45</p>
+                </div>
+                <div class="card-footer">
+                    <small class="text-white">Ordonnances en cours</small>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6 mb-4">
+            <div class="card text-white bg-warning h-100">
+                <div class="card-body">
+                    <h5 class="card-title">Incompatibilités détectées</h5>
+                    <p class="card-text display-4">8</p>
+                </div>
+                <div class="card-footer">
+                    <small class="text-white">Sur les dernières ordonnances</small>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6 mb-4">
+            <div class="card text-white bg-danger h-100">
+                <div class="card-body">
+                    <h5 class="card-title">Alertes Allergies</h5>
+                    <p class="card-text display-4">3</p>
+                </div>
+                <div class="card-footer">
+                    <small class="text-white">Critiques à vérifier</small>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Section ordonnances en cours -->
+    <div class="card mt-4">
+        <div class="card-header">
+            <h5>Ordonnances en cours</h5>
+        </div>
+        <div class="card-body">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Patient</th>
+                        <th scope="col">Médicament</th>
+                        <th scope="col">Date de début</th>
+                        <th scope="col">État</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th scope="row">&</th>
+                        <td>Patient 1</td>
+                        <td>Médicaments</td>
+                        <td>19/08/2024</td>
+                        <td><span class="badge bg-info">En cours</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Section derniers patients -->
+    <div class="card mt-4">
+        <div class="card-header">
+            <h5>Derniers Patients</h5>
+        </div>
+        <div class="card-body">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Nom</th>
+                        <th scope="col">Date de création</th>
+                        <th scope="col">Antécédents</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th scope="row">1</th>
+                        <td>Nom</td>
+                        <td>12/03/1993</td>
+                        <td>Un antécédent</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
