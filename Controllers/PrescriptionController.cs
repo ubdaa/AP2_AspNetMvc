@@ -65,11 +65,11 @@ public class PrescriptionController : Controller
         
         await _dbContext.SaveChangesAsync();
         
-        return RedirectToAction("Details", new { id = prescription.Entity.PrescriptionId });
+        return RedirectToAction("Edit", new { id = prescription.Entity.PrescriptionId });
     }
     
     [HttpGet]
-    public async Task<IActionResult> Details(int id)
+    public async Task<IActionResult> Edit(int id)
     {
         var prescription = await _dbContext.Prescriptions
             .Include(p => p.Patient)
@@ -100,7 +100,7 @@ public class PrescriptionController : Controller
     {
         if (!ModelState.IsValid)
         {
-            return RedirectToAction("Details", new { id = model.PrescriptionId });
+            return RedirectToAction("Edit", new { id = model.PrescriptionId });
         }
         
         var prescription = _dbContext.Prescriptions.FirstOrDefault(p => p.PrescriptionId == model.PrescriptionId);
@@ -112,7 +112,7 @@ public class PrescriptionController : Controller
         if (model.EndDate < model.StartDate)
         {
             ModelState.AddModelError("EndDate", "La date de fin doit être supérieure à la date de début.");
-            return RedirectToAction("Details", new { id = model.PrescriptionId });
+            return RedirectToAction("Edit", new { id = model.PrescriptionId });
         }
         
         prescription.StartDate = model.StartDate;
@@ -123,6 +123,6 @@ public class PrescriptionController : Controller
         _dbContext.Prescriptions.Update(prescription);
         _dbContext.SaveChanges();
         
-        return RedirectToAction("Details", new { id = prescription.PrescriptionId });
+        return RedirectToAction("Edit", new { id = prescription.PrescriptionId });
     }
 }

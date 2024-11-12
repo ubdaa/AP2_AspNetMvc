@@ -235,6 +235,5 @@ public class PatientController : Controller
         
         await _dbContext.SaveChangesAsync();
 
-        return RedirectToAction("Details", "Prescription", new { id = prescription.Entity.PrescriptionId });
-    }
+        return RedirectToAction("Edit", "Prescription", new { id = prescription.Entity.PrescriptionId }); }
 }
