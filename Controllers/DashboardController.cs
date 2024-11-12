@@ -1,3 +1,4 @@
+using System.Diagnostics.CodeAnalysis;
 using MedManager.Data;
 using MedManager.Models;
 using MedManager.ViewModel.Dashboard;
@@ -21,25 +22,10 @@ public class DashboardController : Controller
         _userManager = userManager;
     }
     
-    [HttpGet]
-    public IActionResult Index()
-    {
-        DashboardViewModel model = new DashboardViewModel();
+    #region STATS METHODS
 
-        // données principales pour le tableau de bord
-        model.Patients = _dbContext.Patients.Where(p => p.DoctorId == UserId)
-            .OrderByDescending(p => p.PatientId).Take(10).ToList();
-        model.Prescriptions = _dbContext.Prescriptions.Where(p => p.DoctorId == UserId)
-            .OrderByDescending(p => p.PrescriptionId).Take(10).ToList();
-        
-        model.TotalPatients = _dbContext.Patients.Count(p => p.DoctorId == UserId);
-        model.TotalPrescriptions = _dbContext.Prescriptions.Count(p => p.DoctorId == UserId);
-        
-        
-        
-        // données pour les statistiques
-        
-        // les patients les plus consultés
+    private void MostConsultedPatientsStat()
+    {
         var mostConsultedPatients = _dbContext.Patients.Where(p => p.DoctorId == UserId)
             .OrderByDescending(p => p.Prescriptions.Count).Take(5).ToList();
         
@@ -54,8 +40,10 @@ public class DashboardController : Controller
         
         ViewBag.PatientsLabels = patientsLabels;
         ViewBag.PatientsData = patientsData;
-        
-        // les médicaments les plus prescrits
+    }
+    
+    private void MostPrescribedMedicamentsStat()
+    {
         var mostPrescribedMedicaments = _dbContext.Medicaments.Select(m => new
         {
             Medicament = m,
@@ -73,9 +61,10 @@ public class DashboardController : Controller
         
         ViewBag.MedicamentsLabels = medicamentsLabels;
         ViewBag.MedicamentsData = medicamentsData;
-        
-        // allergies les plus courants
-        
+    }
+    
+    private void MostCommonAllergiesStat()
+    {
         var mostCommonAllergies = _dbContext.Allergies.Select(a => new
         {
             Allergy = a,
@@ -93,9 +82,10 @@ public class DashboardController : Controller
         
         ViewBag.AllergiesLabels = allergiesLabels;
         ViewBag.AllergiesData = allergiesData;
-        
-        // patients par catégorie d'âge
-
+    }
+    
+    private void PatientsByAgeStat()
+    {
         var patientsByAge = _dbContext.Patients.Where(p => p.DoctorId == UserId)
             .GroupBy(p => p.Age)
             .Select(g => new
@@ -121,8 +111,30 @@ public class DashboardController : Controller
         
         ViewBag.PatientsByAgeLabels = patientsByAgeLabels;
         ViewBag.PatientsByAgeData = patientsByAgeData;
+    }
+    
+    #endregion
+    
+    [HttpGet]
+    public IActionResult Index()
+    {
+        DashboardViewModel model = new DashboardViewModel();
+
+        // données principales pour le tableau de bord
+        model.Patients = _dbContext.Patients.Where(p => p.DoctorId == UserId)
+            .OrderByDescending(p => p.PatientId).Take(10).ToList();
+        model.Prescriptions = _dbContext.Prescriptions.Where(p => p.DoctorId == UserId)
+            .OrderByDescending(p => p.PrescriptionId).Take(10).ToList();
         
+        model.TotalPatients = _dbContext.Patients.Count(p => p.DoctorId == UserId);
+        model.TotalPrescriptions = _dbContext.Prescriptions.Count(p => p.DoctorId == UserId);
         
+        // données pour les statistiques
+        
+        MostConsultedPatientsStat();
+        MostPrescribedMedicamentsStat();
+        MostCommonAllergiesStat();
+        PatientsByAgeStat();
         
         return View(model);
     }

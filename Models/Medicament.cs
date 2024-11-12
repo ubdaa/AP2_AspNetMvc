@@ -34,148 +34,100 @@ public enum MedicamentCategories
 {
     [Display(Name = "Antidouleur")]
     Analgesic,
-
     [Display(Name = "Antibiotique")]
     Antibiotic,
-
     [Display(Name = "Antifongique")]
     Antifungal,
-
     [Display(Name = "Antiviral")]
     Antiviral,
-
     [Display(Name = "Antidépresseur")]
     Antidepressant,
-
     [Display(Name = "Antidiabétique")]
     Antidiabetic,
-
     [Display(Name = "Antihistaminique")]
     Antihistamine,
-
     [Display(Name = "Anti-inflammatoire")]
     AntiInflammatory,
-
     [Display(Name = "Antipsychotique")]
     Antipsychotic,
-
     [Display(Name = "Anxiolytique")]
     Anxiolytic,
-
     [Display(Name = "Antiémétique")]
     Antiemetic,
-
     [Display(Name = "Anticoagulant")]
     Anticoagulant,
-
     [Display(Name = "Antiplaquettaire")]
     Antiplatelet,
-
     [Display(Name = "Antispasmodique")]
     Antispasmodic,
-
     [Display(Name = "Bronchodilatateur")]
     Bronchodilator,
-
     [Display(Name = "Cardiovasculaire")]
     Cardiovascular,
-
     [Display(Name = "Corticostéroïde")]
     Corticosteroid,
-
     [Display(Name = "Dermatologique")]
     Dermatologic,
-
     [Display(Name = "Diurétique")]
     Diuretic,
-
     [Display(Name = "Gastro-intestinal")]
     Gastrointestinal,
-
     [Display(Name = "Hormone")]
     Hormone,
-
     [Display(Name = "Immunosuppresseur")]
     Immunosuppressant,
-
     [Display(Name = "Laxatif")]
     Laxative,
-
     [Display(Name = "Myorelaxant")]
     MuscleRelaxant,
-
     [Display(Name = "Narcotique")]
     Narcotic,
-
     [Display(Name = "Neurologique")]
     Neurological,
-
     [Display(Name = "Ophtalmologique")]
     Ophthalmic,
-
     [Display(Name = "Ostéoporose")]
     Osteoporosis,
-
     [Display(Name = "Respiratoire")]
     Respiratory,
-
     [Display(Name = "Sédatif")]
     Sedative,
-
     [Display(Name = "Stimulant")]
     Stimulant,
-
     [Display(Name = "Vaccin")]
     Vaccine,
-
     [Display(Name = "Supplément vitaminique")]
     VitaminSupplement,
-
     [Display(Name = "Antinéoplasique")]
     Antineoplastic,
-
     [Display(Name = "Antiparasitaire")]
     Antiparasitic,
-
     [Display(Name = "Hypnotique")]
     Hypnotic,
-
     [Display(Name = "Vasodilatateur")]
     Vasodilator,
-
     [Display(Name = "Antiépileptique")]
     Antiepileptic,
-
     [Display(Name = "Probiotique")]
     Probiotic,
-
     [Display(Name = "Anti-goutte")]
     Antigout,
-
     [Display(Name = "Urologique")]
     Urological,
-
     [Display(Name = "Fertilité")]
     Fertility,
-
     [Display(Name = "Traitement de la migraine")]
     MigraineTreatment,
-
     [Display(Name = "Antidote")]
     Antidote,
-
     [Display(Name = "Contraceptif")]
     Contraceptive,
-
     [Display(Name = "Antithyroïdien")]
     Antithyroid,
-
     [Display(Name = "Hépatoprotecteur")]
     Hepatoprotective,
-
     [Display(Name = "Anticholinergique")]
     Anticholinergic,
-
     [Display(Name = "Ostéoarthrite")]
     Osteoarthritis
 }

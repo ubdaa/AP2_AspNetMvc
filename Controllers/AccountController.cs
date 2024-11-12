@@ -37,7 +37,7 @@ public class AccountController : Controller
             return View(model);
         }
         
-        return RedirectToAction("Index", "Patient");
+        return RedirectToAction("Index", "Dashboard");
     }
 
     [HttpGet]
@@ -64,7 +64,7 @@ public class AccountController : Controller
             return View(model);
         }
 
-        return RedirectToAction("Index", "Patient");
+        return RedirectToAction("Index", "Dashboard");
     }
     
     [HttpGet]
