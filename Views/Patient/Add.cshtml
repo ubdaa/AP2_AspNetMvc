@@ -19,10 +19,14 @@
 {
     <script>
         $(document).ready(function () {
-            $('#MedicalHistories_dropdown').multiselect();
+            $('#MedicalHistories_dropdown').multiselect({
+                maxHeight: 400
+            });
         });
         $(document).ready(function () {
-            $('#Allergies_dropdown').multiselect();
+            $('#Allergies_dropdown').multiselect({
+                maxHeight: 400
+            });
         });
     </script>
 }
