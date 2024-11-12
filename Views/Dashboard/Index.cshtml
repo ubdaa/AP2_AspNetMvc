@@ -134,15 +134,15 @@
                     </tr>
                     </thead>
                     <tbody class="text-center">
-                        @foreach (var patient in Model.Patients)
-                        {
-                            <tr>
-                                <th scope="row">@patient.PatientId</th>
-                                <td>@patient.FirstName @patient.LastName</td>
-                                <td>@patient.CreatedAt</td>
-                                <td><a asp-action="Edit" asp-controller="Patient" asp-route-id="@patient.PatientId"><i class="bi bi-pencil"></i></a></td>
-                            </tr>
-                        }
+                    @foreach (var patient in Model.Patients)
+                    {
+                        <tr>
+                            <th scope="row">@patient.PatientId</th>
+                            <td>@patient.FirstName @patient.LastName</td>
+                            <td>@patient.CreatedAt</td>
+                            <td><a asp-action="Edit" asp-controller="Patient" asp-route-id="@patient.PatientId"><i class="bi bi-pencil"></i></a></td>
+                        </tr>
+                    }
                     </tbody>
                 </table>
             }
@@ -167,46 +167,6 @@
                 <div class="card-body">
                     <canvas id="patientsChart"></canvas>
                 </div>
-
-                <script>
-                    const patientsData = @Html.Raw(Json.Serialize(ViewBag.PatientsData));
-                    const patientsLabels = @Html.Raw(Json.Serialize(ViewBag.PatientsLabels));
-
-                    const patientsCtx = document.getElementById('patientsChart').getContext('2d');
-                    const patientsChart = new Chart(patientsCtx, {
-                        type: 'pie',
-                        data: {
-                            labels: patientsLabels, // Labels
-                            datasets: [{
-                                label: 'Consultations',
-                                data: patientsData, // Les données
-                                borderColor: [
-                                    'rgba(54, 162, 235, 1)',
-                                    'rgba(255, 99, 132, 1)',
-                                    'rgba(255, 206, 86, 1)',
-                                    'rgba(75, 192, 192, 1)',
-                                    'rgba(153, 102, 255, 1)'
-                                ],
-                                backgroundColor: [
-                                    'rgba(54, 162, 235, 0.2)',
-                                    'rgba(255, 99, 132, 0.2)',
-                                    'rgba(255, 206, 86, 0.2)',
-                                    'rgba(75, 192, 192, 0.2)',
-                                    'rgba(153, 102, 255, 0.2)'
-                                ],
-                                borderWidth: 1
-                            }]
-                        },
-                        options: {
-                            responsive: true,
-                            plugins: {
-                                legend: {
-                                    position: 'top',
-                                }
-                            }
-                        }
-                    });
-                </script>
             </div>
         </div>
         
@@ -218,48 +178,6 @@
                 <div class="card-body">
                     <canvas id="medicamentsChart"></canvas>
                 </div>
-
-                <script>
-                    const medicamentsData = @Html.Raw(Json.Serialize(ViewBag.MedicamentsData));
-                    const medicamentsLabels = @Html.Raw(Json.Serialize(ViewBag.MedicamentsLabels));
-
-                    const medicamentsCtx = document.getElementById('medicamentsChart').getContext('2d');
-                    const medicamentsChart = new Chart(medicamentsCtx, {
-                        type: 'pie',
-                        data: {
-                            labels: medicamentsLabels, // Labels
-                            datasets: [{
-                                label: 'Consultations',
-                                data: medicamentsData, // Les données
-                                borderColor:
-                                [
-                                    'rgba(255, 159, 64, 1)', 
-                                    'rgba(201, 203, 207, 1)', 
-                                    'rgba(54, 162, 235, 1)', 
-                                    'rgba(153, 102, 255, 1)', 
-                                    'rgba(255, 99, 132, 1)'
-                                ],
-                                backgroundColor: 
-                                [
-                                    'rgba(255, 159, 64, 0.2)', 
-                                    'rgba(201, 203, 207, 0.2)', 
-                                    'rgba(54, 162, 235, 0.2)', 
-                                    'rgba(153, 102, 255, 0.2)', 
-                                    'rgba(255, 99, 132, 0.2)'
-                                 ],
-                                borderWidth: 1
-                            }]
-                        },
-                        options: {
-                            responsive: true,
-                            plugins: {
-                                legend: {
-                                    position: 'top',
-                                }
-                            }
-                        }
-                    });
-                </script>
             </div>
         </div>
 
@@ -269,7 +187,7 @@
                     <h5>Allergies les plus fréquentes</h5>
                 </div>
                 <div class="card-body">
-                    <canvas id="myChart"></canvas>
+                    <canvas id="allergiesChart"></canvas>
                 </div>
             </div>
         </div>
@@ -286,48 +204,6 @@
                 <div class="card-body">
                     <canvas id="ageChart"></canvas>
                 </div>
-                
-                <script>
-                    const ageData = @Html.Raw(Json.Serialize(ViewBag.PatientsByAgeData));
-                    const ageLabels = @Html.Raw(Json.Serialize(ViewBag.PatientsByAgeLabels));
-
-                    const ageCtx = document.getElementById('ageChart').getContext('2d');
-                    const ageChart = new Chart(ageCtx, {
-                        type: 'bar',
-                        data: {
-                            labels: ageLabels, // Labels
-                            datasets: [{
-                                label: 'Patients',
-                                data: ageData, // Les données
-                                borderColor:
-                                [
-                                    'rgba(101, 179, 255, 1)', 
-                                    'rgba(153, 102, 255, 1)', 
-                                    'rgba(255, 99, 132, 1)', 
-                                    'rgba(54, 162, 235, 1)', 
-                                    'rgba(201, 203, 207, 1)'
-                                ],
-                                backgroundColor:
-                                [
-                                    'rgba(101, 179, 255, 0.2)', 
-                                    'rgba(153, 102, 255, 0.2)', 
-                                    'rgba(255, 99, 132, 0.2)', 
-                                    'rgba(54, 162, 235, 0.2)', 
-                                    'rgba(201, 203, 207, 0.2)'
-                                ],
-                                borderWidth: 1
-                            }]
-                        },
-                        options: {
-                            responsive: true,
-                            plugins: {
-                                legend: {
-                                    position: 'top',
-                                }
-                            }
-                        }
-                    });
-                </script>
             </div>
         </div>
 
@@ -345,3 +221,54 @@
         
     </div>
 </div>
+
+@section Scripts
+{
+    <script>
+        window.onload = function () {
+            // Most consulted patients chart
+            InitChart(
+                @Html.Raw(Json.Serialize(Model.MostConsultedPatientsStatVm.Data)),
+                @Html.Raw(Json.Serialize(Model.MostConsultedPatientsStatVm.Labels)),
+                '@Model.MostConsultedPatientsStatVm.Label',
+                '@Model.MostConsultedPatientsStatVm.ChartName',
+                '@Model.MostConsultedPatientsStatVm.ChartType',
+                @Html.Raw(Json.Serialize(Model.MostConsultedPatientsStatVm.BorderColor)),
+                @Html.Raw(Json.Serialize(Model.MostConsultedPatientsStatVm.BackgroundColor))
+            );
+            
+            // Most prescribed medicaments chart
+            InitChart(
+                @Html.Raw(Json.Serialize(Model.MostPrescribedMedicamentsStatVm.Data)),
+                @Html.Raw(Json.Serialize(Model.MostPrescribedMedicamentsStatVm.Labels)),
+                '@Model.MostPrescribedMedicamentsStatVm.Label',
+                '@Model.MostPrescribedMedicamentsStatVm.ChartName',
+                '@Model.MostPrescribedMedicamentsStatVm.ChartType',
+                @Html.Raw(Json.Serialize(Model.MostPrescribedMedicamentsStatVm.BorderColor)),
+                @Html.Raw(Json.Serialize(Model.MostPrescribedMedicamentsStatVm.BackgroundColor))
+            );
+            
+            // Most frequent allergies chart
+            InitChart(
+                @Html.Raw(Json.Serialize(Model.MostCommonAllergyStatVm.Data)),
+                @Html.Raw(Json.Serialize(Model.MostCommonAllergyStatVm.Labels)),
+                '@Model.MostCommonAllergyStatVm.Label',
+                '@Model.MostCommonAllergyStatVm.ChartName',
+                '@Model.MostCommonAllergyStatVm.ChartType',
+                @Html.Raw(Json.Serialize(Model.MostCommonAllergyStatVm.BorderColor)),
+                @Html.Raw(Json.Serialize(Model.MostCommonAllergyStatVm.BackgroundColor))
+            );
+
+            // Patients by age chart
+            InitChart(
+                @Html.Raw(Json.Serialize(Model.PatientsByAgeStatVm.Data)),
+                @Html.Raw(Json.Serialize(Model.PatientsByAgeStatVm.Labels)),
+                '@Model.PatientsByAgeStatVm.Label',
+                '@Model.PatientsByAgeStatVm.ChartName',
+                '@Model.PatientsByAgeStatVm.ChartType',
+                @Html.Raw(Json.Serialize(Model.PatientsByAgeStatVm.BorderColor)),
+                @Html.Raw(Json.Serialize(Model.PatientsByAgeStatVm.BackgroundColor))
+            );
+        };
+    </script>
+}

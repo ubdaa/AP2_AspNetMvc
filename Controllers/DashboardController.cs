@@ -24,7 +24,7 @@ public class DashboardController : Controller
     
     #region STATS METHODS
 
-    private void MostConsultedPatientsStat()
+    private ChartScriptViewModel MostConsultedPatientsStat()
     {
         var mostConsultedPatients = _dbContext.Patients.Where(p => p.DoctorId == UserId)
             .OrderByDescending(p => p.Prescriptions.Count).Take(5).ToList();
@@ -37,12 +37,34 @@ public class DashboardController : Controller
             patientsLabels.Add(patient.FirstName + " " + patient.LastName);
             patientsData.Add(patient.Prescriptions.Count);
         }
-        
-        ViewBag.PatientsLabels = patientsLabels;
-        ViewBag.PatientsData = patientsData;
+
+        return new ChartScriptViewModel()
+        {
+            Labels = patientsLabels,
+            Data = patientsData,
+            Label = "Consultations",
+            ChartName = "patientsChart",
+            ChartType = "pie",
+            BorderColor = new[]
+            {
+                "rgba(54, 162, 235, 1)",
+                "rgba(255, 99, 132, 1)",
+                "rgba(255, 206, 86, 1)",
+                "rgba(75, 192, 192, 1)",
+                "rgba(153, 102, 255, 1)"
+            },
+            BackgroundColor = new[]
+            {
+                "rgba(54, 162, 235, 0.2)",
+                "rgba(255, 99, 132, 0.2)",
+                "rgba(255, 206, 86, 0.2)",
+                "rgba(75, 192, 192, 0.2)",
+                "rgba(153, 102, 255, 0.2)"
+            }
+        };
     }
     
-    private void MostPrescribedMedicamentsStat()
+    private ChartScriptViewModel MostPrescribedMedicamentsStat()
     {
         var mostPrescribedMedicaments = _dbContext.Medicaments.Select(m => new
         {
@@ -59,11 +81,33 @@ public class DashboardController : Controller
             medicamentsData.Add(medicament.Prescriptions.Count);
         }
         
-        ViewBag.MedicamentsLabels = medicamentsLabels;
-        ViewBag.MedicamentsData = medicamentsData;
+        return new ChartScriptViewModel()
+        {
+            Labels = medicamentsLabels,
+            Data = medicamentsData,
+            Label = "Prescrits",
+            ChartName = "medicamentsChart",
+            ChartType = "pie",
+            BorderColor = new[]
+            {
+                "rgba(255, 206, 86, 1)",
+                "rgba(255, 159, 64, 1)",
+                "rgba(54, 162, 235, 1)",
+                "rgba(101, 179, 255, 1)",
+                "rgba(153, 102, 255, 1)"
+            },
+            BackgroundColor = new[]
+            {
+                "rgba(255, 206, 86, 0.2)",
+                "rgba(255, 159, 64, 0.2)",
+                "rgba(54, 162, 235, 0.2)",
+                "rgba(101, 179, 255, 0.2)",
+                "rgba(153, 102, 255, 0.2)"
+            }
+        };
     }
     
-    private void MostCommonAllergiesStat()
+    private ChartScriptViewModel MostCommonAllergiesStat()
     {
         var mostCommonAllergies = _dbContext.Allergies.Select(a => new
         {
@@ -79,12 +123,34 @@ public class DashboardController : Controller
             allergiesLabels.Add(allergy.Name);
             allergiesData.Add(allergy.Patients.Count);
         }
-        
-        ViewBag.AllergiesLabels = allergiesLabels;
-        ViewBag.AllergiesData = allergiesData;
+
+        return new ChartScriptViewModel()
+        {
+            Labels = allergiesLabels,
+            Data = allergiesData,
+            Label = "Allergie",
+            ChartName = "allergiesChart",
+            ChartType = "pie",
+            BorderColor = new[]
+            {
+                "rgba(255, 99, 132, 1)",
+                "rgba(54, 162, 235, 1)",
+                "rgba(255, 206, 86, 1)",
+                "rgba(75, 192, 192, 1)",
+                "rgba(153, 102, 255, 1)"
+            },
+            BackgroundColor = new[]
+            {
+                "rgba(255, 99, 132, 0.2)",
+                "rgba(54, 162, 235, 0.2)",
+                "rgba(255, 206, 86, 0.2)",
+                "rgba(75, 192, 192, 0.2)",
+                "rgba(153, 102, 255, 0.2)"
+            }
+        };
     }
     
-    private void PatientsByAgeStat()
+    private ChartScriptViewModel PatientsByAgeStat()
     {
         var patientsByAge = _dbContext.Patients.Where(p => p.DoctorId == UserId)
             .GroupBy(p => p.Age)
@@ -109,8 +175,30 @@ public class DashboardController : Controller
             patientsByAgeData.Add(count);
         }
         
-        ViewBag.PatientsByAgeLabels = patientsByAgeLabels;
-        ViewBag.PatientsByAgeData = patientsByAgeData;
+        return new ChartScriptViewModel()
+        {
+            Labels = patientsByAgeLabels,
+            Data = patientsByAgeData,
+            Label = "Patients",
+            ChartName = "ageChart",
+            ChartType = "bar",
+            BorderColor = new[]
+            {
+                "rgba(101, 179, 255, 1)",
+                "rgba(153, 102, 255, 1)",
+                "rgba(255, 99, 132, 1)",
+                "rgba(54, 162, 235, 1)",
+                "rgba(201, 203, 207, 1)"
+            },
+            BackgroundColor = new[]
+            {
+                "rgba(101, 179, 255, 0.2)",
+                "rgba(153, 102, 255, 0.2)",
+                "rgba(255, 99, 132, 0.2)",
+                "rgba(54, 162, 235, 0.2)",
+                "rgba(201, 203, 207, 0.2)"
+            }
+        };
     }
     
     #endregion
@@ -131,10 +219,10 @@ public class DashboardController : Controller
         
         // données pour les statistiques
         
-        MostConsultedPatientsStat();
-        MostPrescribedMedicamentsStat();
-        MostCommonAllergiesStat();
-        PatientsByAgeStat();
+        model.MostConsultedPatientsStatVm = MostConsultedPatientsStat();
+        model.MostPrescribedMedicamentsStatVm = MostPrescribedMedicamentsStat();
+        model.MostCommonAllergyStatVm = MostCommonAllergiesStat();
+        model.PatientsByAgeStatVm = PatientsByAgeStat();
         
         return View(model);
     }
