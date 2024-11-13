@@ -43,15 +43,15 @@
                                 <div class="modal-dialog modal-dialog-centered">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h5 class="modal-title">Modal title</h5>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            <h5 class="modal-title">Êtes-vous sûrs de supprimer @patient.FirstName @patient.LastName ?</h5>
+                                            <button type="button" class="btn btn-close" data-dismiss="modal" aria-label="Close"></button>
                                         </div>
                                         <div class="modal-body">
-                                            <p>Modal body text goes here.</p>
+                                            <p>Veuillez confirmer ci-dessous.</p>
                                         </div>
                                         <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                            <form asp-action="Delete" asp-route-id="@patient.PatientId" method="post"><button class="btn btn-primary">Confirmer</button></form>
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                                            <form asp-action="Delete" asp-route-id="@patient.PatientId" method="post"><button class="btn btn-danger">Confirmer</button></form>
                                         </div>
                                     </div>
                                 </div>

@@ -33,7 +33,7 @@ public class AccountController : Controller
 
         if (!result.Succeeded)
         {
-            ModelState.AddModelError("All", "Erreur lors de la connexion");
+            ModelState.AddModelError("", "Erreur lors de la connexion");
             return View(model);
         }
         
