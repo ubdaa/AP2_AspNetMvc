@@ -95,16 +95,28 @@ public class PatientController : Controller
         
         return RedirectToAction("Index");
     }
-
-    [HttpGet]
-    public IActionResult Delete(int id)
+    
+    public async Task<IActionResult> Delete(int id)
     {
-        Patient? patient = _dbContext.Patients.FirstOrDefault(p => p.PatientId == id);
+        try
+        {
+            Patient? patientToDelete = await _dbContext.Patients.Include(p => p.Prescriptions).Where(p => p.PatientId == id).FirstOrDefaultAsync();
+            if (patientToDelete == null) return NotFound();
+            
+            _dbContext.Patients.Remove(patientToDelete);
+            await _dbContext.SaveChangesAsync();
+            return RedirectToAction("Index", "Patient");
+        }
+        catch (DbUpdateException ex)
+        {
+            return RedirectToAction("Index", "Patient");
+        }
+        catch (Exception ex)
+        {
+            return RedirectToAction("Index", "Patient");
+        }
+    }
 
-        if (patient == null) return NotFound();
-
-        return View(patient);
-    } 
     
     [HttpGet]
     public async Task<IActionResult> Edit(int id)
