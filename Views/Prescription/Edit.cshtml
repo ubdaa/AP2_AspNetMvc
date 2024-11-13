@@ -1,20 +1,16 @@
-@model Tuple<Prescription, IEnumerable<Medicament>>
+@model PrescriptionViewModel
 
 @{
     ViewBag.Title = "Modification de l'ordonnance";
     Layout = "_Layout";
 }
 
-<h2>Modification de l'ordonnance : @Model.Item1.PrescriptionId</h2>
+<h2>Modification de l'ordonnance : @Model.PrescriptionId</h2>
 
-@await Html.PartialAsync("_PatientCard", Model.Item1.Patient)
+@await Html.PartialAsync("_PatientCard", Model.Patient)
 
 <form asp-action="Edit" asp-controller="Prescription" method="post">
-    @await Html.PartialAsync("_Form", new FormViewModel { PrescriptionId = Model.Item1.PrescriptionId, 
-        StartDate = Model.Item1.StartDate, EndDate = Model.Item1.EndDate, Dosage = Model.Item1.Dosage, 
-        AdditionalInformation = Model.Item1.AdditionalInformation, Medicaments = Model.Item2.ToList(),
-        SelectedMedicamentIds = Model.Item1.Medicaments.Select(m => m.MedicamentId).ToList()
-    } )
+    @await Html.PartialAsync("_Form", Model)
     
     <input class="btn btn-primary my-5" type="submit" value="Modifier l'ordonnance"/>
 </form>

@@ -91,12 +91,23 @@ public class PrescriptionController : Controller
             .Where(m => !m.Allergies.Any(a => allergiesPatient.Contains(a.AllergyId)) && !m.MedicalHistories.Any(mh => medicalHistoryPatient.Contains(mh.MedicalHistoryId)))
             .ToListAsync();
         
-        var model = new Tuple<Prescription, IEnumerable<Medicament>>(prescription, medicamentList);
+        var model = new PrescriptionViewModel()
+        {
+            AdditionalInformation = prescription.AdditionalInformation,
+            Dosage = prescription.Dosage,
+            EndDate = prescription.EndDate,
+            StartDate = prescription.StartDate,
+            Medicaments = medicamentList,
+            PrescriptionId = prescription.PrescriptionId,
+            Patient = prescription.Patient,
+            SelectedMedicamentIds = prescription.Medicaments.Select(m => m.MedicamentId).ToList(),
+        };
+
         return View(model);
     }
 
     [HttpPost]
-    public IActionResult Edit(FormViewModel model)
+    public IActionResult Edit(PrescriptionViewModel model)
     {
         if (!ModelState.IsValid)
         {

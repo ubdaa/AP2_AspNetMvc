@@ -2,9 +2,11 @@ using System.ComponentModel.DataAnnotations;
 
 namespace MedManager.ViewModel.Prescription;
 
-public class FormViewModel
+public class PrescriptionViewModel
 {
     public int PrescriptionId { get; set; }
+    
+    public Models.Patient Patient { get; set; }
     
     [Display(Name = "Date de début")]
     [Required(ErrorMessage = "La date de début est requis.")]
