@@ -5,6 +5,7 @@ using MedManager.ViewModel.Dashboard;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace MedManager.Controllers;
 
@@ -113,7 +114,8 @@ public class DashboardController : Controller
         {
             Allergy = a,
             Count = a.Patients.Count
-        }).OrderByDescending(a => a.Count).Take(5).Select(a => a.Allergy).ToList();
+        }).OrderByDescending(a => a.Count).Take(5).Select(a => a.Allergy)
+            .Include(a => a.Patients).ToList();
         
         var allergiesLabels = new List<string>();
         var allergiesData = new List<int>();

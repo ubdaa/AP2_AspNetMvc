@@ -89,9 +89,9 @@
                             <td>@prescription.Patient.FirstName @prescription.Patient.LastName</td>
                             <td>@prescription.CreatedAt</td>
                             <td>
-                                @if (prescription.EndDate < DateOnly.FromDateTime(DateTime.Now))
+                                @if (prescription.EndDate >= DateOnly.FromDateTime(DateTime.Now))
                                 {
-                                    <span class="badge bg-success">En cours</span>
+                                    <span class="badge bg-success text-white">En cours</span>
                                 }
                                 else if (prescription.EndDate == null)
                                 {
@@ -99,7 +99,7 @@
                                 }
                                 else
                                 {
-                                    <span class="badge bg-danger">Terminée</span>
+                                    <span class="badge bg-danger text-white">Terminée</span>
                                 }
                             </td>
                             <td><a asp-action="Edit" asp-controller="Prescription" asp-route-id="@prescription.PrescriptionId"><i class="bi bi-pencil"></i></a></td>

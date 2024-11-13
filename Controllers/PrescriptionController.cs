@@ -107,11 +107,29 @@ public class PrescriptionController : Controller
     }
 
     [HttpPost]
-    public IActionResult Edit(PrescriptionViewModel model)
+    public async Task<IActionResult> Edit(PrescriptionViewModel model)
     {
         if (!ModelState.IsValid)
         {
-            return RedirectToAction("Edit", new { id = model.PrescriptionId });
+            var p = await _dbContext.Prescriptions
+                .Include(p => p.Patient)
+                .ThenInclude(patient => patient.Allergies)
+                .Include(p => p.Doctor)
+                .Include(p => p.Medicaments)
+                .Include(prescription => prescription.Patient)
+                .ThenInclude(patient => patient.MedicalHistories)
+                .FirstOrDefaultAsync(p => p.PrescriptionId == model.PrescriptionId);
+            
+            var allergiesPatient = p.Patient.Allergies.Select(pa => pa.AllergyId).ToList();
+            var medicalHistoryPatient = p.Patient.MedicalHistories.Select(mh => mh.MedicalHistoryId).ToList();
+            var medicamentList = await _dbContext.Medicaments
+                .Where(m => !m.Allergies.Any(a => allergiesPatient.Contains(a.AllergyId)) && !m.MedicalHistories.Any(mh => medicalHistoryPatient.Contains(mh.MedicalHistoryId)))
+                .ToListAsync();
+
+            model.Patient = p.Patient;
+            model.Medicaments = medicamentList;
+            
+            return View(model);
         }
         
         var prescription = _dbContext.Prescriptions.FirstOrDefault(p => p.PrescriptionId == model.PrescriptionId);

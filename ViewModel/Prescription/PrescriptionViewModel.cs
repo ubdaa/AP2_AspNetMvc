@@ -6,13 +6,17 @@ public class PrescriptionViewModel
 {
     public int PrescriptionId { get; set; }
     
-    public Models.Patient Patient { get; set; }
+    public Models.Patient? Patient { get; set; }
     
     [Display(Name = "Date de début")]
+    [DataType(DataType.Date)]
+    [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
     [Required(ErrorMessage = "La date de début est requis.")]
     public DateOnly? StartDate { get; set; }
     
     [Display(Name = "Date de Fin")]    
+    [DataType(DataType.Date)]
+    [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
     [Required(ErrorMessage = "La date de fin est requis.")]
     public DateOnly? EndDate { get; set; }
     
