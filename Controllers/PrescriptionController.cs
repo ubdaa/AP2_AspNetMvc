@@ -97,9 +97,10 @@ public class PrescriptionController : Controller
             Dosage = prescription.Dosage,
             EndDate = prescription.EndDate,
             StartDate = prescription.StartDate,
-            Medicaments = medicamentList,
+            MedicamentsPatient = medicamentList,
             PrescriptionId = prescription.PrescriptionId,
             Patient = prescription.Patient,
+            MedicamentsPrescription = prescription.Medicaments
         };
 
         return View(model);
@@ -126,7 +127,8 @@ public class PrescriptionController : Controller
                 .ToListAsync();
 
             model.Patient = p.Patient;
-            model.Medicaments = medicamentList;
+            model.MedicamentsPatient = medicamentList;
+            model.MedicamentsPrescription = p.Medicaments;
             
             return View(model);
         }
@@ -164,6 +166,46 @@ public class PrescriptionController : Controller
             return RedirectToAction("Edit", new { id });
         }
 
+        try
+        {
+            var prescription = _dbContext.Prescriptions
+                .Include(p => p.Medicaments)
+                .FirstOrDefault(p => p.PrescriptionId == id);
+            
+            if (prescription == null)
+            {
+                return RedirectToAction("Edit", new { id });
+            }
+            
+            prescription.Medicaments.Add(medicament);
+            _dbContext.SaveChanges();
+        }
+        catch
+        {
+            // ignored
+        }
+
+        return RedirectToAction("Edit", new { id });
+    }
+
+    public IActionResult RemoveMedicament(int id, int medicamentId)
+    {
+        var prescription = _dbContext.Prescriptions
+            .Include(p => p.Medicaments)
+            .FirstOrDefault(p => p.PrescriptionId == id);
+        
+        var medicament = prescription?.Medicaments.FirstOrDefault(m => m.MedicamentId == medicamentId);
+        
+        if (prescription == null || medicament == null) return RedirectToAction("Edit", new { id });
+
+        try
+        {
+            prescription.Medicaments.Remove(medicament);
+            _dbContext.SaveChanges();
+        } catch {
+            // ignored
+        }
+        
         return RedirectToAction("Edit", new { id });
     }
 }

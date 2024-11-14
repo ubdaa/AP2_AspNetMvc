@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using Microsoft.EntityFrameworkCore;
 
 namespace MedManager.ViewModel.Prescription;
 
@@ -28,5 +29,6 @@ public class PrescriptionViewModel
     [StringLength(2048, MinimumLength = 0, ErrorMessage = "La posologie doit contenir moins de 2048 caractères.")]
     public string? AdditionalInformation { get; set; }
     
-    public List<Models.Medicament> Medicaments { get; set; } = new();
+    public List<Models.Medicament> MedicamentsPatient { get; set; } = new();
+    public List<Models.Medicament> MedicamentsPrescription { get; set; } = new();
 }

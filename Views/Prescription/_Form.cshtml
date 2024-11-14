@@ -1,3 +1,4 @@
+@using Microsoft.EntityFrameworkCore
 @model PrescriptionViewModel
 
 <input asp-for="PrescriptionId" type="hidden"/>
@@ -30,6 +31,43 @@
 
 <h3 class="mt-2 font-bold">Médicaments</h3>
 
+@if (Model.MedicamentsPrescription.Count == 0)
+{
+    <p class="text-center">Aucun médicament pour cette ordonnance</p>
+}
+else
+{
+    <table class="table table-striped table-hover table-sm">
+        <thead class="text-center">
+            <tr>
+                <th scope="col">Nom</th>
+                <th scope="col">Quantité</th>
+                <th scope="col">Ingrédients</th>
+                <th scope="col">Type</th>
+                <th scope="col">Catégorie</th>
+                <th scope="col">Supprimer</th>
+            </tr>
+        </thead>
+        <tbody class="text-center">
+        @foreach (var medicament in Model.MedicamentsPrescription)
+        {
+            <tr>
+                <td>@medicament.Name</td>
+                <td>@medicament.Quantity</td>
+                <td>@medicament.Ingredients</td>
+                <td>@medicament.Type</td>
+                <td>@medicament.Category</td>
+                <td>
+                    <a type="button" class="text-danger" asp-action="RemoveMedicament" asp-route-id="@Model.PrescriptionId"
+                       asp-route-medicamentId="@medicament.MedicamentId">
+                        <i class="bi bi-trash"></i></a>
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+}
+
 <button type="button" class="btn btn-secondary mx-auto" data-toggle="modal" data-target="#ajoutModal">
     Ajouter un médicament
 </button>
@@ -45,34 +83,40 @@
                 </button>
             </div>
             <div class="modal-body">
+                
+                @if (Model.MedicamentsPatient.Count == 0)
+                {
+                    <p class="text-center">Aucun médicament compatible avec votre patient</p>
+                } 
+                
                 <table class="table table-striped table-hover table-sm">
                     <thead class="text-center">
-                        <tr>
-                            <th scope="col">Nom</th>
-                            <th scope="col">Quantité</th>
-                            <th scope="col">Ingrédients</th>
-                            <th scope="col">Type</th>
-                            <th scope="col">Catégorie</th>
-                            <th scope="col">Ajouter</th>
-                        </tr>
+                    <tr>
+                        <th scope="col">Nom</th>
+                        <th scope="col">Quantité</th>
+                        <th scope="col">Ingrédients</th>
+                        <th scope="col">Type</th>
+                        <th scope="col">Catégorie</th>
+                        <th scope="col">Ajouter</th>
+                    </tr>
                     </thead>
                     <tbody class="text-center">
-                        @foreach (var medicament in Model.Medicaments)
-                        {
-                            <tr>
-                                <td>@medicament.Name</td>
-                                <td>@medicament.Quantity</td>
-                                <td>@medicament.Ingredients</td>
-                                <td>@medicament.Type</td>
-                                <td>@medicament.Category</td>
-                                <td>
-                                    <a type="button" class="text-primary" asp-action="AddMedicament" asp-route-id="@Model.PrescriptionId" 
-                                       asp-route-medicamentId="@medicament.MedicamentId">
-                                        <i class="bi bi-plus-square"></i>
-                                    </a>
-                                </td>
-                            </tr>
-                        }
+                    @foreach (var medicament in Model.MedicamentsPatient)
+                    {
+                        <tr>
+                            <td>@medicament.Name</td>
+                            <td>@medicament.Quantity</td>
+                            <td>@medicament.Ingredients</td>
+                            <td>@medicament.Type</td>
+                            <td>@medicament.Category</td>
+                            <td>
+                                <a type="button" class="text-primary" asp-action="AddMedicament" asp-route-id="@Model.PrescriptionId"
+                                   asp-route-medicamentId="@medicament.MedicamentId">
+                                    <i class="bi bi-plus-square"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    }
                     </tbody>
                 </table>
             </div>
