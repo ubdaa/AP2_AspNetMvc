@@ -5,37 +5,48 @@
     Layout = "_Layout";
 }
 
-<form class="mx-4" asp-action="Register" asp-controller="Account" method="post">
-    <h2 class="mb-2">Inscription du docteur</h2>
-    <div class="form-group mb-3">
-        <label asp-for="FirstName"></label>
-        <input asp-for="FirstName" class="form-control"/>
-        <span asp-validation-for="FirstName" class="text-danger"></span>
+<div class="container py-4">
+    <div class="d-flex justify-content-center">
+        <div class="card shadow rounded-lg" style="width: 100%; max-width: 1100px;">
+            <div class="card-header text-center" style="width: 100%;">
+                <h5 class="mb-0">Inscription du docteur</h5>
+            </div>
+
+            <div class="card-body">
+                <form asp-action="Register" asp-controller="Account" method="post">
+                    <div class="form-group mb-3">
+                        <label asp-for="FirstName"></label>
+                        <input asp-for="FirstName" class="form-control"/>
+                        <span asp-validation-for="FirstName" class="text-danger"></span>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label asp-for="LastName"></label>
+                        <input asp-for="LastName" class="form-control"/>
+                        <span asp-validation-for="LastName" class="text-danger"></span>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label asp-for="Email"></label>
+                        <input asp-for="Email" class="form-control"/>
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label asp-for="Username"></label>
+                        <input asp-for="Username" class="form-control"/>
+                        <span asp-validation-for="Username" class="text-danger"></span>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label asp-for="Password"></label>
+                        <input asp-for="Password" class="form-control"/>
+                        <span asp-validation-for="Password" class="text-danger"></span>
+                    </div>
+                    <span asp-validation-summary="All" class="text-danger"></span>
+                    
+                    <div class="mb-3">
+                        <input class="btn btn-primary" type="submit" value="S'inscrire"/>
+                    </div>
+                    <a class="link link-secondary" asp-action="Login" asp-controller="Account">Se connecter ?</a>
+                </form>
+            </div>
+        </div>
     </div>
-    <div class="form-group mb-3">
-        <label asp-for="LastName"></label>
-        <input asp-for="LastName" class="form-control"/>
-        <span asp-validation-for="LastName" class="text-danger"></span>
-    </div>
-    <div class="form-group mb-3">
-        <label asp-for="Email"></label>
-        <input asp-for="Email" class="form-control"/>
-        <span asp-validation-for="Email" class="text-danger"></span>
-    </div>
-    <div class="form-group mb-3">
-        <label asp-for="Username"></label>
-        <input asp-for="Username" class="form-control"/>
-        <span asp-validation-for="Username" class="text-danger"></span>
-    </div>
-    <div class="form-group mb-3">
-        <label asp-for="Password"></label>
-        <input asp-for="Password" class="form-control"/>
-        <span asp-validation-for="Password" class="text-danger"></span>
-    </div>
-    <span asp-validation-summary="All" class="text-danger"></span>
-    
-    <div class="mb-3">
-        <input class="btn btn-primary" type="submit" value="S'inscrire"/>
-    </div>
-    <a class="link link-secondary" asp-action="Login" asp-controller="Account">Se connecter ?</a>
-</form>
+</div>

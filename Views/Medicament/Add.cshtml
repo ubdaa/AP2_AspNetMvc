@@ -5,11 +5,20 @@
     Layout = "_Layout";
 }
 
-<h2>Ajout d'un médicament</h2>
+<div class="container py-4">
+    <div class="d-flex justify-content-center">
+        <div class="card shadow rounded-lg" style="width: 100%; max-width: 1100px;">
+            <div class="card-header text-center" style="width: 100%;">
+                <h5 class="mb-0">Ajout d'un médicament</h5>
+            </div>
 
-<form asp-action="Add" method="post" class="w-full flex flex-col gap-4">
+            <div class="card-body">
+                <form asp-action="Add" method="post" class="w-full flex flex-col gap-4">
+                    @await Html.PartialAsync("_Form", Model)
 
-    @Html.Partial("_Form", Model)
-
-    <input class="btn btn-primary my-5" type="submit" value="Ajouter le médicament"/>
-</form>
+                    <input class="btn btn-primary my-5" type="submit" value="Ajouter le médicament"/>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

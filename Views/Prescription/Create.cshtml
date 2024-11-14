@@ -5,27 +5,36 @@
     Layout = "_Layout";
 }
 
-
-<form asp-action="Create" asp-controller="Prescription" method="post" class="flex flex-column gap-4">
-
-    @if (Model.Patients.Any())
-    {
-        <label>Créer l'ordonnance : Choisir pour quel patient vous voulez créer cet ordonnance</label>
-        <select asp-for="PatientId" class="form-control mb-2">
-            <option value="">Choisir un patient</option>
-            @foreach (var patient in Model.Patients)
-            {
-                <option value="@patient.PatientId">@patient.FirstName @patient.LastName</option>
-            }
-        </select>
-        <input class="btn btn-primary mt-2" type="submit" value="Créer l'ordonnance"/>
-    }
-    else
-    {
-        <p>Aucun patient dans la base</p>
-        <a asp-controller="Patient" asp-action="Add" class="btn btn-primary">Créer un nouveau patient</a>
-    }
-    
-    <span asp-validation-for="PatientId" class="text-danger"></span>
-
-</form>
+<div class="container py-4">
+    <div class="d-flex justify-content-center">
+        <div class="card shadow rounded-lg" style="width: 100%; max-width: 1100px;">
+            <div class="card-header text-center" style="width: 100%;">
+                <h5 class="mb-0">Modification de l'ordonnance</h5>
+            </div>
+            
+            <div class="card-body">
+                <form asp-action="Create" asp-controller="Prescription" method="post" class="flex flex-column gap-4">
+                    @if (Model.Patients.Any())
+                    {
+                        <label>Créer l'ordonnance : Choisir pour quel patient vous voulez créer cet ordonnance</label>
+                        <select asp-for="PatientId" class="form-control mb-2">
+                            <option value="">Choisir un patient</option>
+                            @foreach (var patient in Model.Patients)
+                            {
+                                <option value="@patient.PatientId">@patient.FirstName @patient.LastName</option>
+                            }
+                        </select>
+                        <input class="btn btn-primary mt-2" type="submit" value="Créer l'ordonnance"/>
+                    }
+                    else
+                    {
+                        <p>Aucun patient dans la base</p>
+                        <a asp-controller="Patient" asp-action="Add" class="btn btn-primary">Créer un nouveau patient</a>
+                    }
+                    
+                    <span asp-validation-for="PatientId" class="text-danger"></span>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
