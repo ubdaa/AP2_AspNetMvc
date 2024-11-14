@@ -100,7 +100,6 @@ public class PrescriptionController : Controller
             Medicaments = medicamentList,
             PrescriptionId = prescription.PrescriptionId,
             Patient = prescription.Patient,
-            SelectedMedicamentIds = prescription.Medicaments.Select(m => m.MedicamentId).ToList(),
         };
 
         return View(model);
@@ -153,5 +152,18 @@ public class PrescriptionController : Controller
         _dbContext.SaveChanges();
         
         return RedirectToAction("Edit", new { id = prescription.PrescriptionId });
+    }
+
+    [HttpGet]
+    public IActionResult AddMedicament(int id, int medicamentId)
+    {
+        var medicament = _dbContext.Medicaments.FirstOrDefault(m => m.MedicamentId == medicamentId);
+        
+        if (medicament == null)
+        {
+            return RedirectToAction("Edit", new { id });
+        }
+
+        return RedirectToAction("Edit", new { id });
     }
 }

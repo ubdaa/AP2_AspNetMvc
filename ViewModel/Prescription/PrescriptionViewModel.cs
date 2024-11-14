@@ -29,5 +29,4 @@ public class PrescriptionViewModel
     public string? AdditionalInformation { get; set; }
     
     public List<Models.Medicament> Medicaments { get; set; } = new();
-    public List<int> SelectedMedicamentIds { get; set; } = new();
 }
