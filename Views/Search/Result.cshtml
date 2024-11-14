@@ -5,4 +5,95 @@
     Layout = "_Layout";
 }
 
-<h2>title</h2>
+@if (Model.Patients.Count == 0 && Model.Allergies.Count == 0
+                               && Model.MedicalHistories.Count == 0
+                               && Model.Medicaments.Count == 0
+                               && Model.Prescriptions.Count == 0)
+{
+    <h2 class="text-center">Aucun résultat trouvé</h2>
+}
+
+@if (Model.Patients.Count > 0)
+{
+    <div class="container py-4">
+        <div class="d-flex justify-content-center">
+            <div class="card shadow rounded-lg" style="width: 100%; max-width: 1100px;">
+                <div class="card-header text-center" style="width: 100%;">
+                    <h5 class="mb-0">Patients trouvés</h5>
+                </div>
+
+                <div class="card-body">
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@if (Model.Allergies.Count > 0)
+{
+    <div class="container py-4">
+        <div class="d-flex justify-content-center">
+            <div class="card shadow rounded-lg" style="width: 100%; max-width: 1100px;">
+                <div class="card-header text-center" style="width: 100%;">
+                    <h5 class="mb-0">Allergies trouvées</h5>
+                </div>
+
+                <div class="card-body">
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@if (Model.MedicalHistories.Count > 0)
+{
+    <div class="container py-4">
+        <div class="d-flex justify-content-center">
+            <div class="card shadow rounded-lg" style="width: 100%; max-width: 1100px;">
+                <div class="card-header text-center" style="width: 100%;">
+                    <h5 class="mb-0">Antécédents trouvés</h5>
+                </div>
+
+                <div class="card-body">
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@if (Model.Medicaments.Count > 0)
+{
+    <div class="container py-4">
+        <div class="d-flex justify-content-center">
+            <div class="card shadow rounded-lg" style="width: 100%; max-width: 1100px;">
+                <div class="card-header text-center" style="width: 100%;">
+                    <h5 class="mb-0">Médicaments trouvés</h5>
+                </div>
+
+                <div class="card-body">
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@if (Model.Prescriptions.Count > 0)
+{
+    <div class="container py-4">
+        <div class="d-flex justify-content-center">
+            <div class="card shadow rounded-lg" style="width: 100%; max-width: 1100px;">
+                <div class="card-header text-center" style="width: 100%;">
+                    <h5 class="mb-0">Ordonnances trouvées</h5>
+                </div>
+
+                <div class="card-body">
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+}

@@ -95,7 +95,7 @@ public class PatientController : Controller
         
         return RedirectToAction("Index");
     }
-    
+       
     public async Task<IActionResult> Delete(int id)
     {
         try
@@ -107,16 +107,11 @@ public class PatientController : Controller
             await _dbContext.SaveChangesAsync();
             return RedirectToAction("Index", "Patient");
         }
-        catch (DbUpdateException ex)
-        {
-            return RedirectToAction("Index", "Patient");
-        }
         catch (Exception ex)
         {
             return RedirectToAction("Index", "Patient");
         }
     }
-
     
     [HttpGet]
     public async Task<IActionResult> Edit(int id)
