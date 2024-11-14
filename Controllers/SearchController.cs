@@ -1,4 +1,5 @@
 using MedManager.Data;
+using MedManager.Models;
 using MedManager.ViewModel.Search;
 using Microsoft.AspNetCore.Mvc;
 
@@ -30,10 +31,11 @@ public class SearchController : Controller
         model.MedicalHistories = _dbContext.MedicalHistories
             .Where(mh => mh.Name.Contains(q))
             .ToList();
-        
+
         model.Medicaments = _dbContext.Medicaments
-            .Where(m => m.Category.ToString().Contains(q) || m.Type.ToString().Contains(q) || m.Name.Contains(q)
-            || m.Allergies.Any(a => model.Allergies.Contains(a)) || m.MedicalHistories.Any(mh => model.MedicalHistories.Contains(mh)))
+            .Where(m => m.Name.Contains(q) || m.Ingredients.Contains(q) || m.Quantity.Contains(q)
+                        || m.Allergies.Any(a => a.Name.Contains(q))
+                        || m.MedicalHistories.Any(mh => mh.Name.Contains(q)))
             .ToList();
         
         model.Prescriptions = _dbContext.Prescriptions
