@@ -18,24 +18,28 @@ public class SearchController : Controller
     {
         if (string.IsNullOrWhiteSpace(q)) return NotFound();
 
+        q = q.ToLower();
+
         ResultViewModel model = new();
         
         model.Patients = _dbContext.Patients
-            .Where(p => p.FirstName.Contains(q) || p.LastName.Contains(q))
+            .Where(p => p.FirstName.ToLower().Contains(q) || p.LastName.ToLower().Contains(q))
             .ToList();
         
         model.Allergies = _dbContext.Allergies
-            .Where(a => a.Name.Contains(q))
+            .Where(a => a.Name.ToLower().Contains(q))
             .ToList();
         
         model.MedicalHistories = _dbContext.MedicalHistories
-            .Where(mh => mh.Name.Contains(q))
+            .Where(mh => mh.Name.ToLower().Contains(q))
             .ToList();
 
         model.Medicaments = _dbContext.Medicaments
-            .Where(m => m.Name.Contains(q) || m.Ingredients.Contains(q) || m.Quantity.Contains(q)
-                        || m.Allergies.Any(a => a.Name.Contains(q))
-                        || m.MedicalHistories.Any(mh => mh.Name.Contains(q)))
+            .Where(m => m.Name.ToLower().Contains(q) 
+                        || m.Ingredients.ToLower().Contains(q) 
+                        || m.Quantity.ToLower().Contains(q)
+                        || m.Allergies.Any(a => a.Name.ToLower().Contains(q))
+                        || m.MedicalHistories.Any(mh => mh.Name.ToLower().Contains(q)))
             .ToList();
         
         model.Prescriptions = _dbContext.Prescriptions
