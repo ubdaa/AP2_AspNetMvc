@@ -5,7 +5,7 @@ using iText.Layout.Properties;
 using MedManager.Models;
 namespace MedManager.Services;
 
-public class PdfService
+public static class PdfService
 {
     public static void GeneratePrescriptionPdf(string filePath, Prescription prescription)
     {
