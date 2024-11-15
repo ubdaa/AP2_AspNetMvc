@@ -15,6 +15,8 @@ public class PrescriptionController : Controller
     private readonly ApplicationDbContext _dbContext;
     private readonly UserManager<Doctor> _userManager;
     
+    private string UserId => _userManager.GetUserId(User);
+    
     public PrescriptionController(ApplicationDbContext dbContext, UserManager<Doctor> userManager)
     {
         _dbContext = dbContext;
@@ -24,7 +26,7 @@ public class PrescriptionController : Controller
     [HttpGet]
     public IActionResult Index()
     {
-        return View();
+        return View(_dbContext.Prescriptions.Include(p => p.Patient).Where(p => p.DoctorId == UserId).ToList());
     }
     
     [HttpGet]
