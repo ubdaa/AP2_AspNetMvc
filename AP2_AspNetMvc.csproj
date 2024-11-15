@@ -15,18 +15,25 @@
 
     <ItemGroup>
       <Compile Remove="obj\**" />
+      <Compile Remove="TestUnitaire\obj\**" />
+      <Compile Update="UnitTest\UnitTest1.cs">
+        <Link>TestUnitaire\UnitTest1.cs</Link>
+      </Compile>
     </ItemGroup>
 
     <ItemGroup>
       <EmbeddedResource Remove="obj\**" />
+      <EmbeddedResource Remove="TestUnitaire\obj\**" />
     </ItemGroup>
 
     <ItemGroup>
       <Content Remove="obj\**" />
+      <Content Remove="TestUnitaire\obj\**" />
     </ItemGroup>
 
     <ItemGroup>
       <None Remove="obj\**" />
+      <None Remove="TestUnitaire\obj\**" />
     </ItemGroup>
 
     <ItemGroup>
@@ -41,6 +48,7 @@
         <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       </PackageReference>
       <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="8.0.2" />
+      <PackageReference Include="xunit.extensibility.core" Version="2.5.3" />
     </ItemGroup>
 
     <ItemGroup>
@@ -50,6 +58,9 @@
       <_ContentIncludedByDefault Remove="Models\Shared\_Layout.cshtml" />
       <_ContentIncludedByDefault Remove="Models\Shared\_Layout2346.cshtml" />
       <_ContentIncludedByDefault Remove="Models\Shared\_ValidationScriptsPartial.cshtml" />
+      <_ContentIncludedByDefault Remove="TestUnitaire\obj\project.assets.json" />
+      <_ContentIncludedByDefault Remove="TestUnitaire\obj\project.packagespec.json" />
+      <_ContentIncludedByDefault Remove="TestUnitaire\obj\TestUnitaire.csproj.nuget.dgspec.json" />
     </ItemGroup>
 
     <ItemGroup>
