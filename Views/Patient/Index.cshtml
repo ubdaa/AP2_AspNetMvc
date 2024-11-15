@@ -7,7 +7,7 @@
     
     <h1 class="text-center text-xl font-bold my-4">Liste des patients</h1>
 
-    @if (Model.Count() > 0)
+    @if (Model.Any())
     {
         @await Html.PartialAsync("Tables/_PatientTable", Model)
     }

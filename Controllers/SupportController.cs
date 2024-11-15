@@ -9,4 +9,9 @@ public class SupportController : Controller
     {
         return View();
     }
+
+    public IActionResult Cgu()
+    {
+        return View();
+    }
 }

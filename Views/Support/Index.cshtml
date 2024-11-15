@@ -1,8 +1,10 @@
-@model TModel
+@model dynamic
 
 @{
     ViewBag.Title = "Support";
     Layout = "_Layout";
 }
 
-<h2>Support</h2>
+<h2 class="text-center">Support</h2>
+
+@await Html.PartialAsync("_Faq")

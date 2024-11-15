@@ -1,0 +1,59 @@
+<div class="accordion my-4" id="accordionExample">
+    <div class="card">
+        <div class="card-header" id="headingOne">
+            <h2 class="mb-0">
+                <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                    1) Comment ajouter un patient ?
+                </button>
+            </h2>
+        </div>
+
+        <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+            <div class="card-body">
+                Pour ajouter un patient, il vous suffit de vous rendre sur la page d'accueil de l'application, cliquer sur le bouton "Ajouter un patient" sur votre tableau de bord médecin, puis de remplir le formulaire qui vous sera proposé.
+            </div>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header" id="headingTwo">
+            <h2 class="mb-0">
+                <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                    2) Comment créer une ordonnance pour un patient ?
+                </button>
+            </h2>
+        </div>
+        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+            <div class="card-body">
+                Pour créer une ordonnance pour un patient, il vous suffit de cliquer sur le bouton "Créer une ordonnance" sur la barre latérale de l'application, puis de choisir pour quel patient vous voulez créer votre ordonnance. Vous pourrez ensuite ajouter des médicaments (compatibles avec votre patient), préciser la date de l'ordonnance, la posologie et les informations supplémentaires. Note : Les médicaments ajoutés sont automatiquement sauvegardés.
+            </div>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header" id="headingThree">
+            <h2 class="mb-0">
+                <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                    3) Comment contacter le support technique de MedManager ?
+                </button>
+            </h2>
+        </div>
+        <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
+            <div class="card-body">
+                Pour contacter le support technique de MedManager, il vous suffit de vous rendre sur la page d'accueil de l'application, puis de cliquer sur le bouton "Support" sur votre barre latérale. Vous pourrez ensuite poser votre question ou votre problème via le formulaire de contact, et un membre de l'équipe MedManager vous répondra dans les plus brefs délais.
+            </div>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header" id="headingFour">
+            <h2 class="mb-0">
+                <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                    4) Comment sont gérées vos données et celles de vos patients ?
+                </button>
+            </h2>
+        </div>
+        <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordionExample">
+            <div class="card-body">
+                Les données de nos utilisateurs et de leurs patients sont stockées de manière sécurisée sur nos serveurs, et ne sont accessibles qu'aux utilisateurs autorisés. Nous utilisons des protocoles de sécurité avancés pour protéger vos données et celles de vos patients, et nous ne partageons jamais ces données avec des tiers sans votre consentement. Pour plus d'informations sur notre politique de confidentialité, veuillez consulter nos conditions générales d'utilisation <a class="text-primary" asp-controller="Support" asp-action="Cgu">ici</a>.
+            </div>
+        </div>
+    </div>
+</div>
