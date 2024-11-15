@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using MedManager.Models;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace MedManager.ViewModel.Medicament;
 
@@ -30,9 +31,10 @@ public class MedicamentViewModel
     [Required(ErrorMessage = "La catégorie de médicament est requise.")]
     public MedicamentCategories MedicamentCategory { get; set; }
     
-    public List<Allergy> Allergies { get; set; } = new();
-    public List<MedicalHistory> MedicalHistories { get; set; } = new();
 
     public List<int> SelectedAllergyIds { get; set; } = new();
     public List<int> SelectedMedicalHistoryIds { get; set; } = new();
+    
+    public List<SelectListItem> DrpAllergies { get; set; } = new();
+    public List<SelectListItem> DrpMedicalHistories { get; set; } = new();
 }

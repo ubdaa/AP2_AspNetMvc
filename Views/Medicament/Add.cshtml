@@ -16,9 +16,29 @@
                 <form asp-action="Add" method="post" class="w-full flex flex-col gap-4">
                     @await Html.PartialAsync("_Form", Model)
 
-                    <input class="btn btn-primary my-5" type="submit" value="Ajouter le médicament"/>
+                    <input class="btn btn-primary my-2" type="submit" value="Ajouter le médicament"/>
                 </form>
             </div>
         </div>
     </div>
 </div>
+
+@section Scripts
+{
+    <script>
+        $(document).ready(function () {
+            $('#MedicalHistories_dropdown').multiselect({
+                enableFiltering: true,
+                includeSelectAllOption: true,
+                maxHeight: 400
+            });
+        });
+        $(document).ready(function () {
+            $('#Allergies_dropdown').multiselect({
+                enableFiltering: true,
+                includeSelectAllOption: true,
+                maxHeight: 400
+            });
+        });
+    </script>
+}

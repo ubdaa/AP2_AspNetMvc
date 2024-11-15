@@ -4,6 +4,7 @@ using MedManager.Models;
 using MedManager.ViewModel.Medicament;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 
 namespace MedManager.Controllers;
@@ -27,11 +28,14 @@ public class MedicamentController : Controller
     [HttpGet]
     public IActionResult Add()
     {
-        MedicamentViewModel model = new();
-        
-        model.MedicalHistories = _dbContext.MedicalHistories.ToList();
-        model.Allergies = _dbContext.Allergies.ToList();
-        
+        MedicamentViewModel model = new()
+        {
+            DrpAllergies = _dbContext.Allergies
+                .Select(x => new SelectListItem { Text = x.Name, Value = x.AllergyId.ToString() }).ToList(),
+            DrpMedicalHistories = _dbContext.MedicalHistories
+                .Select(x => new SelectListItem { Text = x.Name, Value = x.MedicalHistoryId.ToString() }).ToList()
+        };
+
         return View(model);
     }
     
@@ -40,8 +44,10 @@ public class MedicamentController : Controller
     {
         if (!ModelState.IsValid)
         {
-            medicamentViewModel.MedicalHistories = _dbContext.MedicalHistories.ToList();
-            medicamentViewModel.Allergies = _dbContext.Allergies.ToList();
+            medicamentViewModel.DrpAllergies = _dbContext.Allergies
+                .Select(x => new SelectListItem { Text = x.Name, Value = x.AllergyId.ToString() }).ToList();
+            medicamentViewModel.DrpMedicalHistories = _dbContext.MedicalHistories
+                .Select(x => new SelectListItem { Text = x.Name, Value = x.MedicalHistoryId.ToString() }).ToList();
             
             return View(medicamentViewModel);
         }
@@ -100,10 +106,10 @@ public class MedicamentController : Controller
             Name = medicament.Name,
             Quantity = medicament.Quantity,
             Ingredients = medicament.Ingredients,
-            MedicalHistories = _dbContext.MedicalHistories.ToList(),
-            Allergies = _dbContext.Allergies.ToList(),
             SelectedAllergyIds = medicament.Allergies.Select(a => a.AllergyId).ToList(),
-            SelectedMedicalHistoryIds = medicament.MedicalHistories.Select(m => m.MedicalHistoryId).ToList()
+            SelectedMedicalHistoryIds = medicament.MedicalHistories.Select(m => m.MedicalHistoryId).ToList(),
+            DrpAllergies = _dbContext.Allergies.Select(x => new SelectListItem { Text = x.Name, Value = x.AllergyId.ToString() }).ToList(),
+            DrpMedicalHistories = _dbContext.MedicalHistories.Select(x => new SelectListItem { Text = x.Name, Value = x.MedicalHistoryId.ToString() }).ToList(),
         };
         
         return View(model);
@@ -114,8 +120,10 @@ public class MedicamentController : Controller
     {
         if (!ModelState.IsValid)
         {
-            medicamentViewModel.MedicalHistories = _dbContext.MedicalHistories.ToList();
-            medicamentViewModel.Allergies = _dbContext.Allergies.ToList();
+            medicamentViewModel.DrpAllergies = _dbContext.Allergies
+                .Select(x => new SelectListItem { Text = x.Name, Value = x.AllergyId.ToString() }).ToList();
+            medicamentViewModel.DrpMedicalHistories = _dbContext.MedicalHistories
+                .Select(x => new SelectListItem { Text = x.Name, Value = x.MedicalHistoryId.ToString() }).ToList();
             
             return View(medicamentViewModel);
         }
@@ -160,7 +168,7 @@ public class MedicamentController : Controller
         {
             await _dbContext.SaveChangesAsync();
         }
-        catch (DbUpdateConcurrencyException e)
+        catch (DbUpdateConcurrencyException)
         {
             if (!_dbContext.Medicaments.Any(x => x.MedicamentId == medicamentViewModel.MedicamentId))
             {

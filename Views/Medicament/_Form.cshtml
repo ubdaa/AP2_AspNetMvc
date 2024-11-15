@@ -2,28 +2,28 @@
 
 <input type="hidden" asp-for="MedicamentId" />
 
-<div class="flex flex-col">
-    <label asp-for="Name" class="block mb-2 text-md font-medium text-text"></label>
-    <input asp-for="Name" class="input input-bordered w-full" />
+<div class="form-group mb-3">
+    <label asp-for="Name"></label>
+    <input asp-for="Name" class="form-control" />
     <span asp-validation-for="Name" class="text-danger"></span>
 </div>
 
-<div class="flex flex-col">
-    <label asp-for="Quantity" class="block mb-2 text-md font-medium text-text"></label>
-    <input asp-for="Quantity" class="input input-bordered w-full" />
+<div class="form-group mb-3">
+    <label asp-for="Quantity"></label>
+    <input asp-for="Quantity" class="form-control" />
     <span asp-validation-for="Quantity" class="text-danger"></span>
 </div>
 
-<div class="flex flex-col">
-    <label asp-for="Ingredients" class="block mb-2 text-md font-medium text-text"></label>
-    <input asp-for="Ingredients" class="input input-bordered w-full" />
+<div class="form-group mb-3">
+    <label asp-for="Ingredients"></label>
+    <input asp-for="Ingredients" class="form-control" />
     <span asp-validation-for="Ingredients" class="text-danger"></span>
 </div>
 
 <div class="form-group mb-3">
     <label asp-for="MedicamentType"></label>
     <select asp-for="MedicamentType" asp-items="@Html.GetEnumSelectList(typeof(MedicamentTypes))" class="form-control">
-        <option value="">Select Gender</option>
+        <option value="">Sélectionner un type</option>
     </select>
     <span asp-validation-for="MedicamentType" class="text-danger"></span>
 </div>
@@ -31,43 +31,33 @@
 <div class="form-group mb-3">
     <label asp-for="MedicamentCategory"></label>
     <select asp-for="MedicamentCategory" asp-items="@Html.GetEnumSelectList(typeof(MedicamentCategories))" class="form-control">
-        <option value="">Select Gender</option>
+        <option value="">Sélectionner une catégorie</option>
     </select>
     <span asp-validation-for="MedicamentCategory" class="text-danger"></span>
 </div>
 
-<h3 class="mt-2 font-bold">Contre-indication : Antécédents</h3>
-<div class="flex flex-col gap-2">
-    @foreach (var medicalHistory in Model.MedicalHistories)
-    {
-    <div class="flex flex-row gap-4">
-        <input class="checkbox" type="checkbox" name="SelectedMedicalHistoryIds" value="@medicalHistory.MedicalHistoryId"
-               @(Model.SelectedMedicalHistoryIds != null && Model.SelectedMedicalHistoryIds.Contains(medicalHistory.MedicalHistoryId) ? "checked" :
-               "") />
-        <label>@medicalHistory.Name</label>
+<div class="form-group">
+    <label>Antécédents médicaux</label>
+    <div class="col-sm-6">
+        @Html.ListBoxFor(model => model.SelectedMedicalHistoryIds, new MultiSelectList(Model.DrpMedicalHistories,
+        "Value", "Text"), new
+        {
+        @class = "form-control",
+        multiple = "multiple",
+        id = "MedicalHistories_dropdown"
+        })
     </div>
-    }
-
-    @if (Model.MedicalHistories.Count == 0)
-    {
-    <p>Aucun antécédent médical dans la base</p>
-    }
 </div>
 
-<h3 class="mt-2 font-bold">Contre-indication : Allergies</h3>
-<div class="flex flex-col gap-2">
-    @foreach (var allergy in Model.Allergies)
-    {
-        <div class="flex flex-row gap-4">
-            <input class="checkbox" type="checkbox" name="SelectedAllergyIds" value="@allergy.AllergyId"
-                   @(Model.SelectedAllergyIds != null && Model.SelectedAllergyIds.Contains(allergy.AllergyId) ? "checked" :
-                       "") />
-            <label>@allergy.Name</label>
-        </div>
-    }
-
-    @if (Model.Allergies.Count == 0)
-    {
-        <p>Aucune allergie dans la base</p>
-    }
+<div class="form-group">
+    <label>Allergies</label>
+    <div class="col-sm-6">
+        @Html.ListBoxFor(model => model.SelectedAllergyIds, new MultiSelectList(Model.DrpAllergies,
+        "Value", "Text"), new
+        {
+        @class = "form-control",
+        multiple = "multiple",
+        id = "Allergies_dropdown"
+        })
+    </div>
 </div>
