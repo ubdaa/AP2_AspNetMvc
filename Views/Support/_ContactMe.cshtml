@@ -1,0 +1,79 @@
+<div class="d-flex justify-content-center">
+    <div class="card rounded-lg my-5" style="width: 100%; max-width: 1100px;">
+        <div class="card-header text-center" style="width: 100%;">
+            <h5 class="mb-0">Me contacter</h5>
+        </div>
+
+        <div class="card-body">
+            <form method="POST" id="form" class="flex flex-col gap-4">
+                
+                <input type="hidden" name="access_key" value="54719439-8bc9-407d-a678-5ec6541d4fff"/>
+                
+                <div class="form-group mb-3">
+                    <label for="Name">Nom</label>
+                    <input type="text" id="Name" name="Name" class="form-control" required="required"/>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label for="Email">Email</label>
+                    <input type="email" id="Email" name="Email" class="form-control" required="required"/>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label for="Subject">Sujet</label>
+                    <input type="text" id="Subject" name="Subject" class="form-control"/>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label for="Message">Message</label>
+                    <textarea id="Message" name="Message" class="form-control"></textarea>
+                </div>
+                
+                <div id="result text-primary"></div>
+
+                <input class="btn btn-primary my-2" type="submit" value="Envoyer le message"/>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+const form = document.getElementById('form');
+const result = document.getElementById('result');
+
+form.addEventListener('submit', function(e) {
+    e.preventDefault();
+    const formData = new FormData(form);
+    const object = Object.fromEntries(formData);
+    const json = JSON.stringify(object);
+    result.innerHTML = "Veuillez attendre...";
+
+    fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+        },
+        body: json
+    })
+    .then(async (response) => {
+        let json = await response.json();
+        if (response.status == 200) {
+            result.innerHTML = "Votre message a bien été envoyé!";
+        } else {
+            console.log(response);
+            result.innerHTML = json.message;
+        }
+    })
+    .catch(error => {
+        console.log(error);
+        result.innerHTML = "Quelque chose s'est mal passé!";
+    })
+    .then(function() {
+        form.reset();
+        setTimeout(() => {
+            result.style.display = "none";
+        }, 3000);
+    });
+});
+</script>

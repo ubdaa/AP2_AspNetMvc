@@ -25,7 +25,7 @@
     <select asp-for="MedicamentType" asp-items="@Html.GetEnumSelectList(typeof(MedicamentTypes))" class="form-control">
         <option value="">Select Gender</option>
     </select>
-    <span asp-validation-for="MedicamentType" class="text-red-500"></span>
+    <span asp-validation-for="MedicamentType" class="text-danger"></span>
 </div>
 
 <div class="form-group mb-3">
@@ -33,7 +33,7 @@
     <select asp-for="MedicamentCategory" asp-items="@Html.GetEnumSelectList(typeof(MedicamentCategories))" class="form-control">
         <option value="">Select Gender</option>
     </select>
-    <span asp-validation-for="MedicamentCategory" class="text-red-500"></span>
+    <span asp-validation-for="MedicamentCategory" class="text-danger"></span>
 </div>
 
 <h3 class="mt-2 font-bold">Contre-indication : Antécédents</h3>
