@@ -1,9 +1,9 @@
 @model Allergy
 
-<input asp-for="AllergyId" type="hidden" value="0"/>
+<input asp-for="AllergyId" type="hidden" value="@Model.AllergyId"/>
     
-<div>
-    <label asp-for="Name" class="block mb-2 text-md font-medium text-text"></label>
-    <input asp-for="Name" class="input input-bordered w-full"/>
+<div class="form-group mb-3">
+    <label asp-for="Name"></label>
+    <input asp-for="Name" class="form-control"/>
     <span asp-validation-for="Name" class="text-danger"></span>
 </div>

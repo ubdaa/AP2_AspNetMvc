@@ -27,4 +27,8 @@
       <ProjectReference Include="..\AP2_AspNetMvc.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Controllers\" />
+    </ItemGroup>
+
 </Project>
