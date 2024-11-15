@@ -1,11 +1,13 @@
 using MedManager.Data;
 using MedManager.Models;
 using MedManager.ViewModel.Search;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace MedManager.Controllers;
 
+[Authorize]
 public class SearchController : Controller
 {
     private readonly ApplicationDbContext _dbContext;

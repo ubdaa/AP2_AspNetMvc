@@ -2,11 +2,13 @@ using System.Xml.Linq;
 using MedManager.Data;
 using MedManager.Models;
 using MedManager.ViewModel.Medicament;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace MedManager.Controllers;
 
+[Authorize]
 public class MedicamentController : Controller
 {
     private readonly ApplicationDbContext _dbContext;
