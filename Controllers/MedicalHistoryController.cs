@@ -22,7 +22,11 @@ public class MedicalHistoryController : Controller
     [HttpGet]
     public IActionResult Add()
     {
-        return View();
+        MedicalHistory medicalHistory = new MedicalHistory
+        {
+            Name = ""
+        };
+        return View(medicalHistory);
     }
     
     [HttpPost]

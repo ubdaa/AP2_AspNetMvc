@@ -22,7 +22,11 @@ public class AllergyController : Controller
     [HttpGet]
     public IActionResult Add()
     {
-        return View();
+        Allergy allergy = new Allergy
+        {
+            Name = ""
+        };
+        return View(allergy);
     }
     
     [HttpPost]
