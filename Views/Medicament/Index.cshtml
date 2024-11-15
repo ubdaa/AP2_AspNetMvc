@@ -9,29 +9,53 @@
 
 @if (Model.Count() > 0)
 {
-    <table class="table table-compact">
-        <thead>
+    <table class="table table-striped table-sm table-hover">
+        <thead class="text-center">
         <tr>
-            <th class="p-2">Id</th>
-            <th class="p-2">Nom</th>
-            <th class="p-2">Quantité</th>
-            <th class="p-2">Ingrédients</th>
-            <th class="p-2">Détails</th>
-            <th class="p-2">Modifier</th>
-            <th class="p-2">Supprimer</th>
+            <th>Id</th>
+            <th>Nom</th>
+            <th>Quantité</th>
+            <th>Ingrédients</th>
+            <th>Détails</th>
+            <th>Modifier</th>
+            <th>Supprimer</th>
         </tr>
         </thead>
-        <tbody>
+        <tbody class="text-center">
         @foreach (var medicament in Model)
         {
             <tr>
-                <td class="p-2">@Html.DisplayFor(m => medicament.MedicamentId)</td>
-                <td class="p-2">@Html.DisplayFor(m => medicament.Name)</td>
-                <td class="p-2">@Html.DisplayFor(m => medicament.Quantity)</td>
-                <td class="p-2">@Html.DisplayFor(m => medicament.Ingredients)</td>
-                <td class="p-2 text-blue-600 text-decoration-underline"><a asp-action="Details" asp-route-id="@medicament.MedicamentId">Détails</a></td>
-                <td class="p-2 text-blue-600 text-decoration-underline"><a asp-action="Edit" asp-route-id="@medicament.MedicamentId">Modifier</a></td>
-                <td class="p-2 text-blue-600 text-decoration-underline"><a asp-action="Delete" asp-route-id="@medicament.MedicamentId">Supprimer</a></td>
+                <td>@Html.DisplayFor(m => medicament.MedicamentId)</td>
+                <td>@Html.DisplayFor(m => medicament.Name)</td>
+                <td>@Html.DisplayFor(m => medicament.Quantity)</td>
+                <td>@Html.DisplayFor(m => medicament.Ingredients)</td>
+                <td><a asp-action="Details" asp-route-id="@medicament.MedicamentId"><i class="bi bi-card-list"></i></a></td>
+                <td><a asp-action="Edit" asp-route-id="@medicament.MedicamentId"><i class="bi bi-pencil"></i></a></td>
+                <td><a type="button" data-toggle="modal" data-target="#supprModal@{@Html.DisplayFor(m => medicament.MedicamentId)}" class="text-primary">
+                        <i class="bi bi-trash"></i>
+                    </a>
+                    <div class="modal fade" tabindex="-1" id="supprModal@{@Html.DisplayFor(m => medicament.MedicamentId)}" aria-labelledby="modalLabelSuppr" aria-hidden="true">>
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">Êtes-vous sûr de supprimer @medicament.Name ?</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <p>Veuillez confirmer ci-dessous.</p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                                    <form asp-action="Delete" asp-route-id="@medicament.MedicamentId" method="get">
+                                        <button class="btn btn-danger">Confirmer</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
             </tr>
         }
         </tbody>
@@ -42,4 +66,4 @@ else
     <p>Aucun médicament dans la base</p>
 }
 
-<a asp-action="Add" class="btn my-5">Ajouter un nouveau médicament</a>
+<a asp-action="Add" class="btn btn-primary my-2">Ajouter un nouveau médicament</a>
