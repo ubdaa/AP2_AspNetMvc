@@ -48,7 +48,7 @@ public class SearchController : Controller
         model.Prescriptions = _dbContext.Prescriptions
             .Include(p => p.Patient)
             .Where(p => p.Medicaments.Any(m => model.Medicaments.Contains(m)) 
-                && p.Patient.FirstName.ToLower().Contains(q) || p.Patient.LastName.ToLower().Contains(q))
+                || p.Patient.FirstName.ToLower().Contains(q) || p.Patient.LastName.ToLower().Contains(q))
             .ToList();
         
         return View(model);
