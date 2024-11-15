@@ -43,9 +43,9 @@
 </head>
 <body>
 <div class="sidebar d-flex flex-column p-3 sticky-top">
-    <h2 class="text-center">Med Manager</h2>
+    <h2 class="text-center">MedManager</h2>
     <hr/>
-    <ul class="nav nav-pills flex-column gap-2">
+    <ul class="nav nav-pills flex-column gap-2 h-100">
         <li class="nav-item">
             <a class="nav-link" asp-controller="Dashboard" asp-action="Index">Accueil</a>
         </li>
@@ -66,10 +66,15 @@
             <li class="nav-item">
                 <a class="nav-link" asp-controller="Medicament" asp-action="Index">Gestion des médicaments</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item mt-3">
                 <a class="btn btn-primary w-100" asp-controller="Prescription" asp-action="Create">Créer une ordonnance</a>
             </li>
         }
+        
+        <li class="mt-auto">
+            <a class="nav-link" asp-controller="Support" asp-action="Index">FAQ & Contact</a>
+        </li>
+        <li class="text-center text-secondary mt-2"><a asp-controller="Support" asp-action="Cgu" class="mr-2">CGU</a>&copy; 2024 MedManager.</li>
     </ul>
 </div>
 
@@ -85,7 +90,7 @@
             <ul class="navbar-nav ml-auto">
                 @if (User?.Identity?.IsAuthenticated == true)
                 {
-                    <li class="nav-item" class="navbar-text">
+                    <li class="nav-item mr-2">
                         <a class="nav-link active">Bonjour, @User.Identity.Name!</a>
                     </li>
                     <li class="nav-item">
