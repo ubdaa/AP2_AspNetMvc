@@ -73,7 +73,6 @@ public class MedicalHistoryController : Controller
         return RedirectToAction("Index");
     }
     
-    [HttpGet]
     public IActionResult Delete(int id)
     {
         var medicalHistory = _dbContext.MedicalHistories.FirstOrDefault(x => x.MedicalHistoryId == id);

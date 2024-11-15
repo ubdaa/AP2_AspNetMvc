@@ -39,7 +39,7 @@
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
-                                <form asp-action="Delete" asp-route-id="@medicament.MedicamentId" method="get">
+                                <form asp-action="Delete" asp-controller="Medicament" asp-route-id="@medicament.MedicamentId" method="get">
                                     <button class="btn btn-danger">Confirmer</button>
                                 </form>
                             </div>
