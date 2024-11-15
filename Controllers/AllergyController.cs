@@ -73,7 +73,6 @@ public class AllergyController : Controller
         return RedirectToAction("Index");
     }
     
-    [HttpGet]
     public IActionResult Delete(int id)
     {
         var allergy = _dbContext.Allergies.FirstOrDefault(x => x.AllergyId == id);
