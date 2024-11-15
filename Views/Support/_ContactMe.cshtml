@@ -58,7 +58,7 @@ form.addEventListener('submit', function(e) {
     })
     .then(async (response) => {
         let json = await response.json();
-        if (response.status == 200) {
+        if (response.status === 200) {
             result.innerHTML = "Votre message a bien été envoyé!";
         } else {
             console.log(response);
