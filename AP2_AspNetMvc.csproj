@@ -9,6 +9,7 @@
 
     <ItemGroup>
       <Folder Include="Migrations\" />
+      <Folder Include="wwwroot\pdf\" />
     </ItemGroup>
 
     <ItemGroup>
@@ -40,6 +41,7 @@
 
     <ItemGroup>
       <PackageReference Include="itext7" Version="8.0.5" />
+      <PackageReference Include="itext7.bouncy-castle-adapter" Version="8.0.5" />
       <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.8" />
       <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="8.0.8" />
       <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.8">
