@@ -5,46 +5,11 @@
     Layout = "_Layout";
 }
 
-<h1 class="text-center text-xl font-bold my-4">Liste des médicaments</h1>
+<h1 class="text-center text-xl font-bold my-4">Liste des ordonnances</h1>
 
 @if (Model.Any())
 {
-    <table class="table table-sm table-hover table-striped">
-        <thead class="text-center">
-        <tr>
-            <th scope="col">ID</th>
-            <th scope="col">Patient</th>
-            <th scope="col">Date de création</th>
-            <th scope="col">État</th>
-            <th scope="col">Éditer</th>
-        </tr>
-        </thead>
-        <tbody class="text-center">
-        @foreach (var prescription in Model)
-        {
-            <tr>
-                <th scope="row">@prescription.PrescriptionId</th>
-                <td>@prescription.Patient.FirstName @prescription.Patient.LastName</td>
-                <td>@prescription.CreatedAt</td>
-                <td>
-                    @if (prescription.EndDate >= DateOnly.FromDateTime(DateTime.Now))
-                    {
-                        <span class="badge bg-success text-white">En cours</span>
-                    }
-                    else if (prescription.EndDate == null)
-                    {
-                        <span class="badge bg-secondary text-white">En édition</span>
-                    }
-                    else
-                    {
-                        <span class="badge bg-danger text-white">Terminée</span>
-                    }
-                </td>
-                <td><a asp-action="Edit" asp-controller="Prescription" asp-route-id="@prescription.PrescriptionId"><i class="bi bi-pencil"></i></a></td>
-            </tr>
-        }
-        </tbody>
-    </table>
+    @await Html.PartialAsync("Tables/_PrescriptionTable", Model)
 }
 else
 {

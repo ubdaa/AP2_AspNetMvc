@@ -40,7 +40,7 @@
                 </div>
 
                 <div class="card-body">
-                    
+                    @await Html.PartialAsync("Tables/_AllergyTable", Model.Allergies)
                 </div>
             </div>
         </div>
@@ -57,7 +57,7 @@
                 </div>
 
                 <div class="card-body">
-                    
+                    @await Html.PartialAsync("Tables/_MedicalHistoryTable", Model.MedicalHistories)
                 </div>
             </div>
         </div>
@@ -74,6 +74,7 @@
                 </div>
 
                 <div class="card-body">
+                    @await Html.PartialAsync("Tables/_MedicamentTable", Model.Medicaments)
                 </div>
             </div>
         </div>
@@ -90,7 +91,7 @@
                 </div>
 
                 <div class="card-body">
-                    
+                    @await Html.PartialAsync("Tables/_PrescriptionTable", Model.Prescriptions)
                 </div>
             </div>
         </div>
