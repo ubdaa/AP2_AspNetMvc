@@ -27,7 +27,8 @@ public class PrescriptionController : Controller
     [HttpGet]
     public IActionResult Index()
     {
-        return View(_dbContext.Prescriptions.Include(p => p.Patient).Where(p => p.DoctorId == UserId).ToList());
+        return View(_dbContext.Prescriptions.Include(p => p.Patient).Where(p => p.DoctorId == UserId)
+            .OrderByDescending(p => p.PrescriptionId).ToList());
     }
     
     [HttpGet]
@@ -70,6 +71,21 @@ public class PrescriptionController : Controller
         await _dbContext.SaveChangesAsync();
         
         return RedirectToAction("Edit", new { id = prescription.Entity.PrescriptionId });
+    }
+    
+    public IActionResult Delete(int id)
+    {
+        var prescription = _dbContext.Prescriptions.FirstOrDefault(x => x.PrescriptionId == id);
+        
+        if (prescription == null)
+        {
+            return NotFound();
+        }
+        
+        _dbContext.Prescriptions.Remove(prescription);
+        _dbContext.SaveChanges();
+
+        return RedirectToAction("Index");
     }
     
     [HttpGet]
