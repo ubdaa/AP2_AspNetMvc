@@ -6,13 +6,13 @@ namespace MedManager.Models;
 public enum Genders
 {
     [Description("Male")]
-    [Display(Name = "Male")]
+    [Display(Name = "Homme")]
     Male,
     [Description("Female")]
-    [Display(Name = "Female")]
+    [Display(Name = "Femme")]
     Female,
     [Description("Other")]
-    [Display(Name = "Other")]
+    [Display(Name = "Autre")]
     Other
 }
 
@@ -38,12 +38,15 @@ public class Patient
     [Required(ErrorMessage = "L'âge du patient est requis.")]
     public required int Age { get; set; }
     
+    [Display(Name = "Sexe")] 
     [Required(ErrorMessage = "Le genre du patient est requis.")]
     public required Genders Gender { get; set; }
     
+    [Display(Name = "Taille")] 
     [Required(ErrorMessage = "La taille du patient est requis.")]
     public required int Height { get; set; }
     
+    [Display(Name = "Poids")] 
     [Required(ErrorMessage = "Le poids du patient est requis.")]
     public required int Weight { get; set; }
     
