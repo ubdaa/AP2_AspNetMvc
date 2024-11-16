@@ -7,9 +7,7 @@
         <th>Nom</th>
         <th>Quantité</th>
         <th>Ingrédients</th>
-        <th>Détails</th>
-        <th>Modifier</th>
-        <th>Supprimer</th>
+        <th>Actions</th>
     </tr>
     </thead>
     <tbody class="text-center">
@@ -20,9 +18,9 @@
             <td>@Html.DisplayFor(m => medicament.Name)</td>
             <td>@Html.DisplayFor(m => medicament.Quantity)</td>
             <td>@Html.DisplayFor(m => medicament.Ingredients)</td>
-            <td><a asp-action="Details" asp-controller="Medicament" asp-route-id="@medicament.MedicamentId"><i class="bi bi-card-list"></i></a></td>
-            <td><a asp-action="Edit" asp-controller="Medicament" asp-route-id="@medicament.MedicamentId"><i class="bi bi-pencil"></i></a></td>
-            <td><a type="button" data-toggle="modal" data-target="#supprModal@{@Html.DisplayFor(m => medicament.MedicamentId)}" class="text-primary">
+            <td><a asp-action="Details" asp-controller="Medicament" asp-route-id="@medicament.MedicamentId" class="mr-4"><i class="bi bi-card-list"></i></a>
+                <a asp-action="Edit" asp-controller="Medicament" asp-route-id="@medicament.MedicamentId" class="mr-4"><i class="bi bi-pencil"></i></a>
+                <a type="button" data-toggle="modal" data-target="#supprModal@{@Html.DisplayFor(m => medicament.MedicamentId)}" class="text-primary">
                     <i class="bi bi-trash"></i>
                 </a>
                 <div class="modal fade" tabindex="-1" id="supprModal@{@Html.DisplayFor(m => medicament.MedicamentId)}" aria-labelledby="modalLabelSuppr" aria-hidden="true">>

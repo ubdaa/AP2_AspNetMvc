@@ -5,8 +5,7 @@
     <tr>
         <th>#</th>
         <th>Nom</th>
-        <th>Modifier</th>
-        <th>Supprimer</th>
+        <th>Actions</th>
     </tr>
     </thead>
     <tbody class="text-center">
@@ -16,9 +15,7 @@
         <td>@item.AllergyId</td>
         <td>@item.Name</td>
         <td>
-            <a asp-action="Edit" asp-controller="Allergy" asp-route-id="@item.AllergyId"><i class="bi bi-pencil"></i></a>
-        </td>
-        <td>
+            <a asp-action="Edit" asp-controller="Allergy" asp-route-id="@item.AllergyId" class="mr-4"><i class="bi bi-pencil"></i></a>
             <a type="button" data-toggle="modal" data-target="#supprModal@{@Html.DisplayFor(m => item.AllergyId)}" class="text-primary">
                 <i class="bi bi-trash"></i>
             </a>

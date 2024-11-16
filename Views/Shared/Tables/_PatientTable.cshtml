@@ -10,9 +10,7 @@
         <th>Height</th>
         <th>Weight</th>
         <th>Gender</th>
-        <th>Details</th>
-        <th>Edit</th>
-        <th>Delete</th>
+        <th>Actions</th>
         <th>Créer ordonnance</th>
     </tr>
     </thead>
@@ -27,9 +25,9 @@
             <td>@Html.DisplayFor(m => patient.Height)</td>
             <td>@Html.DisplayFor(m => patient.Weight)</td>
             <td>@Html.DisplayFor(m => patient.Gender)</td>
-            <td><a asp-action="ShowDetails" asp-controller="Patient" asp-route-id="@patient.PatientId"><i class="bi bi-card-list"></i></a></td>
-            <td><a asp-action="Edit" asp-controller="Patient" asp-route-id="@patient.PatientId"><i class="bi bi-pencil"></i></a></td>
-            <td><a type="button" data-toggle="modal" data-target="#supprModal@{@Html.DisplayFor(m => patient.PatientId)}" class="text-primary">
+            <td><a asp-action="ShowDetails" asp-controller="Patient" asp-route-id="@patient.PatientId" class="mr-4"><i class="bi bi-card-list"></i></a>
+                <a asp-action="Edit" asp-controller="Patient" asp-route-id="@patient.PatientId" class="mr-4"><i class="bi bi-pencil"></i></a>
+                <a type="button" data-toggle="modal" data-target="#supprModal@{@Html.DisplayFor(m => patient.PatientId)}" class="text-primary">
                     <i class="bi bi-trash"></i>
                 </a>
                 <div class="modal fade" tabindex="-1" id="supprModal@{@Html.DisplayFor(m => patient.PatientId)}" aria-labelledby="modalLabelSuppr" aria-hidden="true">>
