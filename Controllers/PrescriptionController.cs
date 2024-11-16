@@ -52,6 +52,7 @@ public class PrescriptionController : Controller
         if (!ModelState.IsValid)
         {
             model.Patients = _dbContext.Patients.Where(p => p.DoctorId == doctorId).ToList();
+            ModelState.AddModelError("", "Veuillez sélectionner un patient.");
             return View(model);
         }
         
@@ -112,7 +113,7 @@ public class PrescriptionController : Controller
     [HttpPost]
     public async Task<IActionResult> Edit(PrescriptionViewModel model)
     {
-        if (!ModelState.IsValid)
+        if (!ModelState.IsValid || model.EndDate < model.StartDate)
         {
             var p = await _dbContext.Prescriptions
                 .Include(p => p.Patient)
@@ -132,20 +133,18 @@ public class PrescriptionController : Controller
             model.Patient = p.Patient;
             model.MedicamentsPatient = medicamentList;
             model.MedicamentsPrescription = p.Medicaments;
+
+            if (!(model.EndDate < model.StartDate)) return View(model);
             
+            ModelState.AddModelError("EndDate", "La date de fin doit être supérieure à la date de début.");
             return View(model);
+
         }
         
         var prescription = _dbContext.Prescriptions.FirstOrDefault(p => p.PrescriptionId == model.PrescriptionId);
         if (prescription == null)
         {
             return NotFound();
-        }
-        
-        if (model.EndDate < model.StartDate)
-        {
-            ModelState.AddModelError("EndDate", "La date de fin doit être supérieure à la date de début.");
-            return RedirectToAction("Edit", new { id = model.PrescriptionId });
         }
         
         prescription.StartDate = model.StartDate;

@@ -19,6 +19,7 @@
                     @await Html.PartialAsync("_Form", Model)
 
                     <input class="btn btn-primary my-2" type="submit" value="Enregistrer vos modifications"/>
+                    <div asp-validation-summary="ModelOnly" class="text-danger mt-2"></div>
                 </form>
             </div>
         </div>

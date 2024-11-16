@@ -1,17 +1,32 @@
 @model Patient
 
 <div class="d-flex justify-content-center">
-    <div class="card rounded my-4" style="width: 100%; max-width: 15000px;">
+    <div class="card rounded mb-4 mt-3" style="width: 100%; max-width: 15000px;">
         <div class="card-header text-center" style="width: 100%;">
             <h5 class="mb-0">Patient</h5>
         </div>
         <div class="card-body">
             <div>
-                <h2>@Model.FirstName @Model.LastName</h2>
-                <p>@Model.Age</p>
-                <p>@Model.Gender</p>
-                <p>@Model.Weight</p>
-                <p>@Model.Height</p>
+                <h4 class="text-center mb-3">Nom du patient : @Model.FirstName @Model.LastName</h4>
+                
+                <div class="row">
+                    <div class="col-6">
+                        <h6>Informations contact du patient</h6>
+                        <ul>
+                            <li>Adresse : @Model.Address</li>
+                            <li>Numéro de sécurité sociale : @Model.SocialSecurityNumber</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="col-6">
+                        <h6>Informations médicales du patient</h6>
+                        <ul>
+                            <li>Date de naissance : @Model.BirthDate (@Model.Age ans)</li>
+                            <li>Taille et poids : @Model.Height cm - @Model.Weight kg</li>
+                            <li>Sexe : @Model.Gender</li>
+                        </ul>
+                        </div>
+                </div>
             </div>
         </div>
     </div>
