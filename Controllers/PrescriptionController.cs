@@ -285,6 +285,6 @@ public class PrescriptionController : Controller
         PdfService.GeneratePrescriptionPdf(path, prescription);
         var pdf = System.IO.File.ReadAllBytes(path);
         
-        return File(pdf, "application/pdf", path);
+        return File(pdf, "application/pdf", fileName);
     }
 }
