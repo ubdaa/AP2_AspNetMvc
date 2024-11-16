@@ -31,8 +31,9 @@
                     <span class="badge bg-danger text-white">Terminée</span>
                 }
             </td>
-            <td><a asp-action="Edit" asp-controller="Prescription" asp-route-id="@prescription.PrescriptionId" class="mr-4"><i class="bi bi-pencil"></i></a>
-            <a type="button" data-toggle="modal" data-target="#supprModal@{@Html.DisplayFor(m => prescription.PatientId)}" class="text-primary">
+            <td><a asp-action="Details" asp-controller="Prescription" asp-route-id="@prescription.PrescriptionId" class="mr-4"><i class="bi bi-card-list"></i></a>
+                <a asp-action="Edit" asp-controller="Prescription" asp-route-id="@prescription.PrescriptionId" class="mr-4"><i class="bi bi-pencil"></i></a>
+                <a type="button" data-toggle="modal" data-target="#supprModal@{@Html.DisplayFor(m => prescription.PatientId)}" class="text-primary mr-4">
                     <i class="bi bi-trash"></i>
                 </a>
                 <div class="modal fade" tabindex="-1" id="supprModal@{@Html.DisplayFor(m => prescription.PatientId)}" aria-labelledby="modalLabelSuppr" aria-hidden="true">>
@@ -56,6 +57,7 @@
                         </div>
                     </div>
                 </div>
+                <a asp-action="ExportPdf" asp-controller="Prescription" asp-route-id="@prescription.PrescriptionId"><i class="bi bi-box-arrow-in-down"></i></a>
             </td>
         </tr>
     }

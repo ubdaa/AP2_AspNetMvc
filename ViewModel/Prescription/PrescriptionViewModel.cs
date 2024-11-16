@@ -9,6 +9,8 @@ public class PrescriptionViewModel
     
     public Models.Patient? Patient { get; set; }
     
+    public bool IsEditing { get; set; } = true;
+    
     [Display(Name = "Date de début")]
     [DataType(DataType.Date)]
     [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]

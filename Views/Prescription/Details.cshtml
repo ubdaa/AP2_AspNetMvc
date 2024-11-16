@@ -1,0 +1,22 @@
+@model PrescriptionViewModel
+
+@{
+    ViewBag.Title = "Vue d'une ordonnance";
+    Layout = "_Layout";
+}
+
+<div class="container py-4">
+    <div class="d-flex justify-content-center">
+        <div class="card shadow rounded-lg" style="width: 100%; max-width: 1100px;">
+            <div class="card-header text-center" style="width: 100%;">
+                <h5 class="mb-0">Modification de l'ordonnance</h5>
+            </div>
+            
+            <div class="card-body">
+                @await Html.PartialAsync("_PatientCard", Model.Patient)
+
+                @await Html.PartialAsync("_Form", Model)
+            </div>
+        </div>
+    </div>
+</div>

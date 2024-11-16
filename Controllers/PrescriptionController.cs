@@ -89,6 +89,45 @@ public class PrescriptionController : Controller
     }
     
     [HttpGet]
+    public async Task<IActionResult> Details(int id)
+    {
+        var prescription = await _dbContext.Prescriptions
+            .Include(p => p.Patient)
+            .ThenInclude(patient => patient.Allergies)
+            .Include(p => p.Doctor)
+            .Include(p => p.Medicaments)
+            .Include(prescription => prescription.Patient)
+            .ThenInclude(patient => patient.MedicalHistories)
+            .FirstOrDefaultAsync(p => p.PrescriptionId == id);
+        
+        if (prescription == null)
+        {
+            return NotFound();
+        }
+        
+        var allergiesPatient = prescription.Patient.Allergies.Select(pa => pa.AllergyId).ToList();
+        var medicalHistoryPatient = prescription.Patient.MedicalHistories.Select(mh => mh.MedicalHistoryId).ToList();
+        var medicamentList = await _dbContext.Medicaments
+            .Where(m => !m.Allergies.Any(a => allergiesPatient.Contains(a.AllergyId)) && !m.MedicalHistories.Any(mh => medicalHistoryPatient.Contains(mh.MedicalHistoryId)))
+            .ToListAsync();
+        
+        var model = new PrescriptionViewModel()
+        {
+            AdditionalInformation = prescription.AdditionalInformation,
+            Dosage = prescription.Dosage,
+            EndDate = prescription.EndDate,
+            StartDate = prescription.StartDate,
+            MedicamentsPatient = medicamentList,
+            PrescriptionId = prescription.PrescriptionId,
+            Patient = prescription.Patient,
+            MedicamentsPrescription = prescription.Medicaments,
+            IsEditing = false
+        };
+
+        return View(model);
+    }
+    
+    [HttpGet]
     public async Task<IActionResult> Edit(int id)
     {
         var prescription = await _dbContext.Prescriptions
