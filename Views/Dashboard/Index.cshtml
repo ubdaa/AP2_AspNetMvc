@@ -41,11 +41,11 @@
         <div class="col-lg-3 col-md-6 mb-4">
             <div class="card text-white bg-warning h-100">
                 <div class="card-body">
-                    <h5 class="card-title">Incompatibilités</h5>
-                    <p class="card-text display-4">/</p>
+                    <h5 class="card-title">Prescriptions terminées</h5>
+                    <p class="card-text display-4">@Model.TotalArchivedPrescriptions</p>
                 </div>
                 <div class="card-footer">
-                    <small class="text-white">Total contre indications</small>
+                    <small class="text-white">Nombre ordonnances terminées</small>
                 </div>
             </div>
         </div>
@@ -53,11 +53,11 @@
         <div class="col-lg-3 col-md-6 mb-4">
             <div class="card text-white bg-danger h-100">
                 <div class="card-body">
-                    <h5 class="card-title">Alertes Allergies</h5>
-                    <p class="card-text display-4">/</p>
+                    <h5 class="card-title">Nombre d'incompatibilités</h5>
+                    <p class="card-text display-4">@Model.TotalIncompatibilities</p>
                 </div>
                 <div class="card-footer">
-                    <small class="text-white">Critiques à vérifier</small>
+                    <small class="text-white">Avec allergies et antécédents</small>
                 </div>
             </div>
         </div>

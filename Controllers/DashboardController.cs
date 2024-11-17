@@ -255,9 +255,9 @@ public class DashboardController : Controller
     #endregion
     
     [HttpGet]
-    public IActionResult Index()
+    public async Task<IActionResult> Index()
     {
-        DashboardViewModel model = new DashboardViewModel();
+        var model = new DashboardViewModel();
 
         // données principales pour le tableau de bord
         model.Patients = _dbContext.Patients.Where(p => p.DoctorId == UserId)
@@ -267,6 +267,16 @@ public class DashboardController : Controller
         
         model.TotalPatients = _dbContext.Patients.Count(p => p.DoctorId == UserId);
         model.TotalPrescriptions = _dbContext.Prescriptions.Count(p => p.DoctorId == UserId);
+        
+        var allergies = _dbContext.Allergies.Select(pa => pa.AllergyId).ToList();
+        var medicalHistory = _dbContext.MedicalHistories.Select(mh => mh.MedicalHistoryId).ToList();
+        var medicamentList = await _dbContext.Medicaments
+            .Where(m => m.Allergies.Any(a => allergies.Contains(a.AllergyId))
+                        || m.MedicalHistories.Any(mh => medicalHistory.Contains(mh.MedicalHistoryId)))
+            .ToListAsync();
+        
+        model.TotalIncompatibilities = medicamentList.Count;
+        model.TotalArchivedPrescriptions = _dbContext.Prescriptions.Count(p => p.DoctorId == UserId && p.EndDate < DateOnly.FromDateTime(DateTime.Now));
         
         // données pour les statistiques
         model.MostConsultedPatientsStatVm = MostConsultedPatientsStat();
