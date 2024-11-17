@@ -4,31 +4,4 @@
     Layout = "_Layout";
 }
 
-<div class="flex flex-col text-left w-full">
-    <h1 class="text-center text-xl font-bold my-4">Details about the patient</h1>
-    
-    <div>
-        <label>First Name :</label> <span>@Model.FirstName</span>
-    </div>
-
-    <div>
-        <label>Last Name :</label> <span>@Model.LastName</span>
-    </div>
-    
-    <div>
-        <label>Age :</label> <span>@Model.Age</span>
-    </div>
-
-    <div>
-        <label>Gender :</label> <span>@Enum.GetName(Model.Gender)</span>
-    </div>
-
-    <div>
-        <label>Height :</label> <span>@Model.Height</span>
-    </div>
-
-    <div>
-        <label>Weight :</label> <span>@Model.Weight</span>
-    </div>
-    
-</div>
+@await Html.PartialAsync("_PatientCard", Model)

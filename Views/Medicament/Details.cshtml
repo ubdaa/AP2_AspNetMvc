@@ -1,30 +1,56 @@
 @model Medicament
 
 @{
-    ViewBag.Title = "Détails du médicament : @Model.Name";
+    ViewBag.Title = $"Détails du médicament : {Model.Name}";
     Layout = "_Layout";
 }
 
-<h2 class="text-2xl font-bold">Détails du médicament : @Model.Name</h2>
+<div class="d-flex justify-content-center">
+    <div class="card rounded mb-4 mt-3" style="width: 100%; max-width: 15000px;">
+        <div class="card-header text-center" style="width: 100%;">
+            <h5 class="mb-0">Détails du médicament</h5>
+        </div>
+        <div class="card-body">
+            <div>
+                <h4 class="text-center mb-3">Nom du médicament : @Model.Name</h4>
+                
+                <ul>
+                    <li>Quantité : @Model.Quantity</li>
+                    <li>Ingrédients : @Model.Ingredients</li>
+                </ul>
+                
+                <div class="row">
+                    
+                    <div class="col-6">
+                        <h6>Contre-indications : antécédents</h6>
+                        
+                        <ul>
+                            @foreach(var medicalHistory in Model.MedicalHistories)
+                            {
+                                <li>@medicalHistory.Name</li>
+                            }
+                        </ul>
+                    </div>
+                    
+                    <div class="col-6">
+                        <h6>Contre-indications : allergies</h6>
+                        
+                        <ul>
+                            @foreach(var allergy in Model.Allergies)
+                            {
+                                <li>@allergy.Name</li>
+                            }
+                        </ul>
+                    </div>
 
-<div class="flex flex-col gap-4">
-    <div class="flex flex-col">
-        <label class="block mb-2 text-md font-medium text-text">Nom : @Model.Name</label>
+                </div>
+                
+                <div class="d-flex justify-content-center">
+                    <a asp-action="Edit" asp-controller="Medicament" asp-route-id="@Model.MedicamentId" class="btn btn-primary mx-2">Modifier</a>
+                    <a asp-action="Delete" asp-controller="Medicament" asp-route-id="@Model.MedicamentId" class="btn btn-danger mx-2">Supprimer</a>
+                    <a asp-action="Index" asp-controller="Medicament" class="btn btn-secondary mx-2">Retour à la liste</a>
+                </div>
+            </div>
+        </div>
     </div>
-
-    <div class="flex flex-col">
-        <label class="block mb-2 text-md font-medium text-text">Quantité : @Model.Quantity</label>
-    </div>
-
-    <div class="flex flex-col">
-        <label class="block mb-2 text-md font-medium text-text">Ingrédients : @Model.Ingredients</label>
-    </div>
-
-    <h3 class="mt-2 font-bold">Contre indication : Antécédents</h3>
-    <ul class="flex flex-col gap-2 list-disc">
-        @foreach (var medicalHistory in Model.MedicalHistories)
-        {
-            <li>@medicalHistory.Name</li>
-        }
-    </ul>
 </div>
