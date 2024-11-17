@@ -1,6 +1,7 @@
 using System.Diagnostics.CodeAnalysis;
 using MedManager.Data;
 using MedManager.Models;
+using MedManager.Utils;
 using MedManager.ViewModel.Dashboard;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -67,12 +68,13 @@ public class DashboardController : Controller
     
     private ChartScriptViewModel MostPrescribedMedicamentsStat()
     {
-        var mostPrescribedMedicaments = _dbContext.Medicaments.Select(m => new
-        {
-            Medicament = m,
-            Count = m.Prescriptions.Count
-        }).OrderByDescending(m => m.Count).Take(5).Select(m => m.Medicament).ToList();
-        
+        var mostPrescribedMedicaments = _dbContext.Medicaments
+            .Include(m => m.Prescriptions)
+            .Select(m => new {
+                Medicament = m,
+                Count = m.Prescriptions.Count
+            }).OrderByDescending(m => m.Count).Take(5).Select(m => m.Medicament).ToList();
+            
         var medicamentsLabels = new List<string>();
         var medicamentsData = new List<int>();
         
@@ -202,7 +204,54 @@ public class DashboardController : Controller
             }
         };
     }
-    
+
+    private ChartScriptViewModel MedicamentsByTypeStat()
+    {
+        var medicamentByType = _dbContext.Medicaments
+            .GroupBy(m => m.Type)
+            .OrderByDescending(g => g.Count()) // Trie les groupes par tailled
+            .Select(g => new
+            {
+                Type = g.Key,
+                Count = g.Count(),
+                Medicaments = g.ToList()
+            })
+            .ToList();
+        var patientsByGenderLabels = new List<string>();
+        var patientsByGenderData = new List<int>();
+        
+        foreach (var group in medicamentByType)
+        {
+            patientsByGenderLabels.Add(group.Type.GetDisplayName());
+            patientsByGenderData.Add(group.Count);
+        }
+        
+        return new ChartScriptViewModel()
+        {
+            Labels = patientsByGenderLabels,
+            Data = patientsByGenderData,
+            Label = "Type",
+            ChartName = "medicamentsTypeChart",
+            ChartType = "bar",
+            BorderColor = new[]
+            {
+                "rgba(255, 99, 132, 1)",
+                "rgba(54, 162, 235, 1)",
+                "rgba(255, 206, 86, 1)",
+                "rgba(75, 192, 192, 1)",
+                "rgba(153, 102, 255, 1)"
+            },
+            BackgroundColor = new[]
+            {
+                "rgba(255, 99, 132, 0.2)",
+                "rgba(54, 162, 235, 0.2)",
+                "rgba(255, 206, 86, 0.2)",
+                "rgba(75, 192, 192, 0.2)",
+                "rgba(153, 102, 255, 0.2)"
+            }
+        };
+    }
+
     #endregion
     
     [HttpGet]
@@ -220,11 +269,11 @@ public class DashboardController : Controller
         model.TotalPrescriptions = _dbContext.Prescriptions.Count(p => p.DoctorId == UserId);
         
         // données pour les statistiques
-        
         model.MostConsultedPatientsStatVm = MostConsultedPatientsStat();
         model.MostPrescribedMedicamentsStatVm = MostPrescribedMedicamentsStat();
         model.MostCommonAllergyStatVm = MostCommonAllergiesStat();
         model.PatientsByAgeStatVm = PatientsByAgeStat();
+        model.MedicamentsByTypeStatVm = MedicamentsByTypeStat();
         
         return View(model);
     }

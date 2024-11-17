@@ -12,4 +12,5 @@ public class DashboardViewModel
     public ChartScriptViewModel MostPrescribedMedicamentsStatVm { get; set; } = new();
     public ChartScriptViewModel MostCommonAllergyStatVm { get; set; } = new();
     public ChartScriptViewModel PatientsByAgeStatVm { get; set; } = new();
+    public ChartScriptViewModel MedicamentsByTypeStatVm { get; set; } = new();
 }

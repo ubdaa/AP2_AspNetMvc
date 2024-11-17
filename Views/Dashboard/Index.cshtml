@@ -179,7 +179,7 @@
                     <h5>Nombre de médicaments par types</h5>
                 </div>
                 <div class="card-body">
-                    <canvas id="Chart"></canvas>
+                    <canvas id="medicamentsTypeChart"></canvas>
                 </div>
             </div>
         </div>
@@ -233,6 +233,17 @@
                 '@Model.PatientsByAgeStatVm.ChartType',
                 @Html.Raw(Json.Serialize(Model.PatientsByAgeStatVm.BorderColor)),
                 @Html.Raw(Json.Serialize(Model.PatientsByAgeStatVm.BackgroundColor))
+            );
+            
+            // Medicaments by type chart
+            InitChart(
+                @Html.Raw(Json.Serialize(Model.MedicamentsByTypeStatVm.Data)),
+                @Html.Raw(Json.Serialize(Model.MedicamentsByTypeStatVm.Labels)),
+                '@Model.MedicamentsByTypeStatVm.Label',
+                '@Model.MedicamentsByTypeStatVm.ChartName',
+                '@Model.MedicamentsByTypeStatVm.ChartType',
+                @Html.Raw(Json.Serialize(Model.MedicamentsByTypeStatVm.BorderColor)),
+                @Html.Raw(Json.Serialize(Model.MedicamentsByTypeStatVm.BackgroundColor))
             );
         };
     </script>
