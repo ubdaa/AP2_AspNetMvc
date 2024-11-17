@@ -13,12 +13,4 @@ public class SupportController : Controller
     {
         return View();
     }
-
-    [HttpPost]
-    public IActionResult ContactMe()
-    {
-        // Send an email to the support team
-        
-        return RedirectToAction("Index");
-    }
 }
