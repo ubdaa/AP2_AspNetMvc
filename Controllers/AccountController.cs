@@ -1,5 +1,6 @@
 using MedManager.ViewModel.Account;
 using MedManager.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
@@ -47,7 +48,7 @@ public class AccountController : Controller
     }
 
     [HttpPost]
-    public async Task<IActionResult> Register(RegisterViewModel model)
+    public async Task<IActionResult> Register(AccountViewModel model)
     {
         if (!ModelState.IsValid)
             return View(model);
@@ -78,5 +79,59 @@ public class AccountController : Controller
     public IActionResult Index()
     {
         return RedirectToAction("Login");
+    }
+
+    [HttpGet]
+    [Authorize]
+    public async Task<IActionResult> Edit()
+    {
+        var user = await _userManager.GetUserAsync(User);
+        
+        if (user == null)
+            return NotFound("Utilisateur introuvable ou non connecté");
+
+        var model = new AccountViewModel
+        {
+            Username = user.UserName,
+            Email = user.Email,
+            FirstName = user.FirstName,
+            LastName = user.LastName,
+            Password = user.PasswordHash
+        };
+        
+        return View(model);
+    }
+    
+    [HttpPost]
+    [Authorize]
+    public async Task<IActionResult> Edit(AccountViewModel model)
+    {
+        if (!ModelState.IsValid)
+            return View(model);
+
+        var user = await _userManager.GetUserAsync(User);
+        
+        if (user == null)
+            return NotFound("Utilisateur introuvable ou non connecté");
+
+        user.UserName = model.Username;
+        user.NormalizedUserName = model.Username!.ToUpper();
+        user.Email = model.Email;
+        user.NormalizedEmail = model.Email!.ToUpper();
+        user.FirstName = model.FirstName!;
+        user.LastName = model.LastName!;
+
+        var passwordHasher = new PasswordHasher<Doctor>();
+        user.PasswordHash = passwordHasher.HashPassword(user, model.Password!);
+
+        var result = await _userManager.UpdateAsync(user);
+
+        if (result.Succeeded) return RedirectToAction("Index", "Dashboard");
+        
+        foreach (var error in result.Errors)
+        {
+            ModelState.AddModelError(string.Empty, error.Description);
+        }
+        return View(model);
     }
 }

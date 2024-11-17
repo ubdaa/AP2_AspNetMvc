@@ -91,7 +91,7 @@
                 @if (User?.Identity?.IsAuthenticated == true)
                 {
                     <li class="nav-item mr-2">
-                        <a class="nav-link active">Bonjour, @User.Identity.Name!</a>
+                        <a class="nav-link active" asp-controller="Account" asp-action="Edit">Bonjour, @User.Identity.Name! - <i class="bi bi-gear-fill"></i></a>
                     </li>
                     <li class="nav-item">
                         <a asp-action="Logout" asp-controller="Account" asp-route-id="" class="btn btn-primary"

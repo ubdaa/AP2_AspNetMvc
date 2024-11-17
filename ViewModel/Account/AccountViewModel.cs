@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace MedManager.ViewModel.Account;
 
-public class RegisterViewModel
+public class AccountViewModel
 {
     [Display(Name = "Adresse mail")]
     [DataType(DataType.EmailAddress)]
