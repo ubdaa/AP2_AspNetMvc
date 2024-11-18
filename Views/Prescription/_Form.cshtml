@@ -164,5 +164,10 @@ else
 }
 else
 {
-    <a asp-controller="Prescription" asp-action="ExportPdf" asp-route-id="@Model.PrescriptionId" class="btn btn-primary mx-auto">Exporter en PDF</a>
+    <div class="d-flex justify-content-center">
+        <a asp-controller="Prescription" asp-action="ExportPdf" asp-route-id="@Model.PrescriptionId" class="btn btn-success mx-auto">Exporter en PDF</a>
+        <a asp-controller="Prescription" asp-action="Edit" asp-route-id="@Model.PrescriptionId" class="btn btn-primary mx-auto">Éditer</a>
+        <a asp-controller="Prescription" asp-action="Delete" asp-route-id="@Model.PrescriptionId" class="btn btn-danger mx-auto">Supprimer</a>
+        <a asp-controller="Prescription" asp-action="ExportPdf" asp-route-id="@Model.PrescriptionId" class="btn btn-secondary mx-auto">Retour à la liste</a>
+    </div>
 }

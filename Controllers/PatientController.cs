@@ -210,7 +210,7 @@ public class PatientController : Controller
     }
 
     [HttpGet]
-    public IActionResult ShowDetails(int id)
+    public IActionResult Details(int id)
     {
         Patient? patient =  _dbContext.Patients.FirstOrDefault(p => p.PatientId == id);
         if (patient == null) return NotFound();

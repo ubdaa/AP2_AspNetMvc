@@ -23,7 +23,7 @@
             <td>@Html.DisplayFor(m => patient.Height) cm</td>
             <td>@Html.DisplayFor(m => patient.Weight) kg</td>
             <td>@Html.DisplayFor(m => patient.Gender)</td>
-            <td><a asp-action="ShowDetails" asp-controller="Patient" asp-route-id="@patient.PatientId" class="mr-4"><i class="bi bi-card-list"></i></a>
+            <td><a asp-action="Details" asp-controller="Patient" asp-route-id="@patient.PatientId" class="mr-4"><i class="bi bi-card-list"></i></a>
                 <a asp-action="Edit" asp-controller="Patient" asp-route-id="@patient.PatientId" class="mr-4"><i class="bi bi-pencil"></i></a>
                 <a type="button" data-toggle="modal" data-target="#supprModal@{@Html.DisplayFor(m => patient.PatientId)}" class="text-primary">
                     <i class="bi bi-trash"></i>
