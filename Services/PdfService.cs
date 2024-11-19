@@ -31,7 +31,11 @@ public static class PdfService
             .SetMarginBottom(4));
         leftCell.Add(new Paragraph(prescription.Doctor.FullName)
             .SetFontSize(11));
-        leftCell.Add(new Paragraph(prescription.Doctor.Email)
+        leftCell.Add(new Paragraph(prescription.Doctor.Address)
+            .SetFontSize(11));
+        leftCell.Add(new Paragraph($"Diplômé de la {prescription.Doctor.Faculty}")
+            .SetFontSize(11));
+        leftCell.Add(new Paragraph($"{prescription.Doctor.Specialty}")
             .SetFontSize(11));
         
         var rightCell = new Cell().SetBorder(Border.NO_BORDER);
