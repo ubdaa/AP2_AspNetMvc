@@ -3,7 +3,6 @@ using MedManager.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace MedManager.Controllers;
 
@@ -105,7 +104,10 @@ public class AccountController : Controller
             Email = user.Email,
             FirstName = user.FirstName,
             LastName = user.LastName,
-            Password = user.PasswordHash
+            Password = user.PasswordHash,
+            Address = user.Address,
+            Faculty = user.Faculty,
+            Specialty = user.Specialty
         };
         
         return View(model);
