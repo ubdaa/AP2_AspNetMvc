@@ -53,7 +53,16 @@ public class AccountController : Controller
         if (!ModelState.IsValid)
             return View(model);
 
-        var user = new Doctor() { UserName = model.Username, Email = model.Email, FirstName = model.FirstName, LastName = model.LastName };
+        var user = new Doctor()
+        {
+            UserName = model.Username, 
+            Email = model.Email, 
+            FirstName = model.FirstName!,
+            LastName = model.LastName!,
+            Address = model.Address!,
+            Faculty = model.Faculty!, 
+            Specialty = model.Specialty!
+        };
         var result = await _userManager.CreateAsync(user, model.Password!);
         
         if (!result.Succeeded)
@@ -120,6 +129,9 @@ public class AccountController : Controller
         user.NormalizedEmail = model.Email!.ToUpper();
         user.FirstName = model.FirstName!;
         user.LastName = model.LastName!;
+        user.Address = model.Address!;
+        user.Faculty = model.Faculty!;
+        user.Specialty = model.Specialty!;
 
         var passwordHasher = new PasswordHasher<Doctor>();
         user.PasswordHash = passwordHasher.HashPassword(user, model.Password!);
