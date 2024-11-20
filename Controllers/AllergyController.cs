@@ -9,10 +9,12 @@ namespace MedManager.Controllers;
 public class AllergyController : Controller
 {
     private readonly ApplicationDbContext _dbContext;
+    private readonly ILogger<AllergyController> _logger;
     
-    public AllergyController(ApplicationDbContext dbContext)
+    public AllergyController(ApplicationDbContext dbContext, ILogger<AllergyController> logger)
     {
         _dbContext = dbContext;
+        _logger = logger;
     }
     
     // GET
@@ -34,15 +36,23 @@ public class AllergyController : Controller
     [HttpPost]
     public IActionResult Add(Allergy allergy)
     {
-        if (!ModelState.IsValid)
+        try
         {
-            return View(allergy);
+            if (!ModelState.IsValid)
+            {
+                return View(allergy);
+            }
+
+            _dbContext.Allergies.Add(new Allergy { Name = allergy.Name });
+            _dbContext.SaveChanges();
+
+            return RedirectToAction("Index");
         }
-        
-        _dbContext.Allergies.Add(new Allergy { Name = allergy.Name });
-        _dbContext.SaveChanges();
-        
-        return RedirectToAction("Index");
+        catch (Exception e)
+        {
+            _logger.LogError(e, "Error while adding allergy");
+            return RedirectToAction("Index", "Error");
+        }
     }
     
     [HttpGet]
@@ -61,22 +71,30 @@ public class AllergyController : Controller
     [HttpPost]
     public IActionResult Edit(Allergy allergy)
     {
-        if (!ModelState.IsValid)
+        try
         {
-            return View(allergy);
-        }
-        
-        var allergyToUpdate = _dbContext.Allergies.FirstOrDefault(x => x.AllergyId == allergy.AllergyId);
-        
-        if (allergyToUpdate == null)
+            if (!ModelState.IsValid)
+            {
+                return View(allergy);
+            }
+            
+            var allergyToUpdate = _dbContext.Allergies.FirstOrDefault(x => x.AllergyId == allergy.AllergyId);
+            
+            if (allergyToUpdate == null)
+            {
+                return NotFound();
+            }
+            
+            allergyToUpdate.Name = allergy.Name;
+            _dbContext.SaveChanges();
+            
+            return RedirectToAction("Index");
+        } 
+        catch (Exception e)
         {
-            return NotFound();
+            _logger.LogError(e, "Error while updating allergy");
+            return RedirectToAction("Index", "Error");
         }
-        
-        allergyToUpdate.Name = allergy.Name;
-        _dbContext.SaveChanges();
-        
-        return RedirectToAction("Index");
     }
     
     public async Task<IActionResult> Delete(int id)
@@ -95,9 +113,10 @@ public class AllergyController : Controller
 
             return RedirectToAction("Index");
         }
-        catch
+        catch (Exception e)
         {
-            return BadRequest();
+            _logger.LogError(e, "Error while deleting allergy");
+            return RedirectToAction("Index", "Error");
         }
     }
 }
