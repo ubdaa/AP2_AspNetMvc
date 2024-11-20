@@ -10,11 +10,13 @@ public class AccountController : Controller
 {
     private readonly SignInManager<Doctor> _signInManager;
     private readonly UserManager<Doctor> _userManager;
+    private readonly ILogger<AccountController> _logger;
     
-    public AccountController(SignInManager<Doctor> signInManager, UserManager<Doctor> userManager)
+    public AccountController(SignInManager<Doctor> signInManager, UserManager<Doctor> userManager, ILogger<AccountController> logger)
     {
         _signInManager = signInManager;
         _userManager = userManager;
+        _logger = logger;
     }
 
     [HttpGet]
@@ -26,18 +28,25 @@ public class AccountController : Controller
     [HttpPost]
     public async Task<IActionResult> Login(LoginViewModel model)
     {
-        if (!ModelState.IsValid)
-            return View(model);
-
-        var result = await _signInManager.PasswordSignInAsync(model.Username!, model.Password!, model.RememberMe, false);
-
-        if (!result.Succeeded)
+        try
         {
-            ModelState.AddModelError("", "Erreur lors de la connexion");
-            return View(model);
+            if (!ModelState.IsValid)
+                return View(model);
+
+            var result = await _signInManager.PasswordSignInAsync(model.Username!, model.Password!, model.RememberMe, false);
+
+            if (!result.Succeeded)
+            {
+                ModelState.AddModelError("", "Erreur lors de la connexion");
+                return View(model);
+            }
+            
+            return RedirectToAction("Index", "Dashboard");
+        } catch (Exception e)
+        {
+            _logger.LogError(e, "Error while logging in");
+            return RedirectToAction("Index", "Error");
         }
-        
-        return RedirectToAction("Index", "Dashboard");
     }
 
     [HttpGet]
@@ -49,31 +58,40 @@ public class AccountController : Controller
     [HttpPost]
     public async Task<IActionResult> Register(AccountViewModel model)
     {
-        if (!ModelState.IsValid)
-            return View(model);
+        try
+        {
+            if (!ModelState.IsValid)
+                return View(model);
 
-        var user = new Doctor()
-        {
-            UserName = model.Username, 
-            Email = model.Email, 
-            FirstName = model.FirstName!,
-            LastName = model.LastName!,
-            Address = model.Address!,
-            Faculty = model.Faculty!, 
-            Specialty = model.Specialty!
-        };
-        var result = await _userManager.CreateAsync(user, model.Password!);
-        
-        if (!result.Succeeded)
-        {
-            foreach (var error in result.Errors)
+            var user = new Doctor()
             {
-                ModelState.AddModelError(string.Empty, error.Description);
-            }
-            return View(model);
-        }
+                UserName = model.Username,
+                Email = model.Email,
+                FirstName = model.FirstName!,
+                LastName = model.LastName!,
+                Address = model.Address!,
+                Faculty = model.Faculty!,
+                Specialty = model.Specialty!
+            };
+            var result = await _userManager.CreateAsync(user, model.Password!);
 
-        return RedirectToAction("Index", "Dashboard");
+            if (!result.Succeeded)
+            {
+                foreach (var error in result.Errors)
+                {
+                    ModelState.AddModelError(string.Empty, error.Description);
+                }
+
+                return View(model);
+            }
+
+            return RedirectToAction("Index", "Dashboard");
+        }
+        catch (Exception e)
+        {
+            _logger.LogError(e, "Error while registering");
+            return RedirectToAction("Index", "Error");
+        }
     }
     
     [HttpGet]
@@ -117,35 +135,43 @@ public class AccountController : Controller
     [Authorize]
     public async Task<IActionResult> Edit(AccountViewModel model)
     {
-        if (!ModelState.IsValid)
-            return View(model);
-
-        var user = await _userManager.GetUserAsync(User);
-        
-        if (user == null)
-            return NotFound("Utilisateur introuvable ou non connecté");
-
-        user.UserName = model.Username;
-        user.NormalizedUserName = model.Username!.ToUpper();
-        user.Email = model.Email;
-        user.NormalizedEmail = model.Email!.ToUpper();
-        user.FirstName = model.FirstName!;
-        user.LastName = model.LastName!;
-        user.Address = model.Address!;
-        user.Faculty = model.Faculty!;
-        user.Specialty = model.Specialty!;
-
-        var passwordHasher = new PasswordHasher<Doctor>();
-        user.PasswordHash = passwordHasher.HashPassword(user, model.Password!);
-
-        var result = await _userManager.UpdateAsync(user);
-
-        if (result.Succeeded) return RedirectToAction("Index", "Dashboard");
-        
-        foreach (var error in result.Errors)
+        try
         {
-            ModelState.AddModelError(string.Empty, error.Description);
+            if (!ModelState.IsValid)
+                return View(model);
+
+            var user = await _userManager.GetUserAsync(User);
+            
+            if (user == null)
+                return NotFound("Utilisateur introuvable ou non connecté");
+
+            user.UserName = model.Username;
+            user.NormalizedUserName = model.Username!.ToUpper();
+            user.Email = model.Email;
+            user.NormalizedEmail = model.Email!.ToUpper();
+            user.FirstName = model.FirstName!;
+            user.LastName = model.LastName!;
+            user.Address = model.Address!;
+            user.Faculty = model.Faculty!;
+            user.Specialty = model.Specialty!;
+
+            var passwordHasher = new PasswordHasher<Doctor>();
+            user.PasswordHash = passwordHasher.HashPassword(user, model.Password!);
+
+            var result = await _userManager.UpdateAsync(user);
+
+            if (result.Succeeded) return RedirectToAction("Index", "Dashboard");
+            
+            foreach (var error in result.Errors)
+            {
+                ModelState.AddModelError(string.Empty, error.Description);
+            }
+            return View(model);
+        } 
+        catch (Exception e)
+        {
+            _logger.LogError(e, "Error while editing user");
+            return RedirectToAction("Index", "Error");
         }
-        return View(model);
     }
 }
