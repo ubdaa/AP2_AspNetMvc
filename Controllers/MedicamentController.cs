@@ -162,7 +162,7 @@ public class MedicamentController : Controller
                 return View(medicamentViewModel);
             }
 
-            Medicament? medicamentToUpdate = await _dbContext.Medicaments
+            var medicamentToUpdate = await _dbContext.Medicaments
                 .Include(m => m.Allergies)
                 .Include(m => m.MedicalHistories)
                 .FirstOrDefaultAsync(x => x.MedicamentId == medicamentViewModel.MedicamentId);
