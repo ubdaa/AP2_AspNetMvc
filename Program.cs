@@ -28,25 +28,18 @@ builder.Services.AddIdentity<Doctor, IdentityRole>(options =>
 
 var app = builder.Build();
 
+var context = app.Services.CreateScope().ServiceProvider.GetRequiredService<ApplicationDbContext>();
+context.Database.EnsureCreated();
+
 if (app.Environment.IsDevelopment())
 {
     app.UseDeveloperExceptionPage();
+    app.UseHsts();
 }
 else
 {
     app.UseExceptionHandler("/Error/Index");
     app.UseStatusCodePagesWithRedirects("/Error/Index"); 
-}
-
-var context = app.Services.CreateScope().ServiceProvider.GetRequiredService<ApplicationDbContext>();
-context.Database.EnsureCreated();
-
-// Configure the HTTP request pipeline.
-if (!app.Environment.IsDevelopment())
-{
-    app.UseExceptionHandler("/Home/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-    app.UseHsts();
 }
 
 app.UseHttpsRedirection();

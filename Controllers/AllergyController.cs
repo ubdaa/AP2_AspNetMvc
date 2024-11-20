@@ -79,18 +79,25 @@ public class AllergyController : Controller
         return RedirectToAction("Index");
     }
     
-    public IActionResult Delete(int id)
+    public async Task<IActionResult> Delete(int id)
     {
-        var allergy = _dbContext.Allergies.FirstOrDefault(x => x.AllergyId == id);
-        
-        if (allergy == null)
+        try
         {
-            return NotFound();
-        }
-        
-        _dbContext.Allergies.Remove(allergy);
-        _dbContext.SaveChanges();
+            var allergy = _dbContext.Allergies.FirstOrDefault(x => x.AllergyId == id);
 
-        return RedirectToAction("Index");
+            if (allergy == null)
+            {
+                return NotFound();
+            }
+
+            _dbContext.Allergies.Remove(allergy);
+            await _dbContext.SaveChangesAsync();
+
+            return RedirectToAction("Index");
+        }
+        catch
+        {
+            return BadRequest();
+        }
     }
 }
