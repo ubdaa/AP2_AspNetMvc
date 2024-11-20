@@ -2,6 +2,7 @@ using MedManager.Data;
 using MedManager.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace MedManager.Controllers;
 
@@ -9,16 +10,18 @@ namespace MedManager.Controllers;
 public class MedicalHistoryController : Controller
 {
     private readonly ApplicationDbContext _dbContext;
+    private readonly ILogger<MedicalHistory> _logger;
     
-    public MedicalHistoryController(ApplicationDbContext dbContext)
+    public MedicalHistoryController(ApplicationDbContext dbContext, ILogger<MedicalHistory> logger)
     {
         _dbContext = dbContext;
+        _logger = logger;
     }
     
     // GET
-    public IActionResult Index()
+    public async Task<IActionResult> Index()
     {
-        return View(_dbContext.MedicalHistories.ToList());
+        return View(await _dbContext.MedicalHistories.ToListAsync());
     }
     
     [HttpGet]
@@ -32,23 +35,32 @@ public class MedicalHistoryController : Controller
     }
     
     [HttpPost]
-    public IActionResult Add(MedicalHistory medicalHistory)
+    public async Task<IActionResult> Add(MedicalHistory medicalHistory)
     {
-        if (!ModelState.IsValid)
+        try
         {
-            return View(medicalHistory);
+            if (!ModelState.IsValid)
+            {
+                return View(medicalHistory);
+            }
+
+            _dbContext.MedicalHistories.Add(new MedicalHistory { Name = medicalHistory.Name });
+            await _dbContext.SaveChangesAsync();
+
+            return RedirectToAction("Index");
         }
-        
-        _dbContext.MedicalHistories.Add(new MedicalHistory { Name = medicalHistory.Name });
-        _dbContext.SaveChanges();
-        
-        return RedirectToAction("Index");
+        catch (Exception e)
+        {
+            _logger.LogError(e, "Error while adding medical history");
+            return RedirectToAction("Index", "Error");
+        }
     }
     
     [HttpGet]
-    public IActionResult Edit(int id)
+    public async Task<IActionResult> Edit(int id)
     {
-        var medicalHistory = _dbContext.MedicalHistories.FirstOrDefault(x => x.MedicalHistoryId == id);
+        var medicalHistory = await _dbContext.MedicalHistories
+            .FirstOrDefaultAsync(x => x.MedicalHistoryId == id);
         
         if (medicalHistory == null)
         {
@@ -59,38 +71,56 @@ public class MedicalHistoryController : Controller
     }
     
     [HttpPost]
-    public IActionResult Edit(MedicalHistory medicalHistory)
+    public async Task<IActionResult> Edit(MedicalHistory medicalHistory)
     {
-        if (!ModelState.IsValid)
+        try
         {
-            return View(medicalHistory);
+            if (!ModelState.IsValid)
+            {
+                return View(medicalHistory);
+            }
+
+            var medicalHistoryToUpdate = await _dbContext.MedicalHistories
+                    .FirstOrDefaultAsync(x => x.MedicalHistoryId == medicalHistory.MedicalHistoryId);
+
+            if (medicalHistoryToUpdate == null)
+            {
+                return NotFound();
+            }
+
+            medicalHistoryToUpdate.Name = medicalHistory.Name;
+            await _dbContext.SaveChangesAsync();
+
+            return RedirectToAction("Index");
         }
-        
-        var medicalHistoryToUpdate = _dbContext.MedicalHistories.FirstOrDefault(x => x.MedicalHistoryId == medicalHistory.MedicalHistoryId);
-        
-        if (medicalHistoryToUpdate == null)
+        catch (Exception e)
         {
-            return NotFound();
+            _logger.LogError(e, "Error while updating medical history");
+            return RedirectToAction("Index", "Error");
         }
-        
-        medicalHistoryToUpdate.Name = medicalHistory.Name;
-        _dbContext.SaveChanges();
-        
-        return RedirectToAction("Index");
     }
     
-    public IActionResult Delete(int id)
+    public async Task<IActionResult> Delete(int id)
     {
-        var medicalHistory = _dbContext.MedicalHistories.FirstOrDefault(x => x.MedicalHistoryId == id);
-        
-        if (medicalHistory == null)
+        try
         {
-            return NotFound();
-        }
-        
-        _dbContext.MedicalHistories.Remove(medicalHistory);
-        _dbContext.SaveChanges();
+            var medicalHistory = await _dbContext.MedicalHistories
+                .FirstOrDefaultAsync(x => x.MedicalHistoryId == id);
 
-        return RedirectToAction("Index");
+            if (medicalHistory == null)
+            {
+                return NotFound();
+            }
+
+            _dbContext.MedicalHistories.Remove(medicalHistory);
+            await _dbContext.SaveChangesAsync();
+
+            return RedirectToAction("Index");
+        }
+        catch (Exception e)
+        {
+            _logger.LogError(e, "Error while deleting medical history");
+            return RedirectToAction("Index", "Error");
+        }
     }
 }

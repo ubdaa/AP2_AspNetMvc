@@ -2,6 +2,7 @@ using MedManager.Data;
 using MedManager.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace MedManager.Controllers;
 
@@ -18,9 +19,9 @@ public class AllergyController : Controller
     }
     
     // GET
-    public IActionResult Index()
+    public async Task<IActionResult> Index()
     {
-        return View(_dbContext.Allergies.ToList());
+        return View(await _dbContext.Allergies.ToListAsync());
     }
     
     [HttpGet]
@@ -34,7 +35,7 @@ public class AllergyController : Controller
     }
     
     [HttpPost]
-    public IActionResult Add(Allergy allergy)
+    public async Task<IActionResult> Add(Allergy allergy)
     {
         try
         {
@@ -44,7 +45,7 @@ public class AllergyController : Controller
             }
 
             _dbContext.Allergies.Add(new Allergy { Name = allergy.Name });
-            _dbContext.SaveChanges();
+            await _dbContext.SaveChangesAsync();
 
             return RedirectToAction("Index");
         }
@@ -56,20 +57,29 @@ public class AllergyController : Controller
     }
     
     [HttpGet]
-    public IActionResult Edit(int id)
+    public async Task<IActionResult> Edit(int id)
     {
-        var allergy = _dbContext.Allergies.FirstOrDefault(x => x.AllergyId == id);
-        
-        if (allergy == null)
+        try
         {
-            return NotFound();
+            var allergy = await _dbContext.Allergies
+                .FirstOrDefaultAsync(x => x.AllergyId == id);
+
+            if (allergy == null)
+            {
+                return NotFound();
+            }
+
+            return View(allergy);
         }
-        
-        return View(allergy);
+        catch (Exception e)
+        {
+            _logger.LogError(e, "Error while accessing allergy");
+            return RedirectToAction("Index", "Error");
+        }
     }
     
     [HttpPost]
-    public IActionResult Edit(Allergy allergy)
+    public async Task<IActionResult> Edit(Allergy allergy)
     {
         try
         {
@@ -78,7 +88,8 @@ public class AllergyController : Controller
                 return View(allergy);
             }
             
-            var allergyToUpdate = _dbContext.Allergies.FirstOrDefault(x => x.AllergyId == allergy.AllergyId);
+            var allergyToUpdate = await _dbContext.Allergies
+                .FirstOrDefaultAsync(x => x.AllergyId == allergy.AllergyId);
             
             if (allergyToUpdate == null)
             {
@@ -86,7 +97,7 @@ public class AllergyController : Controller
             }
             
             allergyToUpdate.Name = allergy.Name;
-            _dbContext.SaveChanges();
+            await _dbContext.SaveChangesAsync();
             
             return RedirectToAction("Index");
         } 
@@ -101,7 +112,8 @@ public class AllergyController : Controller
     {
         try
         {
-            var allergy = _dbContext.Allergies.FirstOrDefault(x => x.AllergyId == id);
+            var allergy = await _dbContext.Allergies
+                .FirstOrDefaultAsync(x => x.AllergyId == id);
 
             if (allergy == null)
             {
