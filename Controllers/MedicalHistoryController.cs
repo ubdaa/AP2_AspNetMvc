@@ -44,7 +44,7 @@ public class MedicalHistoryController : Controller
                 return View(medicalHistory);
             }
 
-            _dbContext.MedicalHistories.Add(new MedicalHistory { Name = medicalHistory.Name });
+            await _dbContext.MedicalHistories.AddAsync(new MedicalHistory { Name = medicalHistory.Name });
             await _dbContext.SaveChangesAsync();
 
             return RedirectToAction("Index");
@@ -59,15 +59,23 @@ public class MedicalHistoryController : Controller
     [HttpGet]
     public async Task<IActionResult> Edit(int id)
     {
-        var medicalHistory = await _dbContext.MedicalHistories
-            .FirstOrDefaultAsync(x => x.MedicalHistoryId == id);
-        
-        if (medicalHistory == null)
+        try
         {
-            return NotFound();
+            var medicalHistory = await _dbContext.MedicalHistories
+                .FirstOrDefaultAsync(x => x.MedicalHistoryId == id);
+
+            if (medicalHistory == null)
+            {
+                return NotFound();
+            }
+
+            return View(medicalHistory);
         }
-        
-        return View(medicalHistory);
+        catch (Exception e)
+        {
+            _logger.LogError(e, "Error while editing medical history");
+            return RedirectToAction("Index", "Error");
+        }
     }
     
     [HttpPost]

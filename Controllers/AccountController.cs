@@ -33,7 +33,8 @@ public class AccountController : Controller
             if (!ModelState.IsValid)
                 return View(model);
 
-            var result = await _signInManager.PasswordSignInAsync(model.Username!, model.Password!, model.RememberMe, false);
+            var result = await _signInManager
+                .PasswordSignInAsync(model.Username!, model.Password!, model.RememberMe, false);
 
             if (!result.Succeeded)
             {

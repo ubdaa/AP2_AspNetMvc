@@ -97,7 +97,7 @@ public class MedicamentController : Controller
                 }
             }
 
-            _dbContext.Medicaments.Add(medicament);
+            await _dbContext.Medicaments.AddAsync(medicament);
             await _dbContext.SaveChangesAsync();
 
             return RedirectToAction("Index");

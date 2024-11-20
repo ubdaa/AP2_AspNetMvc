@@ -44,7 +44,7 @@ public class AllergyController : Controller
                 return View(allergy);
             }
 
-            _dbContext.Allergies.Add(new Allergy { Name = allergy.Name });
+            await _dbContext.Allergies.AddAsync(new Allergy { Name = allergy.Name });
             await _dbContext.SaveChangesAsync();
 
             return RedirectToAction("Index");
