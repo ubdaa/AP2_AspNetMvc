@@ -107,7 +107,8 @@ public class PatientController : Controller
             _dbContext.Patients.Add(patient);
 
             await _dbContext.SaveChangesAsync();
-
+            
+            TempData["SuccessMessage"] = "Votre patient a été ajouté avec succès";
             return RedirectToAction("Index");
         }
         catch (Exception e)
@@ -128,6 +129,7 @@ public class PatientController : Controller
 
             _dbContext.Patients.Remove(patientToDelete);
             await _dbContext.SaveChangesAsync();
+            TempData["ErrorMessage"] = "Votre patient a été supprimé avec succès";
             return RedirectToAction("Index", "Patient");
         }
         catch (Exception ex)
@@ -232,6 +234,7 @@ public class PatientController : Controller
 
             await _dbContext.SaveChangesAsync();
 
+            TempData["SuccessMessage"] = "Votre patient a été modifié avec succès";
             return RedirectToAction("Index");
         }
         catch (Exception e)
@@ -283,7 +286,8 @@ public class PatientController : Controller
             });
 
             await _dbContext.SaveChangesAsync();
-
+            
+            TempData["SuccessMessage"] = $"L'ordonnance de {patient.FirstName} {patient.LastName} a été créée avec succès";
             return RedirectToAction("Edit", "Prescription", new { id = prescription.Entity.PrescriptionId });
         }
         catch (Exception e)

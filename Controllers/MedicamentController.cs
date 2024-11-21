@@ -100,6 +100,7 @@ public class MedicamentController : Controller
             await _dbContext.Medicaments.AddAsync(medicament);
             await _dbContext.SaveChangesAsync();
 
+            TempData["SuccessMessage"] = "Votre médicament a été ajouté avec succès";
             return RedirectToAction("Index");
         }
         catch (Exception e)
@@ -199,7 +200,8 @@ public class MedicamentController : Controller
             }
 
             await _dbContext.SaveChangesAsync();
-
+            
+            TempData["SuccessMessage"] = "Votre médicament a été modifié avec succès";
             return RedirectToAction("Index");
         }
         catch (Exception e)
@@ -224,6 +226,7 @@ public class MedicamentController : Controller
             _dbContext.Medicaments.Remove(medicament);
             await _dbContext.SaveChangesAsync();
 
+            TempData["ErrorMessage"] = "Votre médicament a été supprimé avec succès";
             return RedirectToAction("Index");
         }
         catch (Exception e)

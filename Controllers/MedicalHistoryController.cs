@@ -47,6 +47,7 @@ public class MedicalHistoryController : Controller
             await _dbContext.MedicalHistories.AddAsync(new MedicalHistory { Name = medicalHistory.Name });
             await _dbContext.SaveChangesAsync();
 
+            TempData["SuccessMessage"] = "Votre antécédent médical a été ajouté avec succès";
             return RedirectToAction("Index");
         }
         catch (Exception e)
@@ -99,6 +100,7 @@ public class MedicalHistoryController : Controller
             medicalHistoryToUpdate.Name = medicalHistory.Name;
             await _dbContext.SaveChangesAsync();
 
+            TempData["SuccessMessage"] = "Votre antécédent médical a été modifié avec succès";
             return RedirectToAction("Index");
         }
         catch (Exception e)
@@ -123,6 +125,7 @@ public class MedicalHistoryController : Controller
             _dbContext.MedicalHistories.Remove(medicalHistory);
             await _dbContext.SaveChangesAsync();
 
+            TempData["ErrorMessage"] = "Votre antécédent médical a été supprimé avec succès";
             return RedirectToAction("Index");
         }
         catch (Exception e)

@@ -47,6 +47,7 @@ public class AllergyController : Controller
             await _dbContext.Allergies.AddAsync(new Allergy { Name = allergy.Name });
             await _dbContext.SaveChangesAsync();
 
+            TempData["SuccessMessage"] = "Votre allergie a été ajoutée avec succès";
             return RedirectToAction("Index");
         }
         catch (Exception e)
@@ -99,6 +100,7 @@ public class AllergyController : Controller
             allergyToUpdate.Name = allergy.Name;
             await _dbContext.SaveChangesAsync();
             
+            TempData["SuccessMessage"] = "Votre allergie a été modifiée avec succès";
             return RedirectToAction("Index");
         } 
         catch (Exception e)
@@ -123,6 +125,7 @@ public class AllergyController : Controller
             _dbContext.Allergies.Remove(allergy);
             await _dbContext.SaveChangesAsync();
 
+            TempData["ErrorMessage"] = "Votre allergie a été supprimée avec succès";
             return RedirectToAction("Index");
         }
         catch (Exception e)

@@ -84,7 +84,8 @@ public class PrescriptionController : Controller
             });
 
             await _dbContext.SaveChangesAsync();
-
+            
+            TempData["SuccessMessage"] = $"L'ordonnance de {patient.FirstName} {patient.LastName} a été créée avec succès";
             return RedirectToAction("Edit", new { id = prescription.Entity.PrescriptionId });
         }
         catch (Exception e)
@@ -108,6 +109,7 @@ public class PrescriptionController : Controller
             _dbContext.Prescriptions.Remove(prescription);
             await _dbContext.SaveChangesAsync();
 
+            TempData["ErrorMessage"] = "Votre ordonnance a été supprimée avec succès";
             return RedirectToAction("Index");
         }
         catch (Exception e)
@@ -259,6 +261,7 @@ public class PrescriptionController : Controller
             _dbContext.Prescriptions.Update(prescription);
             await _dbContext.SaveChangesAsync();
             
+            TempData["SuccessMessage"] = "Votre ordonnance a été modifiée avec succès";
             return RedirectToAction("Edit", new { id = prescription.PrescriptionId });
         }
         catch (Exception e)
@@ -292,6 +295,7 @@ public class PrescriptionController : Controller
             prescription.Medicaments.Add(medicament);
             await _dbContext.SaveChangesAsync();
 
+            TempData["SuccessMessage"] = $"Le médicament {medicament.Name} a été ajouté à l'ordonnance avec succès";
             return RedirectToAction("Edit", new { id });
         }
         catch (Exception e)
@@ -316,6 +320,7 @@ public class PrescriptionController : Controller
             prescription.Medicaments.Remove(medicament);
             await _dbContext.SaveChangesAsync();
             
+            TempData["ErrorMessage"] = $"Le médicament {medicament.Name} a été retiré de l'ordonnance avec succès";
             return RedirectToAction("Edit", new { id });
         }
         catch (Exception e)
