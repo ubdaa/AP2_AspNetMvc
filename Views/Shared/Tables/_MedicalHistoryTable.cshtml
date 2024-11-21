@@ -15,10 +15,13 @@
             <td>@item.MedicalHistoryId</td>
             <td>@item.Name</td>
             <td>
-                <a asp-action="Edit" asp-controller="MedicalHistory" asp-route-id="@item.MedicalHistoryId" class="mr-4"><i class="bi bi-pencil"></i></a>
-                <a type="button" data-toggle="modal" data-target="#supprModal@{@Html.DisplayFor(m => item.MedicalHistoryId)}" class="text-primary">
-                    <i class="bi bi-trash"></i>
-                </a>
+                <a asp-action="Edit" asp-controller="MedicalHistory" asp-route-id="@item.MedicalHistoryId" class="mr-4"
+                   data-toggle="tooltip" title="Modification de l'antécédent"><i class="bi bi-pencil"></i></a>
+                <span data-toggle="tooltip" title="Supprimer l'antécédent">
+                    <a type="button" data-toggle="modal" data-target="#supprModal@{@Html.DisplayFor(m => item.MedicalHistoryId)}" class="text-primary">
+                        <i class="bi bi-trash"></i>
+                    </a>
+                </span>
                 <div class="modal fade" tabindex="-1" id="supprModal@{@Html.DisplayFor(m => item.MedicalHistoryId)}" aria-labelledby="modalLabelSuppr" aria-hidden="true">>
                     <div class="modal-dialog modal-dialog-centered">
                         <div class="modal-content">

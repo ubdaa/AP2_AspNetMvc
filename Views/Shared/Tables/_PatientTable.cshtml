@@ -23,11 +23,15 @@
             <td>@Html.DisplayFor(m => patient.Height) cm</td>
             <td>@Html.DisplayFor(m => patient.Weight) kg</td>
             <td>@Html.DisplayFor(m => patient.Gender)</td>
-            <td><a asp-action="Details" asp-controller="Patient" asp-route-id="@patient.PatientId" class="mr-4"><i class="bi bi-card-list"></i></a>
-                <a asp-action="Edit" asp-controller="Patient" asp-route-id="@patient.PatientId" class="mr-4"><i class="bi bi-pencil"></i></a>
-                <a type="button" data-toggle="modal" data-target="#supprModal@{@Html.DisplayFor(m => patient.PatientId)}" class="text-primary">
-                    <i class="bi bi-trash"></i>
-                </a>
+            <td><a asp-action="Details" asp-controller="Patient" asp-route-id="@patient.PatientId" class="mr-4"
+                   data-toggle="tooltip" title="Détails du patient"><i class="bi bi-card-list"></i></a>
+                <a asp-action="Edit" asp-controller="Patient" asp-route-id="@patient.PatientId" class="mr-4"
+                   data-toggle="tooltip" title="Modification du patient"><i class="bi bi-pencil"></i></a>
+                <span data-toggle="tooltip" title="Supprimer le patient">
+                    <a type="button" data-toggle="modal" data-target="#supprModal@{@Html.DisplayFor(m => patient.PatientId)}" class="text-primary">
+                        <i class="bi bi-trash"></i>
+                    </a>
+                </span>
                 <div class="modal fade" tabindex="-1" id="supprModal@{@Html.DisplayFor(m => patient.PatientId)}" aria-labelledby="modalLabelSuppr" aria-hidden="true">>
                     <div class="modal-dialog modal-dialog-centered">
                         <div class="modal-content">
@@ -50,7 +54,8 @@
                     </div>
                 </div>
             </td>
-            <td><a asp-action="CreatePrescription" asp-route-id="@patient.PatientId"><i class="bi bi-file-plus"></i></a></td>
+            <td><a asp-action="CreatePrescription" asp-route-id="@patient.PatientId" data-toggle="tooltip" 
+                   title="Créer une ordonnance pour le patient"><i class="bi bi-file-plus"></i></a></td>
         </tr>
     }
     </tbody>

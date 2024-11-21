@@ -31,11 +31,15 @@
                     <span class="badge bg-danger text-white">Terminée</span>
                 }
             </td>
-            <td><a asp-action="Details" asp-controller="Prescription" asp-route-id="@prescription.PrescriptionId" class="mr-4"><i class="bi bi-card-list"></i></a>
-                <a asp-action="Edit" asp-controller="Prescription" asp-route-id="@prescription.PrescriptionId" class="mr-4"><i class="bi bi-pencil"></i></a>
-                <a type="button" data-toggle="modal" data-target="#supprModal@{@Html.DisplayFor(m => prescription.PatientId)}" class="text-primary mr-4">
-                    <i class="bi bi-trash"></i>
-                </a>
+            <td><a asp-action="Details" asp-controller="Prescription" asp-route-id="@prescription.PrescriptionId" class="mr-4"
+                   data-toggle="tooltip" title="Détails de l'ordonnance"><i class="bi bi-card-list"></i></a>
+                <a asp-action="Edit" asp-controller="Prescription" asp-route-id="@prescription.PrescriptionId" class="mr-4"
+                   data-toggle="tooltip" title="Modification de l'ordonnance"><i class="bi bi-pencil"></i></a>
+                <span data-toggle="tooltip" title="Supprimer l'ordonnance" class="mr-4">
+                    <a type="button" data-toggle="modal" data-target="#supprModal@{@Html.DisplayFor(m => prescription.PatientId)}" class="text-primary">
+                        <i class="bi bi-trash"></i>
+                    </a>
+                </span>
                 <div class="modal fade" tabindex="-1" id="supprModal@{@Html.DisplayFor(m => prescription.PatientId)}" aria-labelledby="modalLabelSuppr" aria-hidden="true">>
                     <div class="modal-dialog modal-dialog-centered">
                         <div class="modal-content">
@@ -57,7 +61,8 @@
                         </div>
                     </div>
                 </div>
-                <a asp-action="ExportPdf" asp-controller="Prescription" asp-route-id="@prescription.PrescriptionId"><i class="bi bi-box-arrow-in-down"></i></a>
+                <a asp-action="ExportPdf" asp-controller="Prescription" asp-route-id="@prescription.PrescriptionId"
+                   data-toggle="tooltip" title="Exporter en PDF"><i class="bi bi-box-arrow-in-down"></i></a>
             </td>
         </tr>
     }

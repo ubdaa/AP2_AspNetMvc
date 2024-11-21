@@ -18,11 +18,15 @@
             <td>@Html.DisplayFor(m => medicament.Name)</td>
             <td>@Html.DisplayFor(m => medicament.Quantity)</td>
             <td>@Html.DisplayFor(m => medicament.Ingredients)</td>
-            <td><a asp-action="Details" asp-controller="Medicament" asp-route-id="@medicament.MedicamentId" class="mr-4"><i class="bi bi-card-list"></i></a>
-                <a asp-action="Edit" asp-controller="Medicament" asp-route-id="@medicament.MedicamentId" class="mr-4"><i class="bi bi-pencil"></i></a>
-                <a type="button" data-toggle="modal" data-target="#supprModal@{@Html.DisplayFor(m => medicament.MedicamentId)}" class="text-primary">
-                    <i class="bi bi-trash"></i>
-                </a>
+            <td><a asp-action="Details" asp-controller="Medicament" asp-route-id="@medicament.MedicamentId" class="mr-4"
+                   data-toggle="tooltip" title="Détails du médicament"><i class="bi bi-card-list"></i></a>
+                <a asp-action="Edit" asp-controller="Medicament" asp-route-id="@medicament.MedicamentId" class="mr-4"
+                   data-toggle="tooltip" title="Modification du médicament"><i class="bi bi-pencil"></i></a>
+                <span data-toggle="tooltip" title="Supprimer le médicament">
+                    <a type="button" data-toggle="modal" data-target="#supprModal@{@Html.DisplayFor(m => medicament.MedicamentId)}" class="text-primary">
+                        <i class="bi bi-trash"></i>
+                    </a>
+                </span>
                 <div class="modal fade" tabindex="-1" id="supprModal@{@Html.DisplayFor(m => medicament.MedicamentId)}" aria-labelledby="modalLabelSuppr" aria-hidden="true">>
                     <div class="modal-dialog modal-dialog-centered">
                         <div class="modal-content">

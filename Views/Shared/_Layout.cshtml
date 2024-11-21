@@ -41,8 +41,8 @@
         }
 
         .toast {
-            min-width: 150px; 
-            opacity: 0.9;
+            min-width: 100px; 
+            opacity: 0.7;
             backdrop-filter: blur(6px);
         }
 
@@ -118,7 +118,7 @@
                 @if (User?.Identity?.IsAuthenticated == true)
                 {
                     <li class="nav-item mr-2">
-                        <a class="nav-link active" asp-controller="Account" asp-action="Edit" data-toggle="tooltip" title="Some tooltip text!">Bonjour, @User.Identity.Name! - <i class="bi bi-gear-fill"></i></a>
+                        <a class="nav-link active" asp-controller="Account" asp-action="Edit" data-toggle="tooltip" title="Paramètres!">Bonjour, @User.Identity.Name! - <i class="bi bi-gear-fill"></i></a>
                     </li>
                     <li class="nav-item">
                         <a asp-action="Logout" asp-controller="Account" asp-route-id="" class="btn btn-primary"
@@ -147,7 +147,7 @@
                     <i class="bi bi-check-circle-fill mr-3" style="font-size: 1.5rem;"></i>
                     <span>@TempData["SuccessMessage"]</span>
                 </div>
-                <button type="button" class="ml-2 close btn-close btn-close-white" data-dismiss="toast" aria-label="Close"><i class="bi bi-x-lg"></i></button>
+                <button type="button" class="mx-2 close btn-close btn-close-white" data-dismiss="toast" aria-label="Close"><i class="bi bi-x-lg"></i></button>
             </div>
         </div>
         }
