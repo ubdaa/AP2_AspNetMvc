@@ -285,6 +285,8 @@ public class DashboardController : Controller
         model.PatientsByAgeStatVm = PatientsByAgeStat();
         model.MedicamentsByTypeStatVm = MedicamentsByTypeStat();
         
+        TempData["SuccessMessage"] = "Bienvenue sur votre tableau de bord !";
+
         return View(model);
     }
 }
