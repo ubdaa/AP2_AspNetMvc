@@ -107,11 +107,15 @@
 
 <div class="content">
     <nav class="navbar navbar-expand-lg navbar-color px-4 sticky-top">
-        
-        <form id="searchForm" class="d-flex w-25" asp-controller="Search" asp-action="Result" asp-route-q="test" method="post">
-            <input id="searchInput" class="form-control w-100 mr-2" placeholder="Rechercher">
-            <button class="btn btn-primary" type="submit" disabled="disabled"><i class="bi bi-search"></i></button>
-        </form>
+
+        @if (User?.Identity?.IsAuthenticated == true)
+        {
+            <form id="searchForm" class="d-flex w-25" asp-controller="Search" asp-action="Result" asp-route-q="test" method="post">
+                <input id="searchInput" class="form-control w-100 mr-2" placeholder="Rechercher">
+                <button class="btn btn-primary" type="submit" disabled="disabled"
+                        data-toggle="tooltip" title="Chercher"><i class="bi bi-search"></i></button>
+            </form>
+        }
         
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ml-auto">

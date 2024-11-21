@@ -89,27 +89,7 @@
         <div class="card-body">
             @if (Model.Patients.Count > 0)
             {
-                <table class="table table-sm table-hover">
-                    <thead class="text-center">
-                    <tr>
-                        <th scope="col">ID</th>
-                        <th scope="col">Nom</th>
-                        <th scope="col">Date de création</th>
-                        <th scope="col">Éditer</th>
-                    </tr>
-                    </thead>
-                    <tbody class="text-center">
-                    @foreach (var patient in Model.Patients)
-                    {
-                        <tr>
-                            <th scope="row">@patient.PatientId</th>
-                            <td>@patient.FirstName @patient.LastName</td>
-                            <td>@patient.CreatedAt</td>
-                            <td><a asp-action="Edit" asp-controller="Patient" asp-route-id="@patient.PatientId"><i class="bi bi-pencil"></i></a></td>
-                        </tr>
-                    }
-                    </tbody>
-                </table>
+                @await Html.PartialAsync("Tables/_PatientTable", Model.Patients)
             }
             else
             {
