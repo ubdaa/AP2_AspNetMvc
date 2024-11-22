@@ -24,7 +24,7 @@
 <div class="form-group mb-3">
     <label asp-for="Gender"></label>
     <select asp-for="Gender" asp-items="@Html.GetEnumSelectList(typeof(Genders))" class="form-control">
-        <option value="">Select Gender</option>
+        <option value="">Sélectionner le sexe du patient</option>
     </select>
     <span asp-validation-for="Gender" class="text-danger"></span>
 </div>
