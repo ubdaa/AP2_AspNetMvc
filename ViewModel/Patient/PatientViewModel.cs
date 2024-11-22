@@ -24,13 +24,16 @@ public class PatientViewModel
     [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
     public DateOnly BirthDate { get; set; }
     
+    [Display(Name = "Sexe")] 
     [Required(ErrorMessage = "Le genre du patient est requis.")]
     public Genders Gender { get; set; }
     
+    [Display(Name = "Hauteur (en cm)")] 
     [Required(ErrorMessage = "La taille du patient est requis.")]
     [Range(typeof(int), "0", "300", ErrorMessage = "La taille du patient doit être comprise entre 0 et 300 cm.")]
     public int Height { get; set; }
     
+    [Display(Name = "Poids (en kg arrondi à l'unité)")] 
     [Required(ErrorMessage = "Le poids du patient est requis.")]
     [Range(typeof(int), "0", "300", ErrorMessage = "Le poids du patient doit être compris entre 0 et 300 kg.")]
     public int Weight { get; set; }

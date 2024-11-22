@@ -284,8 +284,6 @@ public class DashboardController : Controller
         model.MostCommonAllergyStatVm = MostCommonAllergiesStat();
         model.PatientsByAgeStatVm = PatientsByAgeStat();
         model.MedicamentsByTypeStatVm = MedicamentsByTypeStat();
-        
-        TempData["SuccessMessage"] = "Bienvenue sur votre tableau de bord !";
 
         return View(model);
     }
