@@ -1,3 +1,4 @@
+@using MedManager.Utils
 @model PrescriptionViewModel
 
 <input asp-for="PrescriptionId" type="hidden"/>
@@ -84,13 +85,13 @@ else
                 <td>@medicament.Name</td>
                 <td>@medicament.Quantity</td>
                 <td>@medicament.Ingredients</td>
-                <td>@medicament.Type</td>
-                <td>@medicament.Category</td>
+                <td>@medicament.Type.GetDisplayName()</td>
+                <td>@medicament.Category.GetDisplayName()</td>
                 @if (Model.IsEditing)
                 {
                     <td>
                         <a type="button" class="text-danger" asp-action="RemoveMedicament" asp-route-id="@Model.PrescriptionId"
-                           asp-route-medicamentId="@medicament.MedicamentId">
+                           asp-route-medicamentId="@medicament.MedicamentId" data-toggle="tooltip" title="Supprimer le médicament du patient">
                             <i class="bi bi-trash"></i></a>
                     </td>
                 }
@@ -142,12 +143,13 @@ else
                                 <td>@medicament.Name</td>
                                 <td>@medicament.Quantity</td>
                                 <td>@medicament.Ingredients</td>
-                                <td>@medicament.Type</td>
-                                <td>@medicament.Category</td>
+                                <td>@medicament.Type.GetDisplayName()</td>
+                                <td>@medicament.Category.GetDisplayName()</td>
                                 <td>
                                     <a type="button" class="text-primary" asp-action="AddMedicament" asp-route-id="@Model.PrescriptionId"
-                                       asp-route-medicamentId="@medicament.MedicamentId">
-                                        <i class="bi bi-plus-square"></i>
+                                       asp-route-medicamentId="@medicament.MedicamentId" data-toggle="tooltip" 
+                                       title="Ajouter ce médicament à l'ordonnance">
+                                        <i class="bi bi-plus-lg"></i>
                                     </a>
                                 </td>
                             </tr>
@@ -168,6 +170,6 @@ else
         <a asp-controller="Prescription" asp-action="ExportPdf" asp-route-id="@Model.PrescriptionId" class="btn btn-success mx-auto">Exporter en PDF</a>
         <a asp-controller="Prescription" asp-action="Edit" asp-route-id="@Model.PrescriptionId" class="btn btn-primary mx-auto">Éditer</a>
         <a asp-controller="Prescription" asp-action="Delete" asp-route-id="@Model.PrescriptionId" class="btn btn-danger mx-auto">Supprimer</a>
-        <a asp-controller="Prescription" asp-action="Index" asp-route-id="@Model.PrescriptionId" class="btn btn-secondary mx-auto">Retour à la liste</a>
+        <a asp-controller="Prescription" asp-action="Index" class="btn btn-secondary mx-auto">Retour à la liste</a>
     </div>
 }
