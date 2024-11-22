@@ -70,7 +70,10 @@
 </head>
 <body>
 <div class="sidebar d-flex flex-column p-3 sticky-top">
-    <h2 class="text-center">MedManager</h2>
+    <div class="d-flex flex-row align-items-center">
+        <img src="~/gsb.png" alt="gsb logo" style="width: 40px;" class="mr-1"/>
+        <h3 class="text-center fw-bold">MedManager</h3>
+    </div>
     <hr/>
     <ul class="nav nav-pills flex-column gap-2 h-100">
         <li class="nav-item">
@@ -97,7 +100,7 @@
                 <a class="btn btn-primary w-100" asp-controller="Prescription" asp-action="Create">Créer une ordonnance</a>
             </li>
         }
-        
+
         <li class="mt-auto">
             <a class="nav-link" asp-controller="Support" asp-action="Index">FAQ & Contact</a>
         </li>

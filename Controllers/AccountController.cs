@@ -39,9 +39,11 @@ public class AccountController : Controller
             if (!result.Succeeded)
             {
                 ModelState.AddModelError("", "Erreur lors de la connexion");
+                TempData["ErrorMessage"] = "Erreur lors de la connexion";
                 return View(model);
             }
             
+            TempData["SuccessMessage"] = "Bienvenue sur votre tableau de bord !";
             return RedirectToAction("Index", "Dashboard");
         } catch (Exception e)
         {
@@ -62,7 +64,10 @@ public class AccountController : Controller
         try
         {
             if (!ModelState.IsValid)
+            {
+                TempData["ErrorMessage"] = "Erreur lors de l'inscription";
                 return View(model);
+            }
 
             var user = new Doctor()
             {
@@ -82,7 +87,8 @@ public class AccountController : Controller
                 {
                     ModelState.AddModelError(string.Empty, error.Description);
                 }
-
+                
+                TempData["ErrorMessage"] = "Erreur lors de l'inscription";
                 return View(model);
             }
 
@@ -139,7 +145,10 @@ public class AccountController : Controller
         try
         {
             if (!ModelState.IsValid)
+            {
+                TempData["ErrorMessage"] = "Erreur lors de la modification";
                 return View(model);
+            }
 
             var user = await _userManager.GetUserAsync(User);
             
@@ -166,7 +175,10 @@ public class AccountController : Controller
             foreach (var error in result.Errors)
             {
                 ModelState.AddModelError(string.Empty, error.Description);
+                TempData["ErrorMessage"] = "Erreur lors de la modification";
             }
+            
+            TempData["SuccessMessage"] = "Votre profil a été mis à jour avec succès";
             return View(model);
         } 
         catch (Exception e)
