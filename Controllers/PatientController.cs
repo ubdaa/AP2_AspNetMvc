@@ -249,7 +249,10 @@ public class PatientController : Controller
     {
         try
         {
-            var patient = await _dbContext.Patients.FirstOrDefaultAsync(p => p.PatientId == id);
+            var patient = await _dbContext.Patients
+                .Include(p => p.Allergies)
+                .Include(p => p.MedicalHistories)
+                .FirstOrDefaultAsync(p => p.PatientId == id);
             if (patient == null) return NotFound();
 
             return View(patient);
