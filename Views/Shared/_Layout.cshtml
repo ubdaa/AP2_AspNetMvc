@@ -1,3 +1,7 @@
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<Doctor> SignInManager
+@inject UserManager<Doctor> UserManager
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -81,24 +85,27 @@
         </li>
         @if (User?.Identity?.IsAuthenticated == true)
         {
-            <li class="nav-item">
-                <a class="nav-link" asp-controller="Patient" asp-action="Index">Gestion des patients</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" asp-controller="Prescription" asp-action="Index">Gestion des ordonnances</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" asp-controller="Allergy" asp-action="Index">Gestion des allergies</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" asp-controller="MedicalHistory" asp-action="Index">Gestion des antécedents</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" asp-controller="Medicament" asp-action="Index">Gestion des médicaments</a>
-            </li>
-            <li class="nav-item mt-3">
-                <a class="btn btn-primary w-100" asp-controller="Prescription" asp-action="Create">Créer une ordonnance</a>
-            </li>
+            @if (User.IsInRole("Docteur"))
+            {
+                <li class="nav-item">
+                    <a class="nav-link" asp-controller="Patient" asp-action="Index">Gestion des patients</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" asp-controller="Prescription" asp-action="Index">Gestion des ordonnances</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" asp-controller="Allergy" asp-action="Index">Gestion des allergies</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" asp-controller="MedicalHistory" asp-action="Index">Gestion des antécedents</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" asp-controller="Medicament" asp-action="Index">Gestion des médicaments</a>
+                </li>
+                <li class="nav-item mt-3">
+                    <a class="btn btn-primary w-100" asp-controller="Prescription" asp-action="Create">Créer une ordonnance</a>
+                </li>
+            }
         }
 
         <li class="mt-auto">
@@ -111,7 +118,7 @@
 <div class="content">
     <nav class="navbar navbar-expand-lg navbar-color px-4 sticky-top">
 
-        @if (User?.Identity?.IsAuthenticated == true)
+        @if (User?.Identity?.IsAuthenticated == true && User.IsInRole("Docteur"))
         {
             <form id="searchForm" class="d-flex w-25" asp-controller="Search" asp-action="Result" asp-route-q="test" method="post">
                 <input id="searchInput" class="form-control w-100 mr-2" placeholder="Rechercher">
