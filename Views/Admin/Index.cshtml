@@ -1,0 +1,27 @@
+@model MedManager.ViewModel.Admin.DashboardViewModel
+
+@{
+    ViewBag.Title = "title";
+    Layout = "_Layout";
+}
+
+<div class="container mt-4">
+    <h1 class="mb-4">Tableau de bord administrateur</h1>
+    
+    <!-- Section Docteurs de l'application -->
+    <div class="card mt-4">
+        <div class="card-header">
+            <h5>Les derniers docteurs inscrits</h5>
+        </div>
+        <div class="card-body">
+            @if (Model.Doctors.Count > 0)
+            {
+                @await Html.PartialAsync("Tables/_DoctorsTable", Model.Doctors)
+            }
+            else
+            {
+            <p class="mt-2 text-center">Aucun docteur inscrit</p>
+            }
+        </div>
+    </div>
+</div>

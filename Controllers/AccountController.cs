@@ -44,7 +44,8 @@ public class AccountController : Controller
             }
             
             TempData["SuccessMessage"] = "Bienvenue sur votre tableau de bord !";
-            return RedirectToAction("Index", "Dashboard");
+
+            return RedirectToAction("Index", User.IsInRole("Admin") ? "Admin" : "Dashboard");
         } catch (Exception e)
         {
             _logger.LogError(e, "Error while logging in");

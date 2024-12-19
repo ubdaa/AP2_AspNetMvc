@@ -257,6 +257,11 @@ public class DashboardController : Controller
     [HttpGet]
     public async Task<IActionResult> Index()
     {
+        if (User.IsInRole("Admin"))
+        {
+            return RedirectToAction("Index", "Admin");
+        }
+        
         var model = new DashboardViewModel();
         
         // données principales pour le tableau de bord
