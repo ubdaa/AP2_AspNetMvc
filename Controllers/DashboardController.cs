@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace MedManager.Controllers;
 
-[Authorize(Roles = "Docteur")]
+[Authorize]
 public class DashboardController : Controller
 {
     private readonly ApplicationDbContext _dbContext;
@@ -258,7 +258,7 @@ public class DashboardController : Controller
     public async Task<IActionResult> Index()
     {
         var model = new DashboardViewModel();
-
+        
         // données principales pour le tableau de bord
         model.Patients = _dbContext.Patients.Where(p => p.DoctorId == UserId)
             .OrderByDescending(p => p.PatientId).Take(10).ToList();

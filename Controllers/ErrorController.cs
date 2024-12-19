@@ -26,4 +26,9 @@ public class ErrorController : Controller
 
         return View(errorViewModel);
     }
+    
+    public IActionResult AccessDenied()
+    {
+        return View();
+    }
 }

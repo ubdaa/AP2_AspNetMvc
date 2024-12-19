@@ -26,6 +26,11 @@ builder.Services.AddIdentity<Doctor, IdentityRole>(options =>
     options.User.RequireUniqueEmail = true;
 }).AddRoles<IdentityRole>().AddEntityFrameworkStores<ApplicationDbContext>();
 
+builder.Services.ConfigureApplicationCookie(options =>
+{
+    options.AccessDeniedPath = "/Error/AccessDenied";
+});
+
 var app = builder.Build();
 
 var context = app.Services.CreateScope().ServiceProvider.GetRequiredService<ApplicationDbContext>();
