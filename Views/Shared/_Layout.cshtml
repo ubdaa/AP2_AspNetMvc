@@ -113,6 +113,12 @@
                     <a class="btn btn-primary w-100" asp-controller="Prescription" asp-action="Create">Créer une ordonnance</a>
                 </li>
             }
+            else if (User.IsInRole("Admin"))
+            {
+                <li class="nav-item">
+                    <a class="nav-link" asp-controller="Doctor" asp-action="Index">Gestion des docteurs</a>
+                </li>
+            }
         }
 
         <li class="mt-auto">
