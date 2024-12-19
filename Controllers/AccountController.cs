@@ -168,8 +168,11 @@ public class AccountController : Controller
             user.Faculty = model.Faculty!;
             user.Specialty = model.Specialty!;
 
-            var passwordHasher = new PasswordHasher<Doctor>();
-            user.PasswordHash = passwordHasher.HashPassword(user, model.Password!);
+            if (!string.IsNullOrEmpty(model.Password))
+            {
+                var passwordHasher = new PasswordHasher<Doctor>();
+                user.PasswordHash = passwordHasher.HashPassword(user, model.Password!);
+            }
 
             var result = await _userManager.UpdateAsync(user);
 

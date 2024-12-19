@@ -19,11 +19,9 @@
             <td>@Html.DisplayFor(m => doctor.Specialty)</td>
             <td>@Html.DisplayFor(m => doctor.Faculty)</td>
             <td>
-                <a asp-action="Details" asp-controller="Doctor" asp-route-id="@doctor.Id" class="mr-4"
-                   data-toggle="tooltip" title="Détails du patient"><i class="bi bi-card-list"></i></a>
                 <a asp-action="Edit" asp-controller="Doctor" asp-route-id="@doctor.Id" class="mr-4"
-                   data-toggle="tooltip" title="Modification du patient"><i class="bi bi-pencil"></i></a>
-                <span data-toggle="tooltip" title="Supprimer le patient">
+                   data-toggle="tooltip" title="Modification du docteur"><i class="bi bi-pencil"></i></a>
+                <span data-toggle="tooltip" title="Supprimer le docteur">
                     <a type="button" data-toggle="modal" data-target="#supprModal@{@Html.DisplayFor(m => doctor.Id)}" class="text-primary">
                         <i class="bi bi-trash"></i>
                     </a>
@@ -42,7 +40,7 @@
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
-                                <form asp-action="Delete" asp-controller="Patient" asp-route-id="@doctor.Id">
+                                <form asp-action="Delete" asp-controller="Doctor" asp-route-id="@doctor.Id">
                                     <button class="btn btn-danger">Confirmer</button>
                                 </form>
                             </div>

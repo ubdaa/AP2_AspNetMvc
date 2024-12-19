@@ -1,0 +1,9 @@
+@model IEnumerable<Doctor>
+
+@{
+    Layout = "_Layout";
+    ViewBag.Title = "Liste des allergies";
+}
+
+<h1 class="text-center text-xl font-bold my-4">Liste des docteurs</h1>
+@await Html.PartialAsync("Tables/_DoctorsTable", Model)
