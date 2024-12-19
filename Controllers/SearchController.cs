@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace MedManager.Controllers;
 
-[Authorize]
+[Authorize(Roles = "Docteur")]
 public class SearchController : Controller
 {
     private readonly ApplicationDbContext _dbContext;

@@ -91,6 +91,8 @@ public class AccountController : Controller
                 TempData["ErrorMessage"] = "Erreur lors de l'inscription";
                 return View(model);
             }
+            
+            await _userManager.AddToRoleAsync(user, "Docteur");
 
             return RedirectToAction("Index", "Dashboard");
         }
@@ -115,7 +117,7 @@ public class AccountController : Controller
     }
 
     [HttpGet]
-    [Authorize]
+    [Authorize(Roles = "Docteur")]
     public async Task<IActionResult> Edit()
     {
         var user = await _userManager.GetUserAsync(User);
@@ -139,7 +141,7 @@ public class AccountController : Controller
     }
     
     [HttpPost]
-    [Authorize]
+    [Authorize(Roles = "Docteur")]
     public async Task<IActionResult> Edit(AccountViewModel model)
     {
         try

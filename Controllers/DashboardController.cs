@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace MedManager.Controllers;
 
-[Authorize]
+[Authorize(Roles = "Docteur")]
 public class DashboardController : Controller
 {
     private readonly ApplicationDbContext _dbContext;
