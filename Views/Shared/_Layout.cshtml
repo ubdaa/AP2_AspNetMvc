@@ -1,3 +1,4 @@
+@using System.Security.Claims
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -96,6 +97,9 @@
             <li class="nav-item">
                 <a class="nav-link" asp-controller="Medicament" asp-action="Index">Gestion des médicaments</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" asp-controller="Account" asp-action="EditRole">Modification du rôle</a>
+            </li>
             <li class="nav-item mt-3">
                 <a class="btn btn-primary w-100" asp-controller="Prescription" asp-action="Create">Créer une ordonnance</a>
             </li>
@@ -125,7 +129,7 @@
                 @if (User?.Identity?.IsAuthenticated == true)
                 {
                     <li class="nav-item mr-2">
-                        <a class="nav-link active" asp-controller="Account" asp-action="Edit" data-toggle="tooltip" title="Paramètres!">Bonjour, @User.Identity.Name ! - <i class="bi bi-gear-fill"></i></a>
+                        <a class="nav-link active" asp-controller="Account" asp-action="Edit" data-toggle="tooltip" title="Paramètres!">Bonjour, @User.Identity.Name (@User.FindFirst(ClaimTypes.Role)?.Value) ! - <i class="bi bi-gear-fill"></i></a>
                     </li>
                     <li class="nav-item">
                         <a asp-action="Logout" asp-controller="Account" asp-route-id="" class="btn btn-primary"

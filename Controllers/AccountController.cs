@@ -177,6 +177,13 @@ public class AccountController : Controller
             }
 
             var result = await _userManager.UpdateAsync(user);
+            
+            var role = model.Role.ToString();
+            
+            await _signInManager.SignOutAsync();
+            await _userManager.RemoveFromRolesAsync(user, _userManager.GetRolesAsync(user).Result);
+            await _userManager.AddToRoleAsync(user, role);
+            await _signInManager.SignInAsync(user, true);
 
             if (result.Succeeded) return RedirectToAction("Index", "Dashboard");
             
@@ -194,5 +201,39 @@ public class AccountController : Controller
             _logger.LogError(e, "Error while editing user");
             return RedirectToAction("Index", "Error");
         }
+    }
+    
+    public IActionResult EditRole()
+    {
+        return View();
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> EditRole(RoleViewModel model)
+    {
+        if (!ModelState.IsValid)
+        {
+            TempData["ErrorMessage"] = "Erreur lors de la modification";
+            return View(model);
+        }
+
+        var user = await _userManager.GetUserAsync(User);
+        
+        if (user == null)
+            return NotFound("Utilisateur introuvable ou non connecté");
+        
+        var role = model.Role.ToString();
+
+        await _signInManager.SignOutAsync();
+        
+        await _userManager.RemoveFromRolesAsync(user, _userManager.GetRolesAsync(user).Result);
+        await _userManager.AddToRoleAsync(user, role);
+
+        await _signInManager.SignInAsync(user, true);
+        
+        TempData["SuccessMessage"] = "Votre rôle a été mis à jour avec succès";
+        
+        
+        return RedirectToAction("Index", "Dashboard");
     }
 }
