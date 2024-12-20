@@ -118,7 +118,7 @@ public class AccountController : Controller
     }
 
     [HttpGet]
-    [Authorize(Roles = "Docteur")]
+    [Authorize]
     public async Task<IActionResult> Edit()
     {
         var user = await _userManager.GetUserAsync(User);
@@ -142,7 +142,7 @@ public class AccountController : Controller
     }
     
     [HttpPost]
-    [Authorize(Roles = "Docteur")]
+    [Authorize]
     public async Task<IActionResult> Edit(AccountViewModel model)
     {
         try

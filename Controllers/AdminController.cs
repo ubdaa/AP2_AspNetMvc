@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace MedManager.Controllers;
 
-[Authorize(Roles = "Admin")]
+[Authorize]
 public class AdminController : Controller
 {
     private readonly UserManager<Doctor> _userManager;

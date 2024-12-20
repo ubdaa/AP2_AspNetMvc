@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace MedManager.Controllers;
 
-[Authorize(Roles = "Docteur")]
+[Authorize]
 public class MedicalHistoryController : Controller
 {
     private readonly ApplicationDbContext _dbContext;
