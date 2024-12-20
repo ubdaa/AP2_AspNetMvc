@@ -65,7 +65,7 @@ using (var scope = app.Services.CreateScope())
 {
     var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
 
-    var roles = new[] { "Admin", "Docteur" };
+    var roles = new[] { "Admin", "Technicien", "Utilisateur", "Visiteur" };
 
     foreach (var role in roles)
     {
@@ -104,8 +104,8 @@ using (var scope = app.Services.CreateScope())
 
     foreach (var user in users)
     {
-        if (!await userManager.IsInRoleAsync(user, "Docteur") && !await userManager.IsInRoleAsync(user, "Admin"))
-            await userManager.AddToRoleAsync(user, "Docteur");
+        if (!await userManager.IsInRoleAsync(user, "Utilisateur") && !await userManager.IsInRoleAsync(user, "Admin"))
+            await userManager.AddToRoleAsync(user, "Utilisateur");
     }
 }
 

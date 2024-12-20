@@ -93,7 +93,9 @@ public class AccountController : Controller
                 return View(model);
             }
             
-            await _userManager.AddToRoleAsync(user, "Docteur");
+            string role = model.Role.ToString();
+            
+            await _userManager.AddToRoleAsync(user, role);
 
             return RedirectToAction("Index", "Dashboard");
         }

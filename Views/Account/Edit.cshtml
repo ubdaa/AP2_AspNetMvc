@@ -15,7 +15,7 @@
             <div class="card-body">
                 <form asp-action="Edit" asp-controller="Account" method="post">
                     
-                    @await Html.PartialAsync("_PatientForm", Model)
+                    @await Html.PartialAsync("_DoctorForm", Model)
                     
                     <span asp-validation-summary="ModelOnly" class="text-danger"></span>
                     
