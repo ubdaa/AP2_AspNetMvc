@@ -44,7 +44,8 @@ public class AccountController : Controller
             }
             
             TempData["SuccessMessage"] = "Bienvenue sur votre tableau de bord !";
-            return RedirectToAction("Index", "Dashboard");
+
+            return RedirectToAction("Index", User.IsInRole("Admin") ? "Admin" : "Dashboard");
         } catch (Exception e)
         {
             _logger.LogError(e, "Error while logging in");
@@ -91,6 +92,8 @@ public class AccountController : Controller
                 TempData["ErrorMessage"] = "Erreur lors de l'inscription";
                 return View(model);
             }
+            
+            await _userManager.AddToRoleAsync(user, "Docteur");
 
             return RedirectToAction("Index", "Dashboard");
         }
@@ -115,7 +118,7 @@ public class AccountController : Controller
     }
 
     [HttpGet]
-    [Authorize]
+    [Authorize(Roles = "Docteur")]
     public async Task<IActionResult> Edit()
     {
         var user = await _userManager.GetUserAsync(User);
@@ -139,7 +142,7 @@ public class AccountController : Controller
     }
     
     [HttpPost]
-    [Authorize]
+    [Authorize(Roles = "Docteur")]
     public async Task<IActionResult> Edit(AccountViewModel model)
     {
         try
@@ -165,8 +168,11 @@ public class AccountController : Controller
             user.Faculty = model.Faculty!;
             user.Specialty = model.Specialty!;
 
-            var passwordHasher = new PasswordHasher<Doctor>();
-            user.PasswordHash = passwordHasher.HashPassword(user, model.Password!);
+            if (!string.IsNullOrEmpty(model.Password))
+            {
+                var passwordHasher = new PasswordHasher<Doctor>();
+                user.PasswordHash = passwordHasher.HashPassword(user, model.Password!);
+            }
 
             var result = await _userManager.UpdateAsync(user);
 

@@ -24,7 +24,12 @@ builder.Services.AddIdentity<Doctor, IdentityRole>(options =>
     options.Password.RequiredLength = 8;
 
     options.User.RequireUniqueEmail = true;
-}).AddEntityFrameworkStores<ApplicationDbContext>();
+}).AddRoles<IdentityRole>().AddEntityFrameworkStores<ApplicationDbContext>();
+
+builder.Services.ConfigureApplicationCookie(options =>
+{
+    options.AccessDeniedPath = "/Error/AccessDenied";
+});
 
 var app = builder.Build();
 
@@ -39,10 +44,10 @@ if (app.Environment.IsDevelopment())
 else
 {
     app.UseExceptionHandler("/Error/Index");
-    app.UseStatusCodePagesWithRedirects("/Error/Index"); 
+    app.UseStatusCodePagesWithRedirects("/Error/Index");
 }
 
-app.UseHttpsRedirection();
+//app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseAuthentication();
 
@@ -53,6 +58,55 @@ app.UseAuthorization();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Dashboard}/{action=Index}/{id?}"
-    );
+);
+
+// Nouveau service pour assurer la création des rôles au démarrage de l'application
+using (var scope = app.Services.CreateScope())
+{
+    var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+
+    var roles = new[] { "Admin", "Docteur" };
+
+    foreach (var role in roles)
+    {
+        if (!await roleManager.RoleExistsAsync(role))
+            await roleManager.CreateAsync(new IdentityRole(role));
+    }
+}
+
+// Nouveau service pour assurer la création d'un compte admin au démarrage de l'application
+using (var scope = app.Services.CreateScope())
+{
+    var userManager = scope.ServiceProvider.GetRequiredService<UserManager<Doctor>>();
+    
+    var email = "admin@medmanager.com";
+    var password = "Admin123!";
+    
+    if (await userManager.FindByEmailAsync(email) == null)
+    {
+        var newAdmin = new Doctor
+        {
+            UserName = "Admin",
+            Email = email,
+            FirstName = "Admin",
+            LastName = "Admin",
+            Address = "Admin",
+            Faculty = "Admin",
+            Specialty = "Admin"
+        };
+        
+        await userManager.CreateAsync(newAdmin, password);
+        await userManager.AddToRoleAsync(newAdmin, "Admin");
+    }
+    
+    // pour chaque utilisateur existant dans la base de données, s'il ne possède pas de rôle, on lui attribue le rôle "Docteur"
+    var users = userManager.Users.ToList();
+
+    foreach (var user in users)
+    {
+        if (!await userManager.IsInRoleAsync(user, "Docteur") && !await userManager.IsInRoleAsync(user, "Admin"))
+            await userManager.AddToRoleAsync(user, "Docteur");
+    }
+}
 
 app.Run();

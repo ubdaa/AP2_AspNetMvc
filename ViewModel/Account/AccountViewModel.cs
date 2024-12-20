@@ -4,6 +4,8 @@ namespace MedManager.ViewModel.Account;
 
 public class AccountViewModel
 {
+    public string? Id { get; set; }
+    
     [Display(Name = "Adresse mail")]
     [DataType(DataType.EmailAddress)]
     [Required(ErrorMessage = "L'adresse mail est requis.")]
@@ -15,7 +17,6 @@ public class AccountViewModel
     
     [Display(Name = "Mot de passe")]
     [DataType(DataType.Password)]
-    [Required(ErrorMessage = "Le mot de passe est requis.")]
     public string? Password { get; set; }
     
     [Display(Name = "Prénom")]

@@ -257,8 +257,13 @@ public class DashboardController : Controller
     [HttpGet]
     public async Task<IActionResult> Index()
     {
+        if (User.IsInRole("Admin"))
+        {
+            return RedirectToAction("Index", "Admin");
+        }
+        
         var model = new DashboardViewModel();
-
+        
         // données principales pour le tableau de bord
         model.Patients = _dbContext.Patients.Where(p => p.DoctorId == UserId)
             .OrderByDescending(p => p.PatientId).Take(10).ToList();
