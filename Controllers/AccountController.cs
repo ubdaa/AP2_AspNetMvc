@@ -137,7 +137,7 @@ public class AccountController : Controller
             Password = user.PasswordHash,
             Address = user.Address,
             Faculty = user.Faculty,
-            Specialty = user.Specialty
+            Specialty = user.Specialty,
         };
         
         return View(model);

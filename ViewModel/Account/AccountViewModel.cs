@@ -59,5 +59,5 @@ public class AccountViewModel
     
     [Display(Name = "Rôle")]
     [Required(ErrorMessage = "Le rôle est requis.")]
-    public Roles Role { get; set; }
+    public Roles? Role { get; set; }
 }
