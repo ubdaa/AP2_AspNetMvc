@@ -1,5 +1,6 @@
 using MedManager.Data;
 using MedManager.Models;
+using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -31,6 +32,12 @@ builder.Services.ConfigureApplicationCookie(options =>
     options.AccessDeniedPath = "/Error/AccessDenied";
 });
 
+// Ajouter support pour proxy inversé
+builder.Services.Configure<ForwardedHeadersOptions>(options =>
+{
+    options.ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
+});
+
 var app = builder.Build();
 
 var context = app.Services.CreateScope().ServiceProvider.GetRequiredService<ApplicationDbContext>();
@@ -51,6 +58,8 @@ else
 app.UseStaticFiles();
 app.UseAuthentication();
 
+app.UseForwardedHeaders();
+app.UsePathBase("/"); // S'assurer que le chemin de base est correct
 app.UseRouting();
 
 app.UseAuthorization();
